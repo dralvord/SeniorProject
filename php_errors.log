@@ -1,0 +1,33 @@
+[27-Oct-2018 23:25:04 UTC] PHP Warning:  Missing argument 23 for createStats(), called in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 104 and defined in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 186
+[27-Oct-2018 23:25:04 UTC] PHP Stack trace:
+[27-Oct-2018 23:25:04 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[27-Oct-2018 23:25:04 UTC] PHP   2. read() /home/ubuntu/workspace/CampaignManager/Server/monster.php:25
+[27-Oct-2018 23:25:04 UTC] PHP   3. createStats() /home/ubuntu/workspace/CampaignManager/Server/monster.php:104
+[27-Oct-2018 23:25:39 UTC] PHP Warning:  Missing argument 23 for createStats(), called in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 104 and defined in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 186
+[27-Oct-2018 23:25:39 UTC] PHP Stack trace:
+[27-Oct-2018 23:25:39 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[27-Oct-2018 23:25:39 UTC] PHP   2. read() /home/ubuntu/workspace/CampaignManager/Server/monster.php:25
+[27-Oct-2018 23:25:39 UTC] PHP   3. createStats() /home/ubuntu/workspace/CampaignManager/Server/monster.php:104
+[29-Oct-2018 23:15:54 UTC] PHP Warning:  mysqli_stmt::bind_param(): Number of variables doesn't match number of parameters in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/npc.php on line 99
+[29-Oct-2018 23:15:54 UTC] PHP Stack trace:
+[29-Oct-2018 23:15:54 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/npc.php:0
+[29-Oct-2018 23:15:54 UTC] PHP   2. read() /home/ubuntu/workspace/CampaignManager/Server/npc.php:25
+[29-Oct-2018 23:15:54 UTC] PHP   3. mysqli_stmt->bind_param() /home/ubuntu/workspace/CampaignManager/Server/npc.php:99
+[29-Oct-2018 23:20:03 UTC] PHP Warning:  mysqli_stmt::bind_param(): Number of variables doesn't match number of parameters in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/pc.php on line 97
+[29-Oct-2018 23:20:03 UTC] PHP Stack trace:
+[29-Oct-2018 23:20:03 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/pc.php:0
+[29-Oct-2018 23:20:03 UTC] PHP   2. read() /home/ubuntu/workspace/CampaignManager/Server/pc.php:25
+[29-Oct-2018 23:20:03 UTC] PHP   3. mysqli_stmt->bind_param() /home/ubuntu/workspace/CampaignManager/Server/pc.php:97
+[31-Oct-2018 20:00:52 UTC] PHP Warning:  Missing argument 2 for getValue(), called in /home/ubuntu/workspace/CampaignManager/Server/npc.php on line 297 and defined in /home/ubuntu/workspace/CampaignManager/Server/functions.php on line 11
+[31-Oct-2018 20:00:52 UTC] PHP Stack trace:
+[31-Oct-2018 20:00:52 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/npc.php:0
+[31-Oct-2018 20:00:52 UTC] PHP   2. readAct() /home/ubuntu/workspace/CampaignManager/Server/npc.php:49
+[31-Oct-2018 20:00:52 UTC] PHP   3. getValue() /home/ubuntu/workspace/CampaignManager/Server/npc.php:297
+[13-Nov-2018 20:21:46 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 289
+[13-Nov-2018 20:21:46 UTC] PHP Stack trace:
+[13-Nov-2018 20:21:46 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[13-Nov-2018 20:21:46 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[16-Nov-2018 01:21:12 UTC] PHP Fatal error:  Call to a member function bind_param() on a non-object in /home/ubuntu/workspace/CampaignManager/Server/npc.php on line 320
+[16-Nov-2018 01:21:12 UTC] PHP Stack trace:
+[16-Nov-2018 01:21:12 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/npc.php:0
+[16-Nov-2018 01:21:12 UTC] PHP   2. readAct() /home/ubuntu/workspace/CampaignManager/Server/npc.php:49

@@ -1,0 +1,2106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Dungeons & Dragons Campaign Manager</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">	  
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		
+		<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.13.1/build/styles/default.min.css">
+		<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.13.1/build/highlight.min.js"></script>
+</head>
+		  
+<body>
+	<div class="container">
+	<div class="jumbotron">
+		
+	<!--------------------------------------------------------------------------------------->
+  	<!-- 							   Return to buttons								   -->
+  	<!--------------------------------------------------------------------------------------->
+  	<div id = "returnToCamDiv">
+  		<button class="returnToCamBtn btn-default btn-primary">Return to Campaigns</button>
+	</div>
+	
+	<div id = "returnToAdvDiv">
+  		<button class="returnToAdvBtn btn-default btn-primary">Return to Adventures</button>
+	</div>
+	
+	<div id = "returnToActDiv">
+  		<button class="returnToActBtn btn-default btn-primary">Return to Acts</button>
+	</div>
+	
+	<div id = "returnToEncDiv">
+  		<button class="returnToEncBtn btn-default btn-primary">Return to Encounters</button>
+	</div>	
+	
+	
+	<!--------------------------------------------------------------------------------------->
+  	<!-- 								   Base Tables 									   -->
+  	<!--------------------------------------------------------------------------------------->
+  	
+  	
+  	<!-----------------------------------Campaign Table-------------------------------------->
+  	<div id = "campaignDiv">
+  	<br>
+  		<h2>Campaigns</h2>
+		<table id="campaignTable" class="table table-striped table-bordered table-hover ">
+			<thead>
+				<tr>
+					<!--<th>Campaign ID</th>-->
+					<th>Name</th>
+					<th>Description</th>
+					<th>Adventures</th>
+					<th>Monsters</th>
+					<th>NPCs</th>
+					<th>PCs</th>
+					<th>Edit</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody id="CampaignTableBody">
+			</tbody>
+		</table>
+	</br>	
+	</div>
+	
+	<!-----------------------------------Adventure Table-------------------------------------->
+	<div id = "adventureDiv">
+	<br>
+		<h2>Adventures</h2>
+		<table id="adventureTable" class="table table-striped table-bordered table-hover ">
+			<thead>
+				<tr>
+					<!--<th>Adventure ID</th>-->
+					<th>Name</th>
+					<th>Description</th>
+					<th>Acts</th>
+					<th>Edit</th>
+					<th>Delete</th>
+					<!--<th>Campaign ID</th>-->
+				</tr>
+			</thead>
+			<tbody id="AdventureTableBody">
+			</tbody>
+		</table>
+	</br>	
+	</div>
+	
+	<!-----------------------------------Act Table-------------------------------------->
+	<div id = "actDiv">
+	<br>
+		<h2>Acts</h2>
+		<table id="actTable" class="table table-striped table-bordered table-hover ">
+			<thead>
+				<tr>
+					<!--<th>Act ID</th>-->
+					<th>Name</th>
+					<th>Story</th>
+					<th>Encounters</th>
+					<th>NPCs</th>
+					<th>Edit</th>
+					<th>Delete</th>
+					<!--<th>Adventure ID</th>-->
+				</tr>
+			</thead>
+			<tbody id="ActTableBody">
+			</tbody>
+		</table>
+	</br>
+	</div>
+		
+	<!-----------------------------------Encounter Table-------------------------------------->
+	<div id = "encounterDiv">
+	<br>
+		<h2>Encounters</h2>
+		<table id="encounterTable" class="table table-striped table-bordered table-hover ">
+			<thead>
+				<tr>
+					<!--<th>Encounter ID</th>-->
+					<th>Name</th>
+					<th>Description</th>
+					<th>Show Enemies</th>
+					<th>Edit</th>
+					<th>Delete</th>
+					<!--<th>Act ID</th>-->
+				</tr>
+			</thead>
+			<tbody id="EncounterTableBody">
+			</tbody>
+		</table>
+	</br>
+	</div>
+	
+	<!-----------------------------------Monster Table----------------------------------->
+	<div id = "monsterDiv">
+	<br>
+		<h2>Monsters</h2>
+		<table id="monsterTable" class="table table-striped table-bordered table-hover ">
+			<thead>
+				<tr>
+					<!--<th>Monster ID</th>-->
+					<th>Name</th>
+					<th>Stats</th>
+					<th>Edit</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody id="MonsterTableBody">
+			</tbody>
+		</table>
+	</br>
+	</div>
+	
+	<!-----------------------------------NPC Table----------------------------------->
+	<div id = "npcDiv">
+	<br>
+		<h2>Non-Player Characters</h2>
+		<table id="npcTable" class="table table-striped table-bordered table-hover ">
+			<thead>
+				<tr>
+					<!--<th>NPC ID</th>-->
+					<th>Name</th>
+					<th>Stats</th>
+					<th>Edit</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody id="NPCTableBody">
+			</tbody>
+		</table>
+	</br>
+	</div>
+	
+	<!-----------------------------------PC Table----------------------------------->
+	<div id = "pcDiv">
+	<br>
+		<h2>Player Characters</h2>
+		<table id="pcTable" class="table table-striped table-bordered table-hover ">
+			<thead>
+				<tr>
+					<!--<th>PC ID</th>-->
+					<th>Name</th>
+					<th>Stats</th>
+					<th>Edit</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody id="PCTableBody">
+			</tbody>
+		</table>
+	</br>
+	</div>
+	
+	<!--------------------------------------------------------------------------------------->
+  	<!-- 								Create New Forms								   -->
+  	<!--------------------------------------------------------------------------------------->
+  	
+  	<!---------------------------------Create Campaign Form----------------------------------->
+  	<div id = "createCamShowDiv">
+  		<button class="createCamShowBtn btn-default btn-primary">Create Campaign</button>
+	</div>
+  	<div id = "createCamFormDiv">
+	<form id="createCamForm">
+			<legend class="cent">Create New Campaign</legend>
+			<div class="row">
+				<!--<div class="col-sm-2"></div><!-- /.col-sm-2 -->
+				<!--<div class="col-sm-8">-->
+				<!--------------------------------->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				      <input type="text" class="form-control" id="createCamName" name="camName" placeholder="Name">
+				    </div>
+				  </div><!-- Campaign Name row -->
+				  <div class="form-row">
+					  <div class="form-group">
+					    <textarea class="createCamDesc" id="createCamDesc" name="camDesc" rows="32" style="min-width: 100%" placeholder="Description"></textarea>
+					  </div>
+				  </div><!-- Campaign Description Text Area -->
+				 <div class="form-row cent">
+				 		<p id="NewCamMsg" class="msgBox"></p>
+				 </div>
+				<!----------------------------------->
+				<div class = "pull-right">
+				    <div class="btn-group"><button id="createCamCancelBtn" type="button" class="btn btn-info">Cancel</button></div>
+				    <div class="btn-group"><button id="createCamBtn" type="button" class="btn btn-info">Create</button></div>
+				    
+				</div><!--Create and cancel buttons on the right-->
+			</div><!-- /.row -->
+		</form>
+		</div>
+	
+	<!--------------------------------Create Adventure Form----------------------------------->
+	<div id = "createAdvShowDiv">
+  		<button class="createAdvShowBtn btn-default btn-primary">Create Adventure</button>
+	</div>
+  	<div id = "createAdvFormDiv">
+	<form id="createAdvForm">
+			<legend class="cent">Create New Adventure</legend>
+			<div class="row">
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				      <input type="text" class="form-control" id="createAdvName" name="advName" placeholder="Name">
+				    </div>
+				  </div><!-- Adventure Name row -->
+				  <div class="form-row">
+					  <div class="form-group">
+					    <textarea class="createAdvDesc" id="createAdvDesc" name="advDesc" rows="32" style="min-width: 100%" placeholder="Description"></textarea>
+					  </div>
+				  </div><!-- Adventure Description Text Area -->
+				 <div class="form-row cent">
+				 		<p id="NewAdvMsg" class="msgBox"></p>
+				 </div>
+				<!----------------------------------->
+				<div class = "pull-right">
+				    <div class="btn-group"><button id="createAdvCancelBtn" type="button" class="btn btn-info">Cancel</button></div>
+				    <div class="btn-group"><button id="createAdvBtn" type="button" class="btn btn-info">Create</button></div>
+				    
+				</div><!--Create and cancel buttons on the right-->
+			</div><!-- /.row -->
+		</form>
+		</div>
+		
+	<!--------------------------------Create Act Form----------------------------------->
+	<div id = "createActShowDiv">
+  		<button class="createActShowBtn btn-default btn-primary">Create Act</button>
+	</div>
+  	<div id = "createActFormDiv">
+	<form id="createActForm">
+			<legend class="cent">Create New Act</legend>
+			<div class="row">
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				      <input type="text" class="form-control" id="createActName" name="actName" placeholder="Name">
+				    </div>
+				  </div><!-- Act Name row -->
+				  <div class="form-row">
+					  <div class="form-group">
+					    <textarea class="createActStory" id="createActStory" name="actStory" rows="32" style="min-width: 100%" placeholder="Story"></textarea>
+					  </div>
+				  </div><!-- Act Story Text Area -->
+				 <div class="form-row cent">
+				 		<p id="NewActMsg" class="msgBox"></p>
+				 </div>
+				<!----------------------------------->
+				<div class = "pull-right">
+				    <div class="btn-group"><button id="createActCancelBtn" type="button" class="btn btn-info">Cancel</button></div>
+				    <div class="btn-group"><button id="createActBtn" type="button" class="btn btn-info">Create</button></div>
+				    
+				</div><!--Create and cancel buttons on the right-->
+			</div><!-- /.row -->
+		</form>
+		</div>
+		
+	<!--------------------------------Create Encounter Form----------------------------------->
+	<div id = "createEncShowDiv">
+  		<button class="createEncShowBtn btn-default btn-primary">Create Encounter</button>
+	</div>
+  	<div id = "createEncFormDiv">
+	<form id="createEncForm">
+			<legend class="cent">Create New Encounter</legend>
+			<div class="row">
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				      <input type="text" class="form-control" id="createEncName" name="encName" placeholder="Name">
+				    </div>
+				  </div><!-- Enc Name row -->
+				  <div class="form-row">
+					  <div class="form-group">
+					    <textarea class="createEncDesc" id="createEncDesc" name="encDesc" rows="32" style="min-width: 100%" placeholder="Story"></textarea>
+					  </div>
+				  </div><!-- Enc Story Text Area -->
+				 <div class="form-row cent">
+				 		<p id="NewEncMsg" class="msgBox"></p>
+				 </div>
+				<!----------------------------------->
+				<div class = "pull-right">
+				    <div class="btn-group"><button id="createEncCancelBtn" type="button" class="btn btn-info">Cancel</button></div>
+				    <div class="btn-group"><button id="createEncBtn" type="button" class="btn btn-info">Create</button></div>
+				    
+				</div><!--Create and cancel buttons on the right-->
+			</div><!-- /.row -->
+		</form>
+		</div>
+		
+	<!--------------------------------Create Monster Form----------------------------------->
+	<div id = "createMonShowDiv">
+  		<button class="createMonShowBtn btn-default btn-primary">Create Monster</button>
+	</div>
+  	<div id = "createMonFormDiv">
+	<form id="createMonForm">
+			<legend class="cent">Create New Monster</legend>
+			<div class="row">
+				<div class="form-row text-center">
+				<small id="monHelp" class="form-text text-muted">Inputs with * are required.</small>
+				</div>
+			    <!-- Monster Name row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monName" class="col-sm-3 col-form-label">Name*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createMonName" name="monName" placeholder="Name">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- Monster Size Type & Align row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monSizeTypeAlign" class="col-sm-3 col-form-label">Size, Type, & Alignment*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createMonSizeTypeAlign" name="monSizeTypeAlign" placeholder="Size, Type, & Alignment">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- Monster AC row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monAC" class="col-sm-3 col-form-label">Armor Class*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createMonAC" name="monAC" placeholder="Armor Class">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- Monster HP row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monHP" class="col-sm-3 col-form-label">Hit Points*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createMonHP" name="monHP" placeholder="Hit Points">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- Monster Speed row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monSpeed" class="col-sm-3 col-form-label">Speed*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createMonSpeed" name="monSpeed" placeholder="Speed">
+				        </div>
+				    </div>
+				  </div>
+				  
+				 <!-- Monster STR row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monSTR" class="col-sm-3 col-form-label">Strength*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createMonSTR" name="monSTR" placeholder="Strength">
+				        </div>
+				    </div>
+				  </div>
+				  
+				  <!-- Monster DEX row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monDEX" class="col-sm-3 col-form-label">Dexterity*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createMonDEX" name="monDEX" placeholder="Dexterity">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- Monster CON row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monCON" class="col-sm-3 col-form-label">Constitution*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createMonCON" name="monCON" placeholder="Constitution">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- Monster INT row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monINT" class="col-sm-3 col-form-label">Intelligence*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createMonINT" name="monINT" placeholder="Intelligence">
+				        </div>
+				    </div>
+				  </div>
+				
+			    <!-- Monster WIS row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monWIS" class="col-sm-3 col-form-label">Wisdom*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createMonWIS" name="monWIS" placeholder="Wisdom">
+				        </div>
+				    </div>
+				  </div>
+				  
+				  <!-- Monster CHA row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monCHA" class="col-sm-3 col-form-label">Charisma*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createMonCHA" name="monCHA" placeholder="Charisma">
+				        </div>
+				    </div>
+				  </div>
+				  
+				  
+				 <!-- Monster Vulnerabilities row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monVulnerabilities" class="col-sm-3 col-form-label">Vulnerabilities</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createMonVulnerabilities" name="monVulnerabilities" placeholder="Vulnerabilities">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- Monster Resistances row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monResistances" class="col-sm-3 col-form-label">Resistances</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createMonResistances" name="monResistances" placeholder="Resistances">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- Monster Immunities row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monImmunities" class="col-sm-3 col-form-label">Immunities</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createMonImmunities" name="monImmunities" placeholder="Immunities">
+				        </div>
+				    </div>
+				  </div>
+                
+                 <!-- Monster Languages row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monLanguages" class="col-sm-3 col-form-label">Languages</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createMonLanguages" name="monLanguages" placeholder="Languages">
+				        </div>
+				    </div>
+				  </div>
+                				  
+                 <!-- Monster CR row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monCR" class="col-sm-3 col-form-label">Challenge Rating*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createMonCR" name="monCR" placeholder="Challenge Rating">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- Monster Skills row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monSkills" class="col-sm-3 col-form-label">Skills</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createMonSkills" name="monSkills" placeholder="Skills">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- Monster Proficiency Bonuses row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monProfBonus" class="col-sm-3 col-form-label">Proficiency Bonuses</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createMonProfBonus" name="monProfBonus" placeholder="Proficiency Bonuses">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- Monster Save Throws row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monSaveThrows" class="col-sm-3 col-form-label">Save Throws</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createMonSaveThrows" name="monSaveThrows" placeholder="Save Throws">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- Monster Senses row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monSenses" class="col-sm-3 col-form-label">Senses*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createMonSenses" name="monSenses" placeholder="Senses">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- Monster Abilities row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monAbilities" class="col-sm-3 col-form-label">Abilities</label>
+				        <div class = "col-sm-9">
+				            <textarea class="createMonAbilities" id="createMonAbilities" name="monAbilities" rows="8" style="min-width: 100%" placeholder="Abilities"></textarea>
+				            <!--<input type="text" class="form-control" id="createMonAbilities" name="monAbilties" placeholder="Abilities">-->
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- Monster Actions row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monActions" class="col-sm-3 col-form-label">Actions*</label>
+				        <div class = "col-sm-9">
+				            <textarea class="createMonActions" id="createMonActions" name="monActions" rows="8" style="min-width: 100%" placeholder="Actions"></textarea>
+				            <!--<input type="text" class="form-control" id="createMonActions" name="monActions" placeholder="Actions">-->
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- Monster Legendary Actionsrow -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monLegendaryActions" class="col-sm-3 col-form-label">Legendary Actions</label>
+				        <div class = "col-sm-9">
+				            <textarea class="createMonLegendaryActions" id="createMonLegendaryActions" name="monLegendaryActions" rows="8" style="min-width: 100%" placeholder="Legendary Actions"></textarea>
+				            <!--<input type="text" class="form-control" id="createMonLegendaryActions" name="monLegendaryActions" placeholder="Legendary Actions">-->
+				        </div>
+				    </div>
+				  </div>
+				  
+				 <div class="form-row cent">
+				 		<p id="NewMonMsg" class="msgBox"></p>
+				 </div>
+				<!----------------------------------->
+				<div class = "pull-right">
+				    <div class="btn-group"><button id="createMonCancelBtn" type="button" class="btn btn-info">Cancel</button></div>
+				    <div class="btn-group"><button id="createMonBtn" type="button" class="btn btn-info">Create</button></div>
+				    
+				</div><!--Create and cancel buttons on the right-->
+			</div><!-- /.row -->
+		</form>
+		</div>
+		
+		<!--------------------------------Create NPC Form----------------------------------->
+	<div id = "createNPCShowDiv">
+  		<button class="createNPCShowBtn btn-default btn-primary">Create NPC</button>
+	</div>
+  	<div id = "createNPCFormDiv">
+	<form id="createNPCForm">
+			<legend class="cent">Create New NPC</legend>
+			<div class="row">
+				<div class="form-row text-center">
+					<small id="npcHelp" class="form-text text-muted">Inputs with * are required.</small>
+				</div>
+			    <!-- NPC Name row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcName" class="col-sm-3 col-form-label">Name*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createNPCName" name="npcName" placeholder="Name">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- NPC Level row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcLevel" class="col-sm-3 col-form-label">Level*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createNPCLevel" name="npcLevel" placeholder="Level">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- NPC Race row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcRace" class="col-sm-3 col-form-label">Race*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createNPCRace" name="npcRace" placeholder="Race">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- NPC Class row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcClass" class="col-sm-3 col-form-label">Class*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createNPCClass" name="npcClass" placeholder="Class">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- NPC Align row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcAlign" class="col-sm-3 col-form-label">Align*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createNPCAlign" name="npcAlign" placeholder="Align">
+				        </div>
+				    </div>
+				  </div>
+				  
+				  <!-- NPC AC row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcAC" class="col-sm-3 col-form-label">Armor Class*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createNPCAC" name="npcAC" placeholder="Armor Class">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- NPC HP row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcHP" class="col-sm-3 col-form-label">Hit Points*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createNPCHP" name="npcHP" placeholder="Hit Points">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- NPC Speed row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcSpeed" class="col-sm-3 col-form-label">Speed*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createNPCSpeed" name="npcSpeed" placeholder="Speed">
+				        </div>
+				    </div>
+				  </div>
+				  
+				 <!-- NPC STR row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcSTR" class="col-sm-3 col-form-label">Strength*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createNPCSTR" name="npcSTR" placeholder="Strength">
+				        </div>
+				    </div>
+				  </div>
+				  
+				  <!-- NPC DEX row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcDEX" class="col-sm-3 col-form-label">Dexterity*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createNPCDEX" name="npcDEX" placeholder="Dexterity">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- NPC CON row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcCON" class="col-sm-3 col-form-label">Constitution*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createNPCCON" name="npcCON" placeholder="Constitution">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- NPC INT row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcINT" class="col-sm-3 col-form-label">Intelligence*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createNPCINT" name="npcINT" placeholder="Intelligence">
+				        </div>
+				    </div>
+				  </div>
+				
+			    <!-- NPC WIS row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcWIS" class="col-sm-3 col-form-label">Wisdom*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createNPCWIS" name="npcWIS" placeholder="Wisdom">
+				        </div>
+				    </div>
+				  </div>
+				  
+				  <!-- NPC CHA row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcCHA" class="col-sm-3 col-form-label">Charisma*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createNPCCHA" name="npcCHA" placeholder="Charisma">
+				        </div>
+				    </div>
+				  </div>
+				  
+				  
+                 <!-- NPC Languages row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcLanguages" class="col-sm-3 col-form-label">Languages*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createNPCLanguages" name="npcLanguages" placeholder="Languages">
+				        </div>
+				    </div>
+				  </div>
+                				  
+                 <!-- NPC CR row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcCR" class="col-sm-3 col-form-label">Challenge Rating*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createNPCCR" name="npcCR" placeholder="Challenge Rating">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- NPC Skills row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcSkills" class="col-sm-3 col-form-label">Skills*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createNPCSkills" name="npcSkills" placeholder="Skills">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- NPC Proficiency Bonuses row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcProfBonus" class="col-sm-3 col-form-label">Proficiency Bonuses*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createNPCProfBonus" name="npcProfBonus" placeholder="Proficiency Bonuses">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- NPC Save Throws row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcSaveThrows" class="col-sm-3 col-form-label">Save Throws*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createNPCSaveThrows" name="npcSaveThrows" placeholder="Save Throws">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- NPC Abilities row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcAbilities" class="col-sm-3 col-form-label">Abilities*</label>
+				        <div class = "col-sm-9">
+				            <textarea class="createNPCAbilities" id="createNPCAbilities" name="npcAbilities" rows="8" style="min-width: 100%" placeholder="Abilities"></textarea>
+				            <!--<input type="text" class="form-control" id="createMonAbilities" name="monAbilties" placeholder="Abilities">-->
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- NPC Actions row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcActions" class="col-sm-3 col-form-label">Actions*</label>
+				        <div class = "col-sm-9">
+				            <textarea class="createNPCActions" id="createNPCActions" name="npcActions" rows="8" style="min-width: 100%" placeholder="Actions"></textarea>
+				            <!--<input type="text" class="form-control" id="createMonActions" name="monActions" placeholder="Actions">-->
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- NPC Bio row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcBio" class="col-sm-3 col-form-label">Biography*</label>
+				        <div class = "col-sm-9">
+				            <textarea class="createNPCBio" id="createNPCBio" name="npcBio" rows="8" style="min-width: 100%" placeholder="Biography"></textarea>
+				            <!--<input type="text" class="form-control" id="createMonLegendaryActions" name="monLegendaryActions" placeholder="Legendary Actions">-->
+				        </div>
+				    </div>
+				  </div>
+				  
+				 <div class="form-row cent">
+				 		<p id="NewNPCMsg" class="msgBox"></p>
+				 </div>
+				<!----------------------------------->
+				<div class = "pull-right">
+				    <div class="btn-group"><button id="createNPCCancelBtn" type="button" class="btn btn-info">Cancel</button></div>
+				    <div class="btn-group"><button id="createNPCBtn" type="button" class="btn btn-info">Create</button></div>
+				    
+				</div><!--Create and cancel buttons on the right-->
+			</div><!-- /.row -->
+		</form>
+		</div>
+		
+	<!--------------------------------Create PC Form----------------------------------->
+	<div id = "createPCShowDiv">
+  		<button class="createPCShowBtn btn-default btn-primary">Create PC</button>
+	</div>
+  	<div id = "createPCFormDiv">
+	<form id="createPCForm">
+			<legend class="cent">Create New PC</legend>
+			<div class="row">
+				<div class="form-row text-center">
+					<small id="pcHelp" class="form-text text-muted">Inputs with * are required.</small>
+				</div>
+			    <!-- PC Name row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcName" class="col-sm-3 col-form-label">Name*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createPCName" name="pcName" placeholder="Name">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- PC Level row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcLevel" class="col-sm-3 col-form-label">Level*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createPCLevel" name="pcLevel" placeholder="Level">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- PC Race row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcRace" class="col-sm-3 col-form-label">Race*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createPCRace" name="pcRace" placeholder="Race">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- PC Class row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcClass" class="col-sm-3 col-form-label">Class*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createPCClass" name="pcClass" placeholder="Class">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- PC Align row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcAlign" class="col-sm-3 col-form-label">Align*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createPCAlign" name="pcAlign" placeholder="Align">
+				        </div>
+				    </div>
+				  </div>
+				  
+				  <!-- PC AC row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcAC" class="col-sm-3 col-form-label">Armor Class*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createPCAC" name="pcAC" placeholder="Armor Class">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- PC HP row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcHP" class="col-sm-3 col-form-label">Hit Points*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createPCHP" name="pcHP" placeholder="Hit Points">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- PC Speed row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcSpeed" class="col-sm-3 col-form-label">Speed*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createPCSpeed" name="pcSpeed" placeholder="Speed">
+				        </div>
+				    </div>
+				  </div>
+				  
+				 <!-- PC STR row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcSTR" class="col-sm-3 col-form-label">Strength*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createPCSTR" name="pcSTR" placeholder="Strength">
+				        </div>
+				    </div>
+				  </div>
+				  
+				  <!-- PC DEX row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcDEX" class="col-sm-3 col-form-label">Dexterity*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createPCDEX" name="pcDEX" placeholder="Dexterity">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- PC CON row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcCON" class="col-sm-3 col-form-label">Constitution*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createPCCON" name="pcCON" placeholder="Constitution">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- PC INT row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcINT" class="col-sm-3 col-form-label">Intelligence*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createPCINT" name="pcINT" placeholder="Intelligence">
+				        </div>
+				    </div>
+				  </div>
+				
+			    <!-- PC WIS row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcWIS" class="col-sm-3 col-form-label">Wisdom*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createPCWIS" name="pcWIS" placeholder="Wisdom">
+				        </div>
+				    </div>
+				  </div>
+				  
+				  <!-- PC CHA row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcCHA" class="col-sm-3 col-form-label">Charisma*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createPCCHA" name="pcCHA" placeholder="Charisma">
+				        </div>
+				    </div>
+				  </div>
+				  
+				  
+                 <!-- PC Languages row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcLanguages" class="col-sm-3 col-form-label">Languages</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createPCLanguages" name="pcLanguages" placeholder="Languages">
+				        </div>
+				    </div>
+				  </div>
+                				 
+				  
+				   <!-- PC Skills row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcSkills" class="col-sm-3 col-form-label">Skills</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createPCSkills" name="pcSkills" placeholder="Skills">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- PC Proficiency Bonuses row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcProfBonus" class="col-sm-3 col-form-label">Proficiency Bonuses</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createPCProfBonus" name="pcProfBonus" placeholder="Proficiency Bonuses">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- PC Save Throws row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcSaveThrows" class="col-sm-3 col-form-label">Save Throws</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="createPCSaveThrows" name="pcSaveThrows" placeholder="Save Throws">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- PC Abilities row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcAbilities" class="col-sm-3 col-form-label">Abilities</label>
+				        <div class = "col-sm-9">
+				            <textarea class="createNPCAbilities" id="createPCAbilities" name="pcAbilities" rows="8" style="min-width: 100%" placeholder="Abilities"></textarea>
+				            <!--<input type="text" class="form-control" id="createMonAbilities" name="monAbilties" placeholder="Abilities">-->
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- PC Actions row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcActions" class="col-sm-3 col-form-label">Actions</label>
+				        <div class = "col-sm-9">
+				            <textarea class="createNPCActions" id="createPCActions" name="pcActions" rows="8" style="min-width: 100%" placeholder="Actions"></textarea>
+				            <!--<input type="text" class="form-control" id="createMonActions" name="monActions" placeholder="Actions">-->
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- PC Bio row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcBio" class="col-sm-3 col-form-label">Biography*</label>
+				        <div class = "col-sm-9">
+				            <textarea class="createNPCBio" id="createPCBio" name="pcBio" rows="8" style="min-width: 100%" placeholder="Biography"></textarea>
+				            <!--<input type="text" class="form-control" id="createMonLegendaryActions" name="monLegendaryActions" placeholder="Legendary Actions">-->
+				        </div>
+				    </div>
+				  </div>
+				  
+				 <div class="form-row cent">
+				 		<p id="NewPCMsg" class="msgBox"></p>
+				 </div>
+				<!----------------------------------->
+				<div class = "pull-right">
+				    <div class="btn-group"><button id="createPCCancelBtn" type="button" class="btn btn-info">Cancel</button></div>
+				    <div class="btn-group"><button id="createPCBtn" type="button" class="btn btn-info">Create</button></div>
+				    
+				</div><!--Create and cancel buttons on the right-->
+			</div><!-- /.row -->
+		</form>
+		</div>
+	
+	<!-------------------NPC Dropdown-------------------------->
+	<div id = "npcDropdownDiv" class="form-group">
+		<form id = "npcDropdownForm">
+			<div class="col-sm-9 form-row">
+				<div class = "form-group">
+				<div id="npcDropdown" name="npcDropdown">
+					<select id="npcDropdownSelect" class="form-control col-sm-9" style="width: 385px"></select>
+				</div>
+				<button class="addNPCBtn btn-default btn-primary">Add NPC</button>
+				</div>
+			</div>
+		<input type="hidden" id="npcDropdownOutput" name="npcID">	
+		</form>
+	</div>
+	
+	<!-------------------Monster Dropdown---------------------->
+	<div id = "monDropdownDiv" class="form-group">
+		<form id = "monDropdownForm">
+			<div class="col-sm-9 form-row">
+				<div class = "form-group">
+				<div id="monDropdown" name="monDropdown">
+					<select id="monDropdownSelect" class="form-control col-sm-9" style="width: 385px"></select>
+				</div>
+				<button class="addMonBtn btn-default btn-primary">Add Monster</button>
+				</div>
+			</div>
+		<input type="hidden" id="monDropdownOutput" name="monID">	
+		</form>
+	</div>
+	
+	
+	
+	
+	<!--------------------------------------------------------------------------------------->
+  	<!-- 									Edit Forms								   	   -->
+  	<!--------------------------------------------------------------------------------------->
+  	
+  	<!---------------------------------Edit Campaign Form----------------------------------->
+  	<div id = "editCamFormDiv">
+	<form id="editCamForm">
+			<legend class="cent">Edit Campaign</legend>
+			<div class="row">
+				<!--<div class="col-sm-2"></div><!-- /.col-sm-2 -->
+				<!--<div class="col-sm-8">-->
+				<!--------------------------------->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				      <input type="text" class="form-control" id="editCamName" name="camName" placeholder="Name">
+				    </div>
+				  </div><!-- Campaign Name row -->
+				  <div class="form-row">
+					  <div class="form-group">
+					    <textarea class="editCamDesc" id="editCamDesc" name="camDesc" rows="32" style="min-width: 100%" placeholder="Description"></textarea>
+					  </div>
+				  </div><!-- Campaign Description Text Area -->
+				 <div class="form-row cent">
+				 		<p id="EditCamMsg" class="msgBox"></p>
+				 </div>
+				<!----------------------------------->
+				<div class = "pull-right">
+				    <div class="btn-group"><button id="editCamCancelBtn" type="button" class="btn btn-info">Cancel</button></div>
+				    <div class="btn-group"><button id="editCamBtn" type="button" class="btn btn-info">Save</button></div>
+				    
+				</div><!--Create and cancel buttons on the right-->
+			</div><!-- /.row -->
+		</form>
+		</div>
+	
+	<!---------------------------------Edit Adventure Form----------------------------------->
+  	<div id = "editAdvFormDiv">
+	<form id="editAdvForm">
+			<legend class="cent">Edit Adventure</legend>
+			<div class="row">
+				<!--<div class="col-sm-2"></div><!-- /.col-sm-2 -->
+				<!--<div class="col-sm-8">-->
+				<!--------------------------------->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				      <input type="text" class="form-control" id="editAdvName" name="advName" placeholder="Name">
+				    </div>
+				  </div><!-- Adventure Name row -->
+				  <div class="form-row">
+					  <div class="form-group">
+					    <textarea class="editAdvDesc" id="editAdvDesc" name="advDesc" rows="32" style="min-width: 100%" placeholder="Description"></textarea>
+					  </div>
+				  </div><!-- Adventure Description Text Area -->
+				 <div class="form-row cent">
+				 		<p id="EditAdvMsg" class="msgBox"></p>
+				 </div>
+				<!----------------------------------->
+				<div class = "pull-right">
+				    <div class="btn-group"><button id="editAdvCancelBtn" type="button" class="btn btn-info">Cancel</button></div>
+				    <div class="btn-group"><button id="editAdvBtn" type="button" class="btn btn-info">Save</button></div>
+				    
+				</div><!--Create and cancel buttons on the right-->
+			</div><!-- /.row -->
+		</form>
+		</div>
+	
+	<!----------------------------------Edit Act Form---------------------------------------->	
+	<div id = "editActFormDiv">
+	<form id="editActForm">
+			<legend class="cent">Edit Act</legend>
+			<div class="row">
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				      <input type="text" class="form-control" id="editActName" name="actName" placeholder="Name">
+				    </div>
+				  </div><!-- Act Name row -->
+				  <div class="form-row">
+					  <div class="form-group">
+					    <textarea class="editActStory" id="editActStory" name="actStory" rows="32" style="min-width: 100%" placeholder="Story"></textarea>
+					  </div>
+				  </div><!-- Act Story Text Area -->
+				 <div class="form-row cent">
+				 		<p id="EditActMsg" class="msgBox"></p>
+				 </div>
+				<!----------------------------------->
+				<div class = "pull-right">
+				    <div class="btn-group"><button id="editActCancelBtn" type="button" class="btn btn-info">Cancel</button></div>
+				    <div class="btn-group"><button id="editActBtn" type="button" class="btn btn-info">Save</button></div>
+				    
+				</div><!--Create and cancel buttons on the right-->
+			</div><!-- /.row -->
+		</form>
+		</div>
+		
+	<!---------------------------------Edit Encounter Form----------------------------------->	
+	<div id = "editEncFormDiv">
+	<form id="editEncForm">
+			<legend class="cent">Edit Encounter</legend>
+			<div class="row">
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				      <input type="text" class="form-control" id="editEncName" name="encName" placeholder="Name">
+				    </div>
+				  </div><!-- Enc Name row -->
+				  <div class="form-row">
+					  <div class="form-group">
+					    <textarea class="editEncDesc" id="editEncDesc" name="encDesc" rows="32" style="min-width: 100%" placeholder="Desc"></textarea>
+					  </div>
+				  </div><!-- Enc Story Text Area -->
+				 <div class="form-row cent">
+				 		<p id="EditEncMsg" class="msgBox"></p>
+				 </div>
+				<!----------------------------------->
+				<div class = "pull-right">
+				    <div class="btn-group"><button id="editEncCancelBtn" type="button" class="btn btn-info">Cancel</button></div>
+				    <div class="btn-group"><button id="editEncBtn" type="button" class="btn btn-info">Save</button></div>
+				    
+				</div><!--Create and cancel buttons on the right-->
+			</div><!-- /.row -->
+		</form>
+		</div>
+	
+	<!---------------------------------Edit Monster Form----------------------------------->	
+  	<div id = "editMonFormDiv">
+	<form id="editMonForm">
+			<legend class="cent">Edit Monster</legend>
+			<div class="row">
+				<div class="form-row text-center">
+				<small id="monHelp" class="form-text text-muted">Inputs with * are required.</small>
+				</div>
+			    <!-- Monster Name row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monName" class="col-sm-3 col-form-label">Name*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editMonName" name="monName" placeholder="Name">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- Monster Size Type & Align row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monSizeTypeAlign" class="col-sm-3 col-form-label">Size, Type, & Alignment*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editMonSizeTypeAlign" name="monSizeTypeAlign" placeholder="Size, Type, & Alignment">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- Monster AC row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monAC" class="col-sm-3 col-form-label">Armor Class*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editMonAC" name="monAC" placeholder="Armor Class">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- Monster HP row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monHP" class="col-sm-3 col-form-label">Hit Points*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editMonHP" name="monHP" placeholder="Hit Points">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- Monster Speed row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monSpeed" class="col-sm-3 col-form-label">Speed*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editMonSpeed" name="monSpeed" placeholder="Speed">
+				        </div>
+				    </div>
+				  </div>
+				  
+				 <!-- Monster STR row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monSTR" class="col-sm-3 col-form-label">Strength*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editMonSTR" name="monSTR" placeholder="Strength">
+				        </div>
+				    </div>
+				  </div>
+				  
+				  <!-- Monster DEX row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monDEX" class="col-sm-3 col-form-label">Dexterity*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editMonDEX" name="monDEX" placeholder="Dexterity">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- Monster CON row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monCON" class="col-sm-3 col-form-label">Constitution*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editMonCON" name="monCON" placeholder="Constitution">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- Monster INT row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monINT" class="col-sm-3 col-form-label">Intelligence*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editMonINT" name="monINT" placeholder="Intelligence">
+				        </div>
+				    </div>
+				  </div>
+				
+			    <!-- Monster WIS row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monWIS" class="col-sm-3 col-form-label">Wisdom*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editMonWIS" name="monWIS" placeholder="Wisdom">
+				        </div>
+				    </div>
+				  </div>
+				  
+				  <!-- Monster CHA row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monCHA" class="col-sm-3 col-form-label">Charisma*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editMonCHA" name="monCHA" placeholder="Charisma">
+				        </div>
+				    </div>
+				  </div>
+				  
+				  
+				 <!-- Monster Vulnerabilities row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monVulnerabilities" class="col-sm-3 col-form-label">Vulnerabilities</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editMonVulnerabilities" name="monVulnerabilities" placeholder="Vulnerabilities">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- Monster Resistances row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monResistances" class="col-sm-3 col-form-label">Resistances</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editMonResistances" name="monResistances" placeholder="Resistances">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- Monster Immunities row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monImmunities" class="col-sm-3 col-form-label">Immunities</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editMonImmunities" name="monImmunities" placeholder="Immunities">
+				        </div>
+				    </div>
+				  </div>
+                
+                 <!-- Monster Languages row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monLanguages" class="col-sm-3 col-form-label">Languages</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editMonLanguages" name="monLanguages" placeholder="Languages">
+				        </div>
+				    </div>
+				  </div>
+                				  
+                 <!-- Monster CR row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monCR" class="col-sm-3 col-form-label">Challenge Rating*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editMonCR" name="monCR" placeholder="Challenge Rating">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- Monster Skills row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monSkills" class="col-sm-3 col-form-label">Skills</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editMonSkills" name="monSkills" placeholder="Skills">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- Monster Proficiency Bonuses row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monProfBonus" class="col-sm-3 col-form-label">Proficiency Bonuses</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editMonProfBonus" name="monProfBonus" placeholder="Proficiency Bonuses">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- Monster Save Throws row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monSaveThrows" class="col-sm-3 col-form-label">Save Throws</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editMonSaveThrows" name="monSaveThrows" placeholder="Save Throws">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- Monster Senses row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monSenses" class="col-sm-3 col-form-label">Senses*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editMonSenses" name="monSenses" placeholder="Senses">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- Monster Abilities row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monAbilities" class="col-sm-3 col-form-label">Abilities</label>
+				        <div class = "col-sm-9">
+				            <textarea class="editMonAbilities" id="editMonAbilities" name="monAbilities" rows="8" style="min-width: 100%" placeholder="Abilities"></textarea>
+				            <!--<input type="text" class="form-control" id="createMonAbilities" name="monAbilties" placeholder="Abilities">-->
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- Monster Actions row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monActions" class="col-sm-3 col-form-label">Actions*</label>
+				        <div class = "col-sm-9">
+				            <textarea class="editMonActions" id="editMonActions" name="monActions" rows="8" style="min-width: 100%" placeholder="Actions"></textarea>
+				            <!--<input type="text" class="form-control" id="createMonActions" name="monActions" placeholder="Actions">-->
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- Monster Legendary Actionsrow -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="monLegendaryActions" class="col-sm-3 col-form-label">Legendary Actions</label>
+				        <div class = "col-sm-9">
+				            <textarea class="editMonLegendaryActions" id="editMonLegendaryActions" name="monLegendaryActions" rows="8" style="min-width: 100%" placeholder="Legendary Actions"></textarea>
+				            <!--<input type="text" class="form-control" id="createMonLegendaryActions" name="monLegendaryActions" placeholder="Legendary Actions">-->
+				        </div>
+				    </div>
+				  </div>
+				  
+				 <div class="form-row cent">
+				 		<p id="NewMonMsg" class="msgBox"></p>
+				 </div>
+				<!----------------------------------->
+				<div class = "pull-right">
+				    <div class="btn-group"><button id="editMonCancelBtn" type="button" class="btn btn-info">Cancel</button></div>
+				    <div class="btn-group"><button id="editMonBtn" type="button" class="btn btn-info">Save</button></div>
+				    
+				</div><!--Create and cancel buttons on the right-->
+			</div><!-- /.row -->
+		</form>
+		</div>
+		
+	<!-----------------------------------Edit NPC Form------------------------------------->
+	<div id = "editNPCFormDiv">
+	<form id="editNPCForm">
+			<legend class="cent">Edit NPC</legend>
+			<div class="row">
+				<div class="form-row text-center">
+					<small id="npcHelp" class="form-text text-muted">Inputs with * are required.</small>
+				</div>
+			    <!-- NPC Name row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcName" class="col-sm-3 col-form-label">Name*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editNPCName" name="npcName" placeholder="Name">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- NPC Level row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcLevel" class="col-sm-3 col-form-label">Level*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editNPCLevel" name="npcLevel" placeholder="Level">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- NPC Race row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcRace" class="col-sm-3 col-form-label">Race*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editNPCRace" name="npcRace" placeholder="Race">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- NPC Class row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcClass" class="col-sm-3 col-form-label">Class*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editNPCClass" name="npcClass" placeholder="Class">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- NPC Align row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcAlign" class="col-sm-3 col-form-label">Align*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editNPCAlign" name="npcAlign" placeholder="Align">
+				        </div>
+				    </div>
+				  </div>
+				  
+				  <!-- NPC AC row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcAC" class="col-sm-3 col-form-label">Armor Class*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editNPCAC" name="npcAC" placeholder="Armor Class">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- NPC HP row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcHP" class="col-sm-3 col-form-label">Hit Points*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editNPCHP" name="npcHP" placeholder="Hit Points">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- NPC Speed row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcSpeed" class="col-sm-3 col-form-label">Speed*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editNPCSpeed" name="npcSpeed" placeholder="Speed">
+				        </div>
+				    </div>
+				  </div>
+				  
+				 <!-- NPC STR row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcSTR" class="col-sm-3 col-form-label">Strength*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editNPCSTR" name="npcSTR" placeholder="Strength">
+				        </div>
+				    </div>
+				  </div>
+				  
+				  <!-- NPC DEX row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcDEX" class="col-sm-3 col-form-label">Dexterity*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editNPCDEX" name="npcDEX" placeholder="Dexterity">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- NPC CON row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcCON" class="col-sm-3 col-form-label">Constitution*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editNPCCON" name="npcCON" placeholder="Constitution">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- NPC INT row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcINT" class="col-sm-3 col-form-label">Intelligence*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editNPCINT" name="npcINT" placeholder="Intelligence">
+				        </div>
+				    </div>
+				  </div>
+				
+			    <!-- NPC WIS row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcWIS" class="col-sm-3 col-form-label">Wisdom*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editNPCWIS" name="npcWIS" placeholder="Wisdom">
+				        </div>
+				    </div>
+				  </div>
+				  
+				  <!-- NPC CHA row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcCHA" class="col-sm-3 col-form-label">Charisma*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editNPCCHA" name="npcCHA" placeholder="Charisma">
+				        </div>
+				    </div>
+				  </div>
+				  
+				  
+                 <!-- NPC Languages row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcLanguages" class="col-sm-3 col-form-label">Languages*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editNPCLanguages" name="npcLanguages" placeholder="Languages">
+				        </div>
+				    </div>
+				  </div>
+                				  
+                 <!-- NPC CR row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcCR" class="col-sm-3 col-form-label">Challenge Rating*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editNPCCR" name="npcCR" placeholder="Challenge Rating">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- NPC Skills row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcSkills" class="col-sm-3 col-form-label">Skills*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editNPCSkills" name="npcSkills" placeholder="Skills">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- NPC Proficiency Bonuses row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcProfBonus" class="col-sm-3 col-form-label">Proficiency Bonuses*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editNPCProfBonus" name="npcProfBonus" placeholder="Proficiency Bonuses">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- NPC Save Throws row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcSaveThrows" class="col-sm-3 col-form-label">Save Throws*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editNPCSaveThrows" name="npcSaveThrows" placeholder="Save Throws">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- NPC Abilities row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcAbilities" class="col-sm-3 col-form-label">Abilities*</label>
+				        <div class = "col-sm-9">
+				            <textarea class="editNPCAbilities" id="editNPCAbilities" name="npcAbilities" rows="8" style="min-width: 100%" placeholder="Abilities"></textarea>
+				            <!--<input type="text" class="form-control" id="createMonAbilities" name="monAbilties" placeholder="Abilities">-->
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- NPC Actions row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcActions" class="col-sm-3 col-form-label">Actions*</label>
+				        <div class = "col-sm-9">
+				            <textarea class="editNPCActions" id="editNPCActions" name="npcActions" rows="8" style="min-width: 100%" placeholder="Actions"></textarea>
+				            <!--<input type="text" class="form-control" id="createMonActions" name="monActions" placeholder="Actions">-->
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- NPC Bio row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="npcBio" class="col-sm-3 col-form-label">Biography*</label>
+				        <div class = "col-sm-9">
+				            <textarea class="editNPCBio" id="editNPCBio" name="npcBio" rows="8" style="min-width: 100%" placeholder="Biography"></textarea>
+				            <!--<input type="text" class="form-control" id="createMonLegendaryActions" name="monLegendaryActions" placeholder="Legendary Actions">-->
+				        </div>
+				    </div>
+				  </div>
+				  
+				 <div class="form-row cent">
+				 		<p id="EditNPCMsg" class="msgBox"></p>
+				 </div>
+				<!----------------------------------->
+				<div class = "pull-right">
+				    <div class="btn-group"><button id="editNPCCancelBtn" type="button" class="btn btn-info">Cancel</button></div>
+				    <div class="btn-group"><button id="editNPCBtn" type="button" class="btn btn-info">Save</button></div>
+				    
+				</div><!--Create and cancel buttons on the right-->
+			</div><!-- /.row -->
+		</form>
+		</div>
+		
+	<!-----------------------------------Edit PC Form-------------------------------------->
+	<div id = "editPCFormDiv">
+	<form id="editPCForm">
+			<legend class="cent">Edit PC</legend>
+			<div class="row">
+				<div class="form-row text-center">
+					<small id="pcHelp" class="form-text text-muted">Inputs with * are required.</small>
+				</div>
+			    <!-- PC Name row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcName" class="col-sm-3 col-form-label">Name*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editPCName" name="pcName" placeholder="Name">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- PC Level row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcLevel" class="col-sm-3 col-form-label">Level*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editPCLevel" name="pcLevel" placeholder="Level">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- PC Race row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcRace" class="col-sm-3 col-form-label">Race*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editPCRace" name="pcRace" placeholder="Race">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- PC Class row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcClass" class="col-sm-3 col-form-label">Class*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editPCClass" name="pcClass" placeholder="Class">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- PC Align row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcAlign" class="col-sm-3 col-form-label">Align*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editPCAlign" name="pcAlign" placeholder="Align">
+				        </div>
+				    </div>
+				  </div>
+				  
+				  <!-- PC AC row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcAC" class="col-sm-3 col-form-label">Armor Class*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editPCAC" name="pcAC" placeholder="Armor Class">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- PC HP row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcHP" class="col-sm-3 col-form-label">Hit Points*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editPCHP" name="pcHP" placeholder="Hit Points">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- PC Speed row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcSpeed" class="col-sm-3 col-form-label">Speed*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editPCSpeed" name="pcSpeed" placeholder="Speed">
+				        </div>
+				    </div>
+				  </div>
+				  
+				 <!-- PC STR row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcSTR" class="col-sm-3 col-form-label">Strength*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editPCSTR" name="pcSTR" placeholder="Strength">
+				        </div>
+				    </div>
+				  </div>
+				  
+				  <!-- PC DEX row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcDEX" class="col-sm-3 col-form-label">Dexterity*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editPCDEX" name="pcDEX" placeholder="Dexterity">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- PC CON row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcCON" class="col-sm-3 col-form-label">Constitution*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editPCCON" name="pcCON" placeholder="Constitution">
+				        </div>
+				    </div>
+				  </div>
+				  
+				<!-- PC INT row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcINT" class="col-sm-3 col-form-label">Intelligence*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editPCINT" name="pcINT" placeholder="Intelligence">
+				        </div>
+				    </div>
+				  </div>
+				
+			    <!-- PC WIS row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcWIS" class="col-sm-3 col-form-label">Wisdom*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editPCWIS" name="pcWIS" placeholder="Wisdom">
+				        </div>
+				    </div>
+				  </div>
+				  
+				  <!-- PC CHA row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcCHA" class="col-sm-3 col-form-label">Charisma*</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editPCCHA" name="pcCHA" placeholder="Charisma">
+				        </div>
+				    </div>
+				  </div>
+				  
+				  
+                 <!-- PC Languages row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcLanguages" class="col-sm-3 col-form-label">Languages</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editPCLanguages" name="pcLanguages" placeholder="Languages">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- PC Skills row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcSkills" class="col-sm-3 col-form-label">Skills</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editPCSkills" name="pcSkills" placeholder="Skills">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- PC Proficiency Bonuses row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcProfBonus" class="col-sm-3 col-form-label">Proficiency Bonuses</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editPCProfBonus" name="pcProfBonus" placeholder="Proficiency Bonuses">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- PC Save Throws row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcSaveThrows" class="col-sm-3 col-form-label">Save Throws</label>
+				        <div class = "col-sm-9">
+				            <input type="text" class="form-control" id="editPCSaveThrows" name="pcSaveThrows" placeholder="Save Throws">
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- PC Abilities row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcAbilities" class="col-sm-3 col-form-label">Abilities</label>
+				        <div class = "col-sm-9">
+				            <textarea class="editNPCAbilities" id="editPCAbilities" name="pcAbilities" rows="8" style="min-width: 100%" placeholder="Abilities"></textarea>
+				            <!--<input type="text" class="form-control" id="createMonAbilities" name="monAbilties" placeholder="Abilities">-->
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- PC Actions row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcActions" class="col-sm-3 col-form-label">Actions</label>
+				        <div class = "col-sm-9">
+				            <textarea class="editNPCActions" id="editPCActions" name="pcActions" rows="8" style="min-width: 100%" placeholder="Actions"></textarea>
+				            <!--<input type="text" class="form-control" id="createMonActions" name="monActions" placeholder="Actions">-->
+				        </div>
+				    </div>
+				  </div>
+				  
+				   <!-- PC Bio row -->
+				  <div class="form-row">
+				    <div class="form-group  paddingText">
+				        <label for="pcBio" class="col-sm-3 col-form-label">Biography*</label>
+				        <div class = "col-sm-9">
+				            <textarea class="editNPCBio" id="editPCBio" name="pcBio" rows="8" style="min-width: 100%" placeholder="Biography"></textarea>
+				            <!--<input type="text" class="form-control" id="createMonLegendaryActions" name="monLegendaryActions" placeholder="Legendary Actions">-->
+				        </div>
+				    </div>
+				  </div>
+				  
+				 <div class="form-row cent">
+				 		<p id="EditPCMsg" class="msgBox"></p>
+				 </div>
+				<!----------------------------------->
+				<div class = "pull-right">
+				    <div class="btn-group"><button id="editPCCancelBtn" type="button" class="btn btn-info">Cancel</button></div>
+				    <div class="btn-group"><button id="editPCBtn" type="button" class="btn btn-info">Save</button></div>
+				    
+				</div><!--Create and cancel buttons on the right-->
+			</div><!-- /.row -->
+		</form>
+		</div>
+	
+	<!---------------------ALL FORMS AND SUCH BEFORE THIS LINE---------------------------------->
+	</div><!-- /.jumbotron -->
+	</div><!-- /.container -->
+<!-- ------------------------------ js, jquery and bootstrap ------------------------------ -->
+		<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>  	
+		<script src="mvc.js"></script>
+	
+		<!-- custom local javascript -->
+		<script>
+			
+		</script>
+		
+		
+		
+	<!--------------------------------------------------------------------------------------->
+  	<!-- 								   Modals 										   -->
+  	<!--------------------------------------------------------------------------------------->
+  	
+  	
+  	
+  	<!---------------------------Campaign Description Modal-------------------------------------->
+		<div id="camDescModal" class="modal fade" tabindex="-1" role="dialog">
+		  <div class="modal-dialog modal-lg" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <p id="camDescModalHeader"></p>
+		      </div>
+		      
+		      <div class="modal-body">
+				<p id="camDescModalBody"></p>
+		      </div><!-- /.modal-body -->
+		      
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-info" data-dismiss="modal">Exit</button>
+		      </div><!-- /.modal-footer -->
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->	
+		
+		
+	<!---------------------------Adventure Description Modal-------------------------------------->
+		<div id="advDescModal" class="modal fade" tabindex="-1" role="dialog">
+		  <div class="modal-dialog modal-lg" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <p id="advDescModalHeader"></p>
+		      </div>
+		      
+		      <div class="modal-body">
+				<p id="advDescModalBody"></p>
+		      </div><!-- /.modal-body -->
+		      
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-info" data-dismiss="modal">Exit</button>
+		      </div><!-- /.modal-footer -->
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->	
+		
+	<!--------------------------------Act Story Modal------------------------------------------->
+		<div id="actStoryModal" class="modal fade" tabindex="-1" role="dialog">
+		  <div class="modal-dialog modal-lg" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <p id="actStoryModalHeader"></p>
+		      </div>
+		      
+		      <div class="modal-body">
+				<p id="actStoryModalBody"></p>
+		      </div><!-- /.modal-body -->
+		      
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-info" data-dismiss="modal">Exit</button>
+		      </div><!-- /.modal-footer -->
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->	
+		
+	<!------------------------------Monster Stats Modal-------------------------------------->
+		<div id="monStatsModal" class="modal fade" tabindex="-1" role="dialog">
+		  <div class="modal-dialog modal-lg" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <p id="monStatsModalHeader"></p>
+		      </div>
+		      
+		      <div class="modal-body">
+				<p id="monStatsModalBody"></p>
+		      </div><!-- /.modal-body -->
+		      
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-info" data-dismiss="modal">Exit</button>
+		      </div><!-- /.modal-footer -->
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->	
+		
+	<!------------------------------NPC Stats Modal-------------------------------------->
+		<div id="npcStatsModal" class="modal fade" tabindex="-1" role="dialog">
+		  <div class="modal-dialog modal-lg" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <p id="npcStatsModalHeader"></p>
+		      </div>
+		      
+		      <div class="modal-body">
+				<p id="npcStatsModalBody"></p>
+		      </div><!-- /.modal-body -->
+		      
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-info" data-dismiss="modal">Exit</button>
+		      </div><!-- /.modal-footer -->
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->	
+		
+	<!------------------------------PC Stats Modal-------------------------------------->
+		<div id="pcStatsModal" class="modal fade" tabindex="-1" role="dialog">
+		  <div class="modal-dialog modal-lg" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <p id="pcStatsModalHeader"></p>
+		      </div>
+		      
+		      <div class="modal-body">
+				<p id="pcStatsModalBody"></p>
+		      </div><!-- /.modal-body -->
+		      
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-info" data-dismiss="modal">Exit</button>
+		      </div><!-- /.modal-footer -->
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->	
+</body>
+	
+</html>
