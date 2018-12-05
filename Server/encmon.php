@@ -56,12 +56,12 @@ function create($conn)
 {
     $monID = getValue("monID", "");
     $encID = getValue("encID", "");
-    //$user = getValue("UserID", "");
+    $userID = getSessionValue("user","")["userID"];
     
-    if ($encID != "" && $monID != ""/*&& $user != ""*/)
+    if ($encID != "" && $monID != "" && $userID != "")
     {
-        $stmt = $conn->prepare("INSERT INTO ENCMON(MON_ID, ENC_ID) VALUES (?, ?)");
-        $stmt->bind_param("ii", $monID, $encID);
+        $stmt = $conn->prepare("INSERT INTO ENCMON(MON_ID, ENC_ID, USER_ID) VALUES (?, ?, ?)");
+        $stmt->bind_param("iii", $monID, $encID, $userID);
         $stmt->execute();
         return read($conn);
     }
@@ -74,45 +74,43 @@ function create($conn)
 function read($conn)
 {
     $encID = getValue("encID", "");
-    //$user = getValue("UserID", "");
-    //if($user != "")
-    //{
-    if($encID != "")
+    $userID = getSessionValue("user","")["userID"];
+    if($userID != "")
     {
-        $stmt = $conn->prepare("SELECT * FROM ENCMON WHERE ENC_ID = ?");
-        $stmt->bind_param("i", $encID);
-        $stmt->execute();
-        $stmt->bind_result($encMonID,$monID,$encID);
-        
-        
-        $rows = array();
-        while($stmt->fetch())
+        if($encID != "")
         {
-            $row = array("EncMonID"=>$encMonID, "MonID"=>$monID, "EncID"=>$encID);
-            $rows[] = $row;
+            $stmt = $conn->prepare("SELECT * FROM ENCMON WHERE ENC_ID = ? AND USER_ID = ?");
+            $stmt->bind_param("ii", $encID, $userID);
+            $stmt->execute();
+            $stmt->bind_result($encMonID,$monID,$encID,$userID);
+            
+            $rows = array();
+            while($stmt->fetch())
+            {
+                $row = array("EncMonID"=>$encMonID, "MonID"=>$monID, "EncID"=>$encID);
+                $rows[] = $row;
+            }
+    
+            return $rows;
         }
-    
-        
-        return $rows;
+        else{
+            return array("error"=>"encID required");
+        }
     }
-    else{
-        return array("error"=>"encID required");
+    else {
+        return array("error"=>"User does not exist");
     }
-    //}
-    //else {
-    //    return array("error"=>"User does not exist");
-    //}
-    
 }
 
 function readAll($conn)
 {
-    //$user = getValue("UserID", "");
-    //if($user != "")
-    //{
-        $stmt = $conn->prepare("SELECT * FROM ENCMON");
+    $userID = getSessionValue("user","")["userID"];
+    if($userID != "")
+    {
+        $stmt = $conn->prepare("SELECT * FROM ENCMON WHERE USER_ID = ?");
+        $stmt->bind_param("i", $userID);
         $stmt->execute();
-        $stmt->bind_result($encMonID,$monID,$encID);
+        $stmt->bind_result($encMonID,$monID,$encID,$userID);
         
         
         $rows = array();
@@ -124,10 +122,10 @@ function readAll($conn)
     
         
     return $rows;
-    //}
-    //else {
-    //    return array("error"=>"User does not exist");
-    //}
+    }
+    else {
+        return array("error"=>"User does not exist");
+    }
     
 }
 
@@ -137,11 +135,12 @@ function update($conn)
     $encMonID = getValue("encMonID", "");
     $monID = getValue("monID", "");
     $encID = getValue("encID", "");
+    $userID = getSessionValue("user","")["userID"];
 
-    if ($encMonID != "" && $encID != "" && $monID != "" )
+    if ($encMonID != "" && $encID != "" && $monID != "" && $userID != "")
     {
-        $stmt = $conn->prepare("UPDATE ENCMON SET MON_ID = ?, ENC_ID = ? WHERE ENCMON_ID = ?");
-        $stmt->bind_param("iii", $encID, $monID, $encMonID);
+        $stmt = $conn->prepare("UPDATE ENCMON SET MON_ID = ?, ENC_ID = ? WHERE ENCMON_ID = ? AND USER_ID = ?");
+        $stmt->bind_param("iiii", $monID, $encID, $encMonID, $userID);
         $stmt->execute();
         return read($conn);
     }
@@ -154,11 +153,12 @@ function update($conn)
 function delete($conn)
 {
     $encMonID = getValue("encMonID", "");
+    $userID = getSessionValue("user","")["userID"];
 
-    if ($encMonID != "")
+    if ($encMonID != "" && $userID != "")
     {
-        $stmt = $conn->prepare("DELETE FROM ENCMON WHERE ENCMON_ID = ?");
-        $stmt->bind_param("i", $encMonID);
+        $stmt = $conn->prepare("DELETE FROM ENCMON WHERE ENCMON_ID = ? AND USER_ID = ?");
+        $stmt->bind_param("ii", $encMonID, $userID);
         $stmt->execute();
         return read($conn);
     }

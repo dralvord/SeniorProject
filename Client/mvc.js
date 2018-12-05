@@ -6,9 +6,19 @@
 
 var model = [];
 
-//Starting values to show which tables
+//Starting values to show which divs
+/*-------Welcome & User Account------*/
+model.welcomeShow = true;
+model.signInShow = false;
+model.signUpShow = false;
+model.checkUserNameBtnShow = false;
+model.passwordResetFormShow = false;
+model.securityQuestionResetShow = false;
+model.passwordResetAlreadyOpen = false;
+model.logoutShow = false;
+model.loginNameShow = false;
 /*-----------Table Show--------------*/
-model.camShow = true;
+model.camShow = false;
 model.advShow = false;
 model.actShow = false;
 model.encShow = false;
@@ -24,7 +34,7 @@ model.returnActShow = false;
 model.returnEncShow = false;
 /*-----------Create Form Show--------------*/
 model.createCamFormShow = false;
-model.createCamButtonShow = true;
+model.createCamButtonShow = false;
 model.createAdvFormShow = false;
 model.createAdvButtonShow = false;
 model.createActFormShow = false;
@@ -52,6 +62,7 @@ model.editNPCFormShow = false;
 model.editPCFormShow = false;
 
 /*-----------Data Arrays--------------*/
+model.campaignData = [];
 model.adventureData = [];
 model.actData = [];
 model.encounterData = [];
@@ -76,11 +87,20 @@ function updateView()
     $("#NPCTableBody").empty();
     $("#PCTableBody").empty();
     $("#PCTableBody").empty();
+    clearSignInForm();
+    clearSignUpForm();
+    //clearPasswordResetForm();
     
     if (model.error != undefined)
     {
         $("#message").html("<div style = color:red>" + model.error);
     }
+    /*
+    else if(model.userData.error != undefined)
+    {
+        $("#SignInMsg").html("<div style = color:red>" + model.userData.error);
+    }
+    */
     else 
     {
         /*------------------------------------------------------*/
@@ -122,6 +142,87 @@ function updateView()
         }
     }
     
+    /*------------------------------------------------------*/
+    /*                  Show Welcome and User               */
+    /*------------------------------------------------------*/
+    if(model.welcomeShow == true)
+    {
+        $("div#welcomeDiv").show();
+    }
+    else
+    {
+        $("div#welcomeDiv").hide();
+    }
+    
+    if(model.signInShow == true)
+    {
+        $('#signInModal').modal('show');
+    }
+    else
+    {
+        $('#signInModal').modal('hide');
+        
+    }
+    
+    if(model.signUpShow == true)
+    {
+        $('#signUpModal').modal('show');
+    }
+    else
+    {
+        $('#signUpModal').modal('hide');
+        
+    }
+    
+     if(model.checkUserNameBtnShow == true)
+    {
+        $("#checkUserNameBtn").show();
+    }
+    else
+    {
+        $("#checkUserNameBtn").hide();
+        
+    }
+    
+    if(model.passwordResetFormShow == true)
+    {
+        if(model.passwordResetAlreadyOpen == false)
+        {
+            $('#passwordResetFormModal').modal('show');
+        }
+    }
+    else
+    {
+        $('#passwordResetFormModal').modal('hide');
+        
+    }
+    
+    if(model.securityQuestionResetShow == true)
+    {
+        $("#passwordResetSecurityQuestionForm").show();
+    }
+    else
+    {
+        $("#passwordResetSecurityQuestionForm").hide();
+        
+    }
+    if(model.logoutShow == true)
+    {
+        $("#navbarLogout").show();
+    }
+    else
+    {
+        $("#navbarLogout").hide();
+    }
+    
+    if(model.loginNameShow == true)
+    {
+        $("#navbadLoginName").show();
+    }
+    else
+    {
+        $("#navbarLoginName").hide();
+    }
     /*------------------------------------------------------*/
     /*                      Show Tables                     */
     /*------------------------------------------------------*/
@@ -493,7 +594,7 @@ function updateView()
 //**************************************************************************************************//
 $(document).ready(function ()
 {
-	sendCommandCampaign("read");
+	updateView();
 });
 
 //==================================================================================//
@@ -834,8 +935,12 @@ $(document).on("click", ".deleteMonBtn", function()
 	if(model.returnEncShow)
 	{
 	    model.encMonInput += "&encMonID=" + $(this).attr("id")
-	    sendCommandEncMon("delete");
-	    sendCommandMonster("readEnc");
+	    sendCommandEncMon("delete",
+	    function()
+	    {
+	        sendCommandMonster("readEnc");
+	    });
+	    
 	}
 	else
 	{
@@ -853,8 +958,12 @@ $(document).on("click", ".deleteNPCBtn", function()
     if(model.actToNPC)
     {
         model.actNPCInput = model.currentActID + "&npcID=" + $(this).attr("cd");
-        sendCommandActNPC("delete");
-        sendCommandNPC("readAct");
+        sendCommandActNPC("delete",
+        function()
+        {
+            sendCommandNPC("readAct");
+        });
+        
     }
     else
     {
@@ -1133,9 +1242,12 @@ $("#createPCCancelBtn").click(function()
 $(document).on("click", ".addNPCBtn", function()
 {
     model.actNPCInput = $("#npcDropdownForm" ).serialize() + model.currentActID;
-    sendCommandActNPC("create");
-    sendCommandNPC("readAct");
-    updateView();
+    sendCommandActNPC("create",
+    function()
+    {
+        sendCommandNPC("readAct");
+        updateView();
+    });
 });
 
 
@@ -1151,9 +1263,14 @@ $('#npcDropdown').change(function()
 $(document).on("click", ".addMonBtn", function()
 {
     model.encMonInput = $("#monDropdownForm" ).serialize() + model.currentEncID;
-    sendCommandEncMon("create");
-    sendCommandMonster("readEnc");
-    updateView();
+    sendCommandEncMon("create",
+    function()
+    {
+        sendCommandMonster("readEnc");
+        updateView();
+    });
+    
+    
 });
 
 
@@ -1542,6 +1659,212 @@ $("#editPCCancelBtn").click(function()
     model.pcShow = true;
     updateView();
 });
+
+//==================================================================================//
+//							    User Buttons                                        //
+//==================================================================================//
+/*------------------------------------------------------*/
+/*                      Sign In                         */
+/*------------------------------------------------------*/
+$("#signInBtn").click(function()
+{
+    model.userInput = $("#signInForm").serialize();
+    sendCommandUser("login",
+    function()
+    {
+        if(model.userData.error == undefined)
+        {
+            $("#loginName").text("Hello " + model.userData["user"].userName);
+            model.welcomeShow = false;
+            model.signInShow = false;
+            model.camShow = true;
+            model.loginNameShow = true;
+            model.logoutShow = true;
+            model.createCamButtonShow = true;
+            model.campaignInput = "";
+            sendCommandCampaign("read");
+        }
+        else{
+            $("#SignInMsg").html("<div style = color:red>" + model.userData.error);
+        }
+    
+        updateView();
+    });
+    
+});
+
+$(document).on("click", ".signInShowBtn", function()
+{
+    //$('#signInModal').modal('show');
+    model.signInShow=true;
+    $("#SignInMsg").html("<div style = color:red>" + "");
+    updateView();
+});
+
+
+/*------------------------------------------------------*/
+/*                      Sign Up                         */
+/*------------------------------------------------------*/
+$("#signUpBtn").click(function()
+{
+    model.userInput = $("#signUpForm").serialize();
+    sendCommandUser("create",
+    function()
+    {
+        if(model.userData.error == "")
+        {
+            $("#loginName").text("Hello " + model.userData["user"].userName);
+            model.welcomeShow = false;
+            model.signUpShow = false;
+            model.camShow = true;
+            model.loginNameShow = true;
+            model.logoutShow = true;
+            model.createCamButtonShow = true;
+            model.campaignInput = "";
+            sendCommandCampaign("read");
+        }
+        else{
+            $("#SignUpMsg").html("<div style = color:red>" + model.userData.error);
+        }
+    
+        updateView();
+    });
+    
+});
+
+$(document).on("click", ".signUpShowBtn", function()
+{
+    model.signUpShow = true;
+    $("#SignUpMsg").html("<div style = color:red>" + "");
+    updateView();
+});
+
+/*------------------------------------------------------*/
+/*                    Reset Password                    */
+/*------------------------------------------------------*/
+$("#displayPasswordReset").click(function()
+{
+    model.checkUserNameBtnShow = true;
+    model.passwordResetFormShow = true;
+    model.securityQuestionResetShow = false;
+    model.signInShow = false;
+    $("#passwordResetMsg").html("<div style = color:red>" + "");
+    updateView();
+});
+
+$("#checkUserNameBtn").click(function()
+{
+    model.userInput = $("#passwordResetUserNameForm").serialize();
+    sendCommandUser("getSecurityQuestions",
+    function() 
+    {
+        model.passwordResetAlreadyOpen = true;
+        $("#PasswordResetMsg").html("<div style = color:blue>" + "");
+        model.checkUserNameBtnShow = true;
+    
+        if (model.userData[0].status == "false")
+        {
+            $("#PasswordResetMsg").html("<div style = color:red>" + model.userData[0].UserMsg);
+            model.securityQuestionResetShow = false;
+        }
+        else if (model.userData[0].status == "true")
+        {
+            model.checkUserNameBtnShow = false;
+            model.securityQuestionResetShow = true;
+            $("#passwordResetQuestion1").text(model.userData[0].Question1);
+            $("#passwordResetQuestion2").text(model.userData[0].Question2);
+            $("#PasswordResetMsg").html("<div style = color:red>" + "");
+        }
+    
+        updateView();
+    });
+    
+});
+
+$("#checkAnswersBtn").click(function()
+{
+    model.userInput = model.userInput + "&" + $("#passwordResetSecurityQuestionForm").serialize();
+    sendCommandUser("changePassword",
+    function() {
+        if (model.userData.loggedIn == true)
+        {
+            $("#loginName").text("Hello " + model.userData["user"].userName);
+            model.passwordResetFormShow = false;
+            model.passwordResetAlreadyOpen = false;
+            model.securityQuestionResetShow = false;
+            model.checkUserNameBtnShow = false;
+            model.welcomeShow = false;
+            model.camShow = true;
+            model.loginNameShow = true;
+            model.logoutShow = true;
+            model.createCamButtonShow = true;
+            model.campaignInput = "";
+            sendCommandCampaign("read");
+            clearPasswordResetForm();
+        }
+        else
+        {
+            $("#PasswordResetMsg").html("<div style = color:red>" + model.userData.Msg);
+        }
+    
+        updateView();
+    });
+    
+});
+
+/*------------------------------------------------------*/
+/*                      Logout                          */
+/*------------------------------------------------------*/
+$("#navbarLogout").click(function()
+{
+    sendCommandUser("logout",
+    function() {
+        model.welcomeShow = true;
+        model.loginNameShow = false;
+        model.logoutShow = false;
+        $("#loginName").text("");
+        //Hide All
+        model.camShow = false;
+        model.advShow = false;
+        model.actShow = false;
+        model.encShow = false;
+        model.monShow = false;
+        model.npcShow = false;
+        model.pcShow = false;
+        model.encToMon = false;
+        model.actToNPC = false;
+        model.returnCamShow = false;
+        model.returnAdvShow = false;
+        model.returnActShow = false;
+        model.returnEncShow = false;
+        model.createCamFormShow = false;
+        model.createCamButtonShow = false;
+        model.createAdvFormShow = false;
+        model.createAdvButtonShow = false;
+        model.createActFormShow = false;
+        model.createActButtonShow = false;
+        model.createEncFormShow = false;
+        model.createEncButtonShow = false;
+        model.createMonFormShow = false;
+        model.createMonButtonShow = false;
+        model.createNPCFormShow = false;
+        model.createNPCButtonShow = false;
+        model.createPCFormShow = false;
+        model.createPCButtonShow = false;
+        model.npcDropdownShow = false;
+        model.monDropdownShow = false;
+        model.editCamFormShow = false;
+        model.editAdvFormShow = false;
+        model.editActFormShow = false;
+        model.editEncFormShow = false;
+        model.editMonFormShow = false;
+        model.editNPCFormShow = false;
+        model.editPCFormShow = false;
+        
+        updateView();
+        
+    });
+});
 //#############################################################################################//
 //                                                                                             //  
 //                                  Connect to php Functions                                   //
@@ -1716,7 +2039,7 @@ function sendCommandPC(cmd)
 /*------------------------------------------------------*/
 /*              Connect to actnpc.php                   */
 /*------------------------------------------------------*/
-function sendCommandActNPC(cmd)
+function sendCommandActNPC(cmd,fn)
 {
     var url = "../Server/actnpc.php?cmd="+cmd;
     //var data = "";
@@ -1725,6 +2048,7 @@ function sendCommandActNPC(cmd)
     {
         model.actNPCData = json;
         updateView();
+        fn();
     });
     request.fail(function(jqXHR, textStatus, errorThrown)
     {
@@ -1732,13 +2056,14 @@ function sendCommandActNPC(cmd)
         console.log("fail object ", jqXHR);
         console.log("error thrown ", errorThrown);
         updateView();
+        fn();
     });
 }
 
 /*------------------------------------------------------*/
 /*              Connect to encmon.php                   */
 /*------------------------------------------------------*/
-function sendCommandEncMon(cmd)
+function sendCommandEncMon(cmd,fn)
 {
     var url = "../Server/encmon.php?cmd="+cmd;
     //var data = "";
@@ -1747,6 +2072,7 @@ function sendCommandEncMon(cmd)
     {
         model.encMonData = json;
         updateView();
+        fn();
     });
     request.fail(function(jqXHR, textStatus, errorThrown)
     {
@@ -1754,6 +2080,30 @@ function sendCommandEncMon(cmd)
         console.log("fail object ", jqXHR);
         console.log("error thrown ", errorThrown);
         updateView();
+        fn();
+    });
+}
+
+/*------------------------------------------------------*/
+/*              Connect to user.php                   */
+/*------------------------------------------------------*/
+function sendCommandUser(cmd,fn)
+{
+    var url = "../Server/user.php?cmd="+cmd;
+    var request = $.post(url,model.userInput);
+    request.done(function(json)
+    {
+        model.userData = json;
+        updateView();
+        fn();
+    });
+    request.fail(function(jqXHR, textStatus, errorThrown)
+    {
+        $("#SignInMessage").text(textStatus);
+        console.log("fail object ", jqXHR);
+        console.log("error thrown ", errorThrown);
+        updateView();
+        fn();
     });
 }
 
@@ -2073,7 +2423,7 @@ function clearCreateMonForm()
 }
 
 /*------------------------------------------------------*/
-/*            Clear Create NPC Form               */
+/*               Clear Create NPC Form               */
 /*------------------------------------------------------*/
 function clearCreateNPCForm()
 {
@@ -2103,7 +2453,7 @@ function clearCreateNPCForm()
 }
 
 /*------------------------------------------------------*/
-/*            Clear Create PC Form               */
+/*                  Clear Create PC Form                */
 /*------------------------------------------------------*/
 function clearCreatePCForm()
 {
@@ -2130,6 +2480,44 @@ function clearCreatePCForm()
     $("#createPCActions").val("");
     $("#createPCBio").val("");
     
+}
+
+/*------------------------------------------------------*/
+/*                   Clear Sign In Form                 */
+/*------------------------------------------------------*/
+function clearSignInForm()
+{
+	$("#signInUserName").val("");
+    $("#signInUserPass").val("");
+    $("#SignInMsg").val("");
+}
+
+/*------------------------------------------------------*/
+/*                   Clear Sign Up Form                 */
+/*------------------------------------------------------*/
+function clearSignUpForm()
+{
+	$("#signUpUserName").val("");
+    $("#signUpUserPass").val("");
+    $("#signUpQuestion1").val("");
+    $("#signUpAnswer1").val("");
+    $("#signUpQuestion2").val("");
+    $("#signUpAnswer2").val("");
+    $("#SignUpMsg").val("");
+}
+
+/*------------------------------------------------------*/
+/*              Clear Forgot Password Form              */
+/*------------------------------------------------------*/
+function clearPasswordResetForm()
+{
+	$("#passwordResetUserName").val("");
+    $("#passwordResetAnswer1").val("");
+    $("#passwordResetAnswer2").val("");
+    $("#newPassword").val("");
+    $("#newPassword2").val("");
+    $("#userID").val("");
+    $("#PasswordResetMsg").val("");
 }
 
 
@@ -2159,3 +2547,105 @@ function loadMonDropdown()
     $("#monDropdownOutput").val(model.monDropdown[0].MonID);
 }
 
+//==================================================================================//
+//				    	    Show Password Functions                                 //
+//==================================================================================//
+
+function showSignInPassword() {
+    var x = document.getElementById("signInUserPass");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+} 
+
+
+function showSignUpPassword() {
+    var x = document.getElementById("signUpUserPass");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+} 
+
+
+function showSignUpAnswer1() {
+    var x = document.getElementById("signUpAnswer1");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+} 
+
+
+function showSignUpAnswer2() {
+    var x = document.getElementById("signUpAnswer2");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+} 
+
+function showPasswordResetAnswer1() {
+    var x = document.getElementById("passwordResetAnswer1");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+} 
+
+function showPasswordResetAnswer2() {
+    var x = document.getElementById("passwordResetAnswer2");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
+
+function showPasswordResetPassword1() {
+    var x = document.getElementById("newPassword");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+} 
+
+function showPasswordResetPassword2() {
+    var x = document.getElementById("newPassword2");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+} 
+
+
+//==================================================================================//
+//				        Hide Sign in and Sign up Functions                          //
+//==================================================================================//
+
+function hideSignInForm()
+{
+    model.signInShow = false;
+}
+
+function hideSignUpForm()
+{
+    model.signUpShow = false;
+}
+
+function hidePasswordResetForm()
+{
+    clearPasswordResetForm();
+    model.passwordResetFormShow = false;
+    model.passwordResetAlreadyOpen = false;
+    model.securityQuestionResetShow = false;
+    model.checkUserNameBtnShow = false;
+}

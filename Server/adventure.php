@@ -57,12 +57,12 @@ function create($conn)
     $advName = getValue("advName", "");
     $advDesc = getValue("advDesc", "");
     $camID = getValue("camID", "");
-    //$user = getValue("UserID", "");
+    $userID = getSessionValue("user","")["userID"];
     
-    if ($advName != "" && $advDesc != "" && $camID != ""/*&& $user != ""*/)
+    if ($advName != "" && $advDesc != "" && $camID != "" & $userID != "")
     {
-        $stmt = $conn->prepare("INSERT INTO ADVENTURE(ADV_NAME, ADV_DESC, CAM_ID) VALUES (?, ?, ?)");
-        $stmt->bind_param("ssi", $advName, $advDesc, $camID);
+        $stmt = $conn->prepare("INSERT INTO ADVENTURE(ADV_NAME, ADV_DESC, CAM_ID, USER_ID) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssii", $advName, $advDesc, $camID, $userID);
         $stmt->execute();
         return read($conn);
     }
@@ -75,42 +75,41 @@ function create($conn)
 function read($conn)
 {
     $camID = getValue("camID", "");
-    //$user = getValue("UserID", "");
-    //if($user != "")
-    //{
-    if($camID != "")
+    $userID = getSessionValue("user","")["userID"];
+    if($userID != "")
     {
-        $stmt = $conn->prepare("SELECT * FROM ADVENTURE WHERE CAM_ID = ?");
-        $stmt->bind_param("i", $camID);
-        $stmt->execute();
-        $stmt->bind_result($advID,$advName,$advDesc,$camID);
-        
-        
-        $rows = array();
-        while($stmt->fetch())
+        if($camID != "")
         {
-            $row = array("AdventureID"=>$advID, "AdventureName"=>$advName, "AdventureDescription"=>$advDesc, "CampaignID"=>$camID);
-            $rows[] = $row;
-        }
+            $stmt = $conn->prepare("SELECT ADV_ID, ADV_NAME, ADV_DESC FROM ADVENTURE WHERE CAM_ID = ? AND USER_ID = ?");
+            $stmt->bind_param("ii", $camID, $userID);
+            $stmt->execute();
+            $stmt->bind_result($advID,$advName,$advDesc);
+            $rows = array();
+            while($stmt->fetch())
+            {
+                $row = array("AdventureID"=>$advID, "AdventureName"=>htmlspecialchars($advName,ENT_QUOTES), "AdventureDescription"=>htmlspecialchars($advDesc,ENT_QUOTES), "CampaignID"=>$camID);
+                $rows[] = $row;
+            }
     
-        return $rows;
+            return $rows;
+        }
+        else
+        {
+            return array("error"=>"camID required");
+        }
     }
-    else
-    {
-        return array("error"=>"camID required");
+    else {
+        return array("error"=>"User does not exist");
     }
-    //}
-    //else {
-    //    return array("error"=>"User does not exist");
-    //}
     
 }
 function readAll($conn)
 {
-    //$user = getValue("UserID", "");
-    //if($user != "")
-    //{
-        $stmt = $conn->prepare("SELECT * FROM ADVENTURE");
+    $userID = getSessionValue("user","")["userID"];
+    if($userID != "")
+    {
+        $stmt = $conn->prepare("SELECT ADV_ID, ADV_NAME,ADV_DESC, CAM_ID FROM ADVENTURE WHERE USER_ID = ?");
+        $stmt->bind_param("i", $userID);
         $stmt->execute();
         $stmt->bind_result($advID,$advName,$advDesc,$camID);
         
@@ -118,16 +117,16 @@ function readAll($conn)
         $rows = array();
         while($stmt->fetch())
         {
-            $row = array("AdventureID"=>$advID, "AdventureName"=>$advName, "AdventureDescription"=>$advDesc, "CampaignID"=>$camID);
+            $row = array("AdventureID"=>$advID, "AdventureName"=>htmlspecialchars($advName,ENT_QUOTES), "AdventureDescription"=>htmlspecialchars($advDesc,ENT_QUOTES), "CampaignID"=>$camID);
             $rows[] = $row;
         }
     
         
     return $rows;
-    //}
-    //else {
-    //    return array("error"=>"User does not exist");
-    //}
+    }
+    else {
+        return array("error"=>"User does not exist");
+    }
     
 }
 
@@ -137,11 +136,12 @@ function update($conn)
     $advName = getValue("advName", "");
     $advDesc = getValue("advDesc", "");
     $camID = getValue("camID", "");
+    $userID = getSessionValue("user","")["userID"];
     
-    if ($advID != "" && $advName != "" && $advDesc != "" && $camID != "")
+    if ($advID != "" && $advName != "" && $advDesc != "" && $camID != "" && $userID != "")
     {
-        $stmt = $conn->prepare("UPDATE ADVENTURE SET ADV_NAME = ?, ADV_DESC = ?, CAM_ID = ? WHERE ADV_ID = ?");
-        $stmt->bind_param("ssii", $advName, $advDesc, $camID, $advID);
+        $stmt = $conn->prepare("UPDATE ADVENTURE SET ADV_NAME = ?, ADV_DESC = ?, CAM_ID = ? WHERE ADV_ID = ? && USER_ID = ?");
+        $stmt->bind_param("ssiii", $advName, $advDesc, $camID, $advID, $userID);
         $stmt->execute();
         return read($conn);
     }
@@ -154,11 +154,12 @@ function update($conn)
 function delete($conn)
 {
     $advID = getValue("advID", "");
+    $userID = getSessionValue("user","")["userID"];
 
-    if ($advID != "")
+    if ($advID != "" && $userID != "")
     {
-        $stmt = $conn->prepare("DELETE FROM ADVENTURE WHERE ADV_ID = ?");
-        $stmt->bind_param("i", $advID);
+        $stmt = $conn->prepare("DELETE FROM ADVENTURE WHERE ADV_ID = ? AND USER_ID = ?");
+        $stmt->bind_param("ii", $advID, $userID);
         $stmt->execute();
         return read($conn);
     }

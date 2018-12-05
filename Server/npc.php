@@ -90,13 +90,13 @@ function create($conn)
     $npcActions = getValue ("npcActions","");
     $npcBio = getValue ("npcBio","");
     $camID = getValue("camID", "");
-    //$user = getValue("UserID", "");
+    $userID = getSessionValue("user","")["userID"];
     
-    if ($npcName != "" && $npcLevel != "" && $npcRace != "" && $npcClass != "" && $npcAlign != "" && $npcAC != "" && $npcHP != "" && $npcSpeed != "" && $npcSTR != ""  && $npcDEX != "" && $npcCON != "" && $npcINT != "" && $npcWIS != "" && $npcCHA != "" && $npcLanguages != "" && $npcCR != "" && $npcSkills != "" && $npcProfBonus != "" && $npcSaveThrows != "" && $npcAbilities != "" && $npcActions != "" &&$npcBio != "" && $camID !="" /*&& $user != ""*/)
+    if ($npcName != "" && $npcLevel != "" && $npcRace != "" && $npcClass != "" && $npcAlign != "" && $npcAC != "" && $npcHP != "" && $npcSpeed != "" && $npcSTR != ""  && $npcDEX != "" && $npcCON != "" && $npcINT != "" && $npcWIS != "" && $npcCHA != "" && $npcLanguages != "" && $npcCR != "" && $npcSkills != "" && $npcProfBonus != "" && $npcSaveThrows != "" && $npcAbilities != "" && $npcActions != "" &&$npcBio != "" && $camID !="" && $userID != "")
     { //Checks to make sure all essential values are not null
         
-        $stmt = $conn->prepare("INSERT INTO NPC(NPC_NAME, NPC_LEVEL, NPC_RACE, NPC_CLASS, NPC_ALIGN, NPC_AC, NPC_HP, NPC_SPEED, NPC_STR, NPC_DEX, NPC_CON, NPC_INT, NPC_WIS, NPC_CHA, NPC_LANGUAGES, NPC_CR, NPC_SKILLS, NPC_PROFBONUS, NPC_SAVETHROWS, NPC_ABILITIES, NPC_ACTIONS, NPC_BIO, CAM_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sissssssssssssssssssssi", $npcName, $npcLevel, $npcRace, $npcClass, $npcAlign, $npcAC, $npcHP, $npcSpeed, $npcSTR, $npcDEX, $npcCON, $npcINT, $npcWIS, $npcCHA, $npcLanguages, $npcCR, $npcSkills, $npcProfBonus, $npcSaveThrows, $npcAbilities, $npcActions, $npcBio, $camID);
+        $stmt = $conn->prepare("INSERT INTO NPC(NPC_NAME, NPC_LEVEL, NPC_RACE, NPC_CLASS, NPC_ALIGN, NPC_AC, NPC_HP, NPC_SPEED, NPC_STR, NPC_DEX, NPC_CON, NPC_INT, NPC_WIS, NPC_CHA, NPC_LANGUAGES, NPC_CR, NPC_SKILLS, NPC_PROFBONUS, NPC_SAVETHROWS, NPC_ABILITIES, NPC_ACTIONS, NPC_BIO, CAM_ID, USER_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssssssssssssssssssssii", $npcName, $npcLevel, $npcRace, $npcClass, $npcAlign, $npcAC, $npcHP, $npcSpeed, $npcSTR, $npcDEX, $npcCON, $npcINT, $npcWIS, $npcCHA, $npcLanguages, $npcCR, $npcSkills, $npcProfBonus, $npcSaveThrows, $npcAbilities, $npcActions, $npcBio, $camID, $userID);
         $stmt->execute();
         return read($conn);
     }
@@ -109,35 +109,35 @@ function create($conn)
 function read($conn)
 {
     $camID = getValue("camID", "");
-    //$user = getValue("UserID", "");
-    //if($user != "")
-    //{
-    if($camID != "")
+    $userID = getSessionValue("user","")["userID"];
+    if($userID != "")
     {
-        $stmt = $conn->prepare("SELECT * FROM NPC WHERE CAM_ID = ? ORDER BY NPC_NAME");
-        $stmt->bind_param("i", $camID);
-        $stmt->execute();
-        $stmt->bind_result($npcID,$npcName,$npcLevel,$npcRace,$npcClass,$npcAlign,$npcAC,$npcHP,$npcSpeed,$npcSTR,$npcDEX,$npcCON,$npcINT,$npcWIS,$npcCHA,$npcLanguages,$npcCR,$npcSkills,$npcProfBonus,$npcSaveThrows,$npcAbilities,$npcActions,$npcBio,$camID);
-        
-        
-        $rows = array();
-        while($stmt->fetch())
+        if($camID != "")
         {
-            $npcStats = createStats($npcName,$npcLevel,$npcRace,$npcClass,$npcAlign,$npcAC,$npcHP,$npcSpeed,$npcSTR,$npcDEX,$npcCON,$npcINT,$npcWIS,$npcCHA,$npcLanguages,$npcCR,$npcSkills,$npcProfBonus,$npcSaveThrows,$npcAbilities,$npcActions,$npcBio);
-            $row = array("NPCID"=>$npcID, "NPCName"=>$npcName, "NPCLevel"=>$npcLevel, "NPCRace"=>$npcRace, "NPCClass"=>$npcClass, "NPCAlign"=>$npcAlign, "NPCAC"=>$npcAC, "NPCHP"=>$npcHP, "NPCSpeed"=>$npcSpeed, "NPCSTR"=>$npcSTR, "NPCDEX"=>$npcDEX, "NPCCON"=>$npcCON,"NPCINT"=>$npcINT, "NPCWIS"=>$npcWIS, "NPCCHA"=>$npcCHA, "NPCLanguages"=>$npcLanguages, "NPCCR"=>$npcCR, "NPCSkills"=>$npcSkills,"NPCProfBonus"=>$npcProfBonus, "NPCSaveThrows"=>$npcSaveThrows, "NPCAbilities"=>$npcAbilities, "NPCActions"=>$npcActions, "NPCBio"=>$npcBio,"CampaignID"=>$camID, "NPCStats" =>$npcStats);
-            $rows[] = $row;
-        }
+            $stmt = $conn->prepare("SELECT * FROM NPC WHERE CAM_ID = ? AND USER_ID = ? ORDER BY NPC_NAME");
+            $stmt->bind_param("ii", $camID,$userID);
+            $stmt->execute();
+            $stmt->bind_result($npcID,$npcName,$npcLevel,$npcRace,$npcClass,$npcAlign,$npcAC,$npcHP,$npcSpeed,$npcSTR,$npcDEX,$npcCON,$npcINT,$npcWIS,$npcCHA,$npcLanguages,$npcCR,$npcSkills,$npcProfBonus,$npcSaveThrows,$npcAbilities,$npcActions,$npcBio,$camID,$userID);
+        
+        
+            $rows = array();
+            while($stmt->fetch())
+            {
+                $npcStats = createStats($npcName,$npcLevel,$npcRace,$npcClass,$npcAlign,$npcAC,$npcHP,$npcSpeed,$npcSTR,$npcDEX,$npcCON,$npcINT,$npcWIS,$npcCHA,$npcLanguages,$npcCR,$npcSkills,$npcProfBonus,$npcSaveThrows,$npcAbilities,$npcActions,$npcBio);
+                $row = array("NPCID"=>$npcID, "NPCName"=>htmlspecialchars($npcName,ENT_QUOTES), "NPCLevel"=>htmlspecialchars($npcLevel,ENT_QUOTES), "NPCRace"=>htmlspecialchars($npcRace,ENT_QUOTES), "NPCClass"=>htmlspecialchars($npcClass,ENT_QUOTES), "NPCAlign"=>htmlspecialchars($npcAlign,ENT_QUOTES), "NPCAC"=>htmlspecialchars($npcAC,ENT_QUOTES), "NPCHP"=>htmlspecialchars($npcHP,ENT_QUOTES), "NPCSpeed"=>htmlspecialchars($npcSpeed,ENT_QUOTES), "NPCSTR"=>htmlspecialchars($npcSTR,ENT_QUOTES), "NPCDEX"=>htmlspecialchars($npcDEX,ENT_QUOTES), "NPCCON"=>htmlspecialchars($npcCON,ENT_QUOTES),"NPCINT"=>htmlspecialchars($npcINT,ENT_QUOTES), "NPCWIS"=>htmlspecialchars($npcWIS,ENT_QUOTES), "NPCCHA"=>htmlspecialchars($npcCHA,ENT_QUOTES), "NPCLanguages"=>htmlspecialchars($npcLanguages,ENT_QUOTES), "NPCCR"=>htmlspecialchars($npcCR,ENT_QUOTES), "NPCSkills"=>htmlspecialchars($npcSkills,ENT_QUOTES),"NPCProfBonus"=>htmlspecialchars($npcProfBonus,ENT_QUOTES), "NPCSaveThrows"=>htmlspecialchars($npcSaveThrows,ENT_QUOTES), "NPCAbilities"=>htmlspecialchars($npcAbilities,ENT_QUOTES), "NPCActions"=>htmlspecialchars($npcActions,ENT_QUOTES), "NPCBio"=>htmlspecialchars($npcBio,ENT_QUOTES),"CampaignID"=>$camID, "NPCStats" =>htmlspecialchars($npcStats,ENT_QUOTES));
+                $rows[] = $row;
+            }
     
         
-        return $rows;
+            return $rows;
+        }
+        else{
+            return array("error"=>"camID required");
+        }
     }
-    else{
-        return array("error"=>"camID required");
+    else {
+        return array("error"=>"User does not exist");
     }
-    //}
-    //else {
-    //    return array("error"=>"User does not exist");
-    //}
     
 }
 
@@ -180,28 +180,29 @@ function read($conn)
 
 function readAll($conn)
 {
-    //$user = getValue("UserID", "");
-    //if($user != "")
-    //{
-        $stmt = $conn->prepare("SELECT * FROM NPC ORDER BY NPC_NAME");
+    $userID = getSessionValue("user","")["userID"];
+    if($userID != "")
+    {
+        $stmt = $conn->prepare("SELECT * FROM NPC WHERE USER_ID = ? ORDER BY NPC_NAME");
+        $stmt->bind_param("i",$userID);
         $stmt->execute();
-        $stmt->bind_result($npcID,$npcName,$npcLevel,$npcRace,$npcClass,$npcAlign,$npcAC,$npcHP,$npcSpeed,$npcSTR,$npcDEX,$npcCON,$npcINT,$npcWIS,$npcCHA,$npcLanguages,$npcCR,$npcSkills,$npcProfBonus,$npcSaveThrows,$npcAbilities,$npcActions,$npcBio,$camID);
+        $stmt->bind_result($npcID,$npcName,$npcLevel,$npcRace,$npcClass,$npcAlign,$npcAC,$npcHP,$npcSpeed,$npcSTR,$npcDEX,$npcCON,$npcINT,$npcWIS,$npcCHA,$npcLanguages,$npcCR,$npcSkills,$npcProfBonus,$npcSaveThrows,$npcAbilities,$npcActions,$npcBio,$camID,$userID);
         
         
         $rows = array();
         while($stmt->fetch())
         {
             $npcStats = createStats($npcName,$npcLevel,$npcRace,$npcClass,$npcAlign,$npcAC,$npcHP,$npcSpeed,$npcSTR,$npcDEX,$npcCON,$npcINT,$npcWIS,$npcCHA,$npcLanguages,$npcCR,$npcSkills,$npcProfBonus,$npcSaveThrows,$npcAbilities,$npcActions,$npcBio);
-            $row = array("NPCID"=>$npcID, "NPCName"=>$npcName, "NPCLevel"=>$npcLevel, "NPCRace"=>$npcRace, "NPCClass"=>$npcClass, "NPCAlign"=>$npcAlign, "NPCAC"=>$npcAC, "NPCHP"=>$npcHP, "NPCSpeed"=>$npcSpeed, "NPCSTR"=>$npcSTR, "NPCDEX"=>$npcDEX, "NPCCON"=>$npcCON,"NPCINT"=>$npcINT, "NPCWIS"=>$npcWIS, "NPCCHA"=>$npcCHA, "NPCLanguages"=>$npcLanguages, "NPCCR"=>$npcCR, "NPCSkills"=>$npcSkills,"NPCProfBonus"=>$npcProfBonus, "NPCSaveThrows"=>$npcSaveThrows, "NPCAbilities"=>$npcAbilities, "NPCActions"=>$npcActions, "NPCBio"=>$npcBio,"CampaignID"=>$camID, "NPCStats" =>$npcStats);
+            $row = array("NPCID"=>$npcID, "NPCName"=>htmlspecialchars($npcName,ENT_QUOTES), "NPCLevel"=>htmlspecialchars($npcLevel,ENT_QUOTES), "NPCRace"=>htmlspecialchars($npcRace,ENT_QUOTES), "NPCClass"=>htmlspecialchars($npcClass,ENT_QUOTES), "NPCAlign"=>htmlspecialchars($npcAlign,ENT_QUOTES), "NPCAC"=>htmlspecialchars($npcAC,ENT_QUOTES), "NPCHP"=>htmlspecialchars($npcHP,ENT_QUOTES), "NPCSpeed"=>htmlspecialchars($npcSpeed,ENT_QUOTES), "NPCSTR"=>htmlspecialchars($npcSTR,ENT_QUOTES), "NPCDEX"=>htmlspecialchars($npcDEX,ENT_QUOTES), "NPCCON"=>htmlspecialchars($npcCON,ENT_QUOTES),"NPCINT"=>htmlspecialchars($npcINT,ENT_QUOTES), "NPCWIS"=>htmlspecialchars($npcWIS,ENT_QUOTES), "NPCCHA"=>htmlspecialchars($npcCHA,ENT_QUOTES), "NPCLanguages"=>htmlspecialchars($npcLanguages,ENT_QUOTES), "NPCCR"=>htmlspecialchars($npcCR,ENT_QUOTES), "NPCSkills"=>htmlspecialchars($npcSkills,ENT_QUOTES),"NPCProfBonus"=>htmlspecialchars($npcProfBonus,ENT_QUOTES), "NPCSaveThrows"=>htmlspecialchars($npcSaveThrows,ENT_QUOTES), "NPCAbilities"=>htmlspecialchars($npcAbilities,ENT_QUOTES), "NPCActions"=>htmlspecialchars($npcActions,ENT_QUOTES), "NPCBio"=>htmlspecialchars($npcBio,ENT_QUOTES),"CampaignID"=>$camID, "NPCStats" =>htmlspecialchars($npcStats,ENT_QUOTES));
             $rows[] = $row;
         }
     
         
     return $rows;
-    //}
-    //else {
-    //    return array("error"=>"User does not exist");
-    //}
+    }
+    else {
+        return array("error"=>"User does not exist");
+    }
     
 }
 
@@ -231,21 +232,12 @@ function update($conn)
     $npcActions = getValue ("npcActions","");
     $npcBio = getValue ("npcBio","");
     $camID = getValue("camID", "");
-    //$user = getValue("UserID", "");
+    $userID = getSessionValue("user","")["userID"];
     
-    if ($npcID != "")
+    if ($npcID != "" && $userID != "")
     {
-        /* This depends on what my model contains. If it holds all of the current monster values and the updated then I don't need to do this
-        if($monName != "")
-        {
-            $stmt = $conn->prepare("UPDATE MONSTER SET MON_NAME = ? WHERE MON_ID = ?");
-            $stmt->bind_param("si", $monName, $monID);
-            $stmt->execute();
-        }
-        */
-        
-        $stmt = $conn->prepare("UPDATE NPC SET NPC_NAME = ?, NPC_LEVEL = ?, NPC_RACE = ?, NPC_CLASS = ?, NPC_ALIGN = ?, NPC_AC = ?, NPC_HP = ?, NPC_SPEED = ?, NPC_STR = ?, NPC_DEX = ?, NPC_CON = ?, NPC_INT = ?, NPC_WIS = ?, NPC_CHA = ?, NPC_LANGUAGES = ?, NPC_CR = ?, NPC_SKILLS = ?, NPC_PROFBONUS = ?, NPC_SAVETHROWS = ?, NPC_ABILITIES = ?, NPC_ACTIONS = ?, NPC_BIO = ?, CAM_ID = ? WHERE NPC_ID = ?");
-        $stmt->bind_param("sissssssssssssssssssssii", $npcName, $npcLevel, $npcRace, $npcClass, $npcAlign, $npcAC, $npcHP, $npcSpeed, $npcSTR, $npcDEX, $npcCON, $npcINT, $npcWIS, $npcCHA, $npcLanguages, $npcCR, $npcSkills, $npcProfBonus, $npcSaveThrows, $npcAbilities, $npcActions, $npcBio, $camID, $npcID);
+        $stmt = $conn->prepare("UPDATE NPC SET NPC_NAME = ?, NPC_LEVEL = ?, NPC_RACE = ?, NPC_CLASS = ?, NPC_ALIGN = ?, NPC_AC = ?, NPC_HP = ?, NPC_SPEED = ?, NPC_STR = ?, NPC_DEX = ?, NPC_CON = ?, NPC_INT = ?, NPC_WIS = ?, NPC_CHA = ?, NPC_LANGUAGES = ?, NPC_CR = ?, NPC_SKILLS = ?, NPC_PROFBONUS = ?, NPC_SAVETHROWS = ?, NPC_ABILITIES = ?, NPC_ACTIONS = ?, NPC_BIO = ?, CAM_ID = ? WHERE NPC_ID = ? && USER_ID = ?");
+        $stmt->bind_param("ssssssssssssssssssssssiii", $npcName, $npcLevel, $npcRace, $npcClass, $npcAlign, $npcAC, $npcHP, $npcSpeed, $npcSTR, $npcDEX, $npcCON, $npcINT, $npcWIS, $npcCHA, $npcLanguages, $npcCR, $npcSkills, $npcProfBonus, $npcSaveThrows, $npcAbilities, $npcActions, $npcBio, $camID, $npcID, $userID);
         $stmt->execute();
         return read($conn);
     }
@@ -260,11 +252,12 @@ function delete($conn)
     $npcID = getValue("npcID", "");
     $camID = getValue("camID", "");
     $actID = getValue("actID","");
+    $userID = getSessionValue("user","")["userID"];
 
-    if ($npcID != "")
+    if ($npcID != "" && $userID != "")
     {
-        $stmt = $conn->prepare("DELETE FROM NPC WHERE NPC_ID = ?");
-        $stmt->bind_param("i", $npcID);
+        $stmt = $conn->prepare("DELETE FROM NPC WHERE NPC_ID = ? AND USER_ID = ?");
+        $stmt->bind_param("ii", $npcID, $userID);
         $stmt->execute();
         if($camID != "")
         {
@@ -283,89 +276,89 @@ function delete($conn)
 
 function createStats($npcName,$npcLevel,$npcRace,$npcClass,$npcAlign,$npcAC,$npcHP,$npcSpeed,$npcSTR,$npcDEX,$npcCON,$npcINT,$npcWIS,$npcCHA,$npcLanguages,$npcCR,$npcSkills,$npcProfBonus,$npcSaveThrows,$npcAbilities,$npcActions,$npcBio)
 {
-    $stats = "NPC Name: " . $npcName . "\n" .
-             "NPC Level: " . $npcLevel . "\n" .
-             "NPC Race: " . $npcRace . "\n" . 
-             "NPC Class: " . $npcClass . "\n" .
-             "NPC Align: " . $npcAlign . "\n" .
-             "NPC AC: " . $npcAC . "\n" . 
-             "NPC HP: " . $npcHP . "\n" .
-             "NPC Speed: " . $npcSpeed . "\n" .
-             "NPC STR: " . $npcSTR . "\n" .
-             "NPC DEX: " . $npcDEX . "\n" .
-             "NPC CON: " . $npcCON . "\n" .
-             "NPC INT: " . $npcINT . "\n" .
-             "NPC WIS: " . $npcWIS . "\n" .
-             "NPC CHA: " . $npcCHA . "\n" .
-             "NPC Languages: " . $npcLanguages . "\n" . 
-             "NPC CR: " . $npcCR . "\n" . 
-             "NPC Skills: " . $npcSkills . "\n" . 
-             "NPC ProfBonus: " . $npcProfBonus . "\n" . 
-             "NPC SaveThrows: " . $npcSaveThrows . "\n" . 
-             "NPC Abilities: " . $npcAbilities . "\n" . 
-             "NPC Actions: " . $npcActions . "\n" . 
-             "NPC Bio: " . $npcBio . "\n";
+    $stats = "<strong><u>NPC Name:</strong></u> " . $npcName . "\n" .
+             "<strong><u>NPC Level:</strong></u> " . $npcLevel . "\n" .
+             "<strong><u>NPC Race:</strong></u> " . $npcRace . "\n" . 
+             "<strong><u>NPC Class:</strong></u> " . $npcClass . "\n" .
+             "<strong><u>NPC Align:</strong></u> " . $npcAlign . "\n" .
+             "<strong><u>NPC AC:</strong></u> " . $npcAC . "\n" . 
+             "<strong><u>NPC HP:</strong></u> " . $npcHP . "\n" .
+             "<strong><u>NPC Speed:</strong></u> " . $npcSpeed . "\n" .
+             "<strong><u>NPC STR:</strong></u> " . $npcSTR . "\n" .
+             "<strong><u>NPC DEX:</strong></u> " . $npcDEX . "\n" .
+             "<strong><u>NPC CON:</strong></u> " . $npcCON . "\n" .
+             "<strong><u>NPC INT:</strong></u> " . $npcINT . "\n" .
+             "<strong><u>NPC WIS:</strong></u> " . $npcWIS . "\n" .
+             "<strong><u>NPC CHA:</strong></u> " . $npcCHA . "\n" .
+             "<strong><u>NPC Languages:</strong></u> " . $npcLanguages . "\n" . 
+             "<strong><u>NPC CR:</strong></u> " . $npcCR . "\n" . 
+             "<strong><u>NPC Skills:</strong></u> " . $npcSkills . "\n" . 
+             "<strong><u>NPC ProfBonus:</strong></u> " . $npcProfBonus . "\n" . 
+             "<strong><u>NPC SaveThrows:</strong></u> " . $npcSaveThrows . "\n" . 
+             "<strong><u>NPC Abilities:</strong></u> " . $npcAbilities . "\n\n" . 
+             "<strong><u>NPC Actions:</strong></u> " . $npcActions . "\n\n" . 
+             "<strong><u>NPC Bio:</strong></u> " . $npcBio . "\n";
     return $stats;
 }
 
 function readAct($conn)
 {
     $actID = getValue("actID","");
-    //$user = getValue("UserID", "");
-    //if($user != "")
-    //{
-    if($actID != "")
+    $userID = getSessionValue("user","")["userID"];
+    if($userID != "")
     {
-        $stmt = $conn->prepare("SELECT NPC_ID FROM ACTNPC WHERE ACT_ID = ?");
-        $stmt->bind_param("i", $actID);
-        $stmt->execute();
-        $stmt->bind_result($npcID);
-        
-        
-        $IDs = array();
-        while($stmt->fetch())
+        if($actID != "")
         {
-            //$id = $npcID;
-            $IDs[] = $npcID;
-        }
-        $stmt->close();
-        
-        $rows = array();
-        foreach($IDs as $id)
-        {
-            $stmt = $conn->prepare("SELECT * FROM NPC WHERE NPC_ID = ? ORDER BY NPC_NAME");
-            $stmt->bind_param("i", $id);
+            $stmt = $conn->prepare("SELECT NPC_ID FROM ACTNPC WHERE ACT_ID = ? && USER_ID = ?");
+            $stmt->bind_param("ii", $actID, $userID);
             $stmt->execute();
-            $stmt->bind_result($npcID,$npcName,$npcLevel,$npcRace,$npcClass,$npcAlign,$npcAC,$npcHP,$npcSpeed,$npcSTR,$npcDEX,$npcCON,$npcINT,$npcWIS,$npcCHA,$npcLanguages,$npcCR,$npcSkills,$npcProfBonus,$npcSaveThrows,$npcAbilities,$npcActions,$npcBio,$camID);
-            
-            
+            $stmt->bind_result($npcID);
+        
+        
+            $IDs = array();
             while($stmt->fetch())
             {
-                $npcStats = createStats($npcName,$npcLevel,$npcRace,$npcClass,$npcAlign,$npcAC,$npcHP,$npcSpeed,$npcSTR,$npcDEX,$npcCON,$npcINT,$npcWIS,$npcCHA,$npcLanguages,$npcCR,$npcSkills,$npcProfBonus,$npcSaveThrows,$npcAbilities,$npcActions,$npcBio);
-                $row = array("NPCID"=>$npcID, "NPCName"=>$npcName, "NPCLevel"=>$npcLevel, "NPCRace"=>$npcRace, "NPCClass"=>$npcClass, "NPCAlign"=>$npcAlign, "NPCAC"=>$npcAC, "NPCHP"=>$npcHP, "NPCSpeed"=>$npcSpeed, "NPCSTR"=>$npcSTR, "NPCDEX"=>$npcDEX, "NPCCON"=>$npcCON,"NPCINT"=>$npcINT, "NPCWIS"=>$npcWIS, "NPCCHA"=>$npcCHA, "NPCLanguages"=>$npcLanguages, "NPCCR"=>$npcCR, "NPCSkills"=>$npcSkills,"NPCProfBonus"=>$npcProfBonus, "NPCSaveThrows"=>$npcSaveThrows, "NPCAbilities"=>$npcAbilities, "NPCActions"=>$npcActions, "NPCBio"=>$npcBio,"CampaignID"=>$camID, "NPCStats" =>$npcStats);
-                $rows[] = $row;
+                $IDs[] = $npcID;
             }
             $stmt->close();
-        }
         
-    return $rows;
+            $rows = array();
+            foreach($IDs as $id)
+            {
+                $stmt = $conn->prepare("SELECT * FROM NPC WHERE NPC_ID = ? && USER_ID = ? ORDER BY NPC_NAME");
+                $stmt->bind_param("ii", $id, $userID);
+                $stmt->execute();
+                $stmt->bind_result($npcID,$npcName,$npcLevel,$npcRace,$npcClass,$npcAlign,$npcAC,$npcHP,$npcSpeed,$npcSTR,$npcDEX,$npcCON,$npcINT,$npcWIS,$npcCHA,$npcLanguages,$npcCR,$npcSkills,$npcProfBonus,$npcSaveThrows,$npcAbilities,$npcActions,$npcBio,$camID, $userID);
+            
+            
+                while($stmt->fetch())
+                {
+                    $npcStats = createStats($npcName,$npcLevel,$npcRace,$npcClass,$npcAlign,$npcAC,$npcHP,$npcSpeed,$npcSTR,$npcDEX,$npcCON,$npcINT,$npcWIS,$npcCHA,$npcLanguages,$npcCR,$npcSkills,$npcProfBonus,$npcSaveThrows,$npcAbilities,$npcActions,$npcBio);
+                    $row = array("NPCID"=>$npcID, "NPCName"=>htmlspecialchars($npcName,ENT_QUOTES), "NPCLevel"=>htmlspecialchars($npcLevel,ENT_QUOTES), "NPCRace"=>htmlspecialchars($npcRace,ENT_QUOTES), "NPCClass"=>htmlspecialchars($npcClass,ENT_QUOTES), "NPCAlign"=>htmlspecialchars($npcAlign,ENT_QUOTES), "NPCAC"=>htmlspecialchars($npcAC,ENT_QUOTES), "NPCHP"=>htmlspecialchars($npcHP,ENT_QUOTES), "NPCSpeed"=>htmlspecialchars($npcSpeed,ENT_QUOTES), "NPCSTR"=>htmlspecialchars($npcSTR,ENT_QUOTES), "NPCDEX"=>htmlspecialchars($npcDEX,ENT_QUOTES), "NPCCON"=>htmlspecialchars($npcCON,ENT_QUOTES),"NPCINT"=>htmlspecialchars($npcINT,ENT_QUOTES), "NPCWIS"=>htmlspecialchars($npcWIS,ENT_QUOTES), "NPCCHA"=>htmlspecialchars($npcCHA,ENT_QUOTES), "NPCLanguages"=>htmlspecialchars($npcLanguages,ENT_QUOTES), "NPCCR"=>htmlspecialchars($npcCR,ENT_QUOTES), "NPCSkills"=>htmlspecialchars($npcSkills,ENT_QUOTES),"NPCProfBonus"=>htmlspecialchars($npcProfBonus,ENT_QUOTES), "NPCSaveThrows"=>htmlspecialchars($npcSaveThrows,ENT_QUOTES), "NPCAbilities"=>htmlspecialchars($npcAbilities,ENT_QUOTES), "NPCActions"=>htmlspecialchars($npcActions,ENT_QUOTES), "NPCBio"=>htmlspecialchars($npcBio,ENT_QUOTES),"CampaignID"=>$camID, "NPCStats" =>htmlspecialchars($npcStats,ENT_QUOTES));
+                    $rows[] = $row;
+                }
+                $stmt->close();
+            }
+        
+        return $rows;
     
+        }
+        else{
+            return array("error"=>"actID required");
+        }
     }
-    else{
-        return array("error"=>"actID required");
+    else {
+        return array("error"=>"User does not exist");
     }
-    //}
-    //else {
-    //    return array("error"=>"User does not exist");
-    //}
     
 }
 
 function npcDropdown($conn)
 {
     $camID = getValue("camID","");
-    $stmt = $conn->prepare("SELECT NPC_ID, NPC_NAME FROM NPC WHERE CAM_ID = ? ORDER BY NPC_NAME");
-    $stmt->bind_param("i", $camID);
+    $userID = getSessionValue("user","")["userID"];
+    $stmt = $conn->prepare("SELECT NPC_ID, NPC_NAME FROM NPC WHERE CAM_ID = ? && USER_ID = ? ORDER BY NPC_NAME");
+    $stmt->bind_param("ii", $camID, $userID);
     $stmt->execute();
     $stmt->bind_result($npcID,$npcName);
     

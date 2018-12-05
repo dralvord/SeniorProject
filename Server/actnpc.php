@@ -56,12 +56,13 @@ function create($conn)
 {
     $actID = getValue("actID", "");
     $npcID = getValue("npcID", "");
-    //$user = getValue("UserID", "");
+    $userID = getSessionValue("user","")["userID"];
     
-    if ($actID != "" && $npcID != ""/*&& $user != ""*/)
+     
+    if ($actID != "" && $npcID && $userID != "")
     {
-        $stmt = $conn->prepare("INSERT INTO ACTNPC(ACT_ID, NPC_ID) VALUES (?, ?)");
-        $stmt->bind_param("ii", $actID, $npcID);
+        $stmt = $conn->prepare("INSERT INTO ACTNPC(ACT_ID, NPC_ID, USER_ID) VALUES (?, ?, ?)");
+        $stmt->bind_param("iii", $actID, $npcID, $userID);
         $stmt->execute();
         return read($conn);
     }
@@ -74,43 +75,42 @@ function create($conn)
 function read($conn)
 {
     $actID = getValue("actID","");
-    //$user = getValue("UserID", "");
-    //if($user != "")
-    //{
-    if($actID != "")
+    $userID = getSessionValue("user","")["userID"];
+    if($userID != "")
     {
-        $stmt = $conn->prepare("SELECT * FROM ACTNPC WHERE ACT_ID = ?");
-        $stmt->bind_param("i", $actID);
-        $stmt->execute();
-        $stmt->bind_result($actNPCID,$actID,$npcID);
-        
-        
-        $rows = array();
-        while($stmt->fetch())
+        if($actID != "")
         {
-            $row = array("ActNpcID"=>$actNPCID, "ActID"=>$actID, "NPCID"=>$npcID);
-            $rows[] = $row;
-        }
-    
+            $stmt = $conn->prepare("SELECT ACTNPC_ID, ACT_ID, NPC_ID FROM ACTNPC WHERE ACT_ID = ? AND USER_ID = ?");
+            $stmt->bind_param("ii", $actID, $userID);
+            $stmt->execute();
+            $stmt->bind_result($actNPCID,$actID,$npcID);
         
-        return $rows;
-    }
-    else{
-        return array("error"=>"actID required");
-    }
-    //}
-    //else {
-    //    return array("error"=>"User does not exist");
-    //}
+        
+            $rows = array();
+            while($stmt->fetch())
+            {
+                $row = array("ActNpcID"=>$actNPCID, "ActID"=>$actID, "NPCID"=>$npcID);
+                $rows[] = $row;
+            }
     
+            return $rows;
+        }
+        else{
+            return array("error"=>"actID required");
+        }
+    }
+    else {
+        return array("error"=>"User does not exist");
+    }
 }
 
 function readAll($conn)
 {
-    //$user = getValue("UserID", "");
-    //if($user != "")
-    //{
-        $stmt = $conn->prepare("SELECT * FROM ACTNPC");
+    $userID = getSessionValue("user","")["userID"];
+    if($userID != "")
+    {
+        $stmt = $conn->prepare("SELECT ACTNPC_ID, ACT_ID, NPC_ID FROM ACTNPC WHERE USER_ID = ?");
+        $stmt->bind_param("i", $userID);
         $stmt->execute();
         $stmt->bind_result($actNPCID,$actID,$npcID);
         
@@ -124,10 +124,10 @@ function readAll($conn)
     
         
     return $rows;
-    //}
-    //else {
-    //    return array("error"=>"User does not exist");
-    //}
+    }
+    else {
+        return array("error"=>"User does not exist");
+    }
     
 }
 
@@ -136,11 +136,13 @@ function update($conn)
     $actNPCID = getValue("actNPCID", "");
     $actID = getValue("actID", "");
     $npcID = getValue("npcID", "");
+    $userID = getSessionValue("user","")["userID"];
+    
 
-    if ($actNPCID != "" && $actID != "" && $npcID != "" )
+    if ($actNPCID != "" && $actID != "" && $npcID != "" && $userID != "")
     {
-        $stmt = $conn->prepare("UPDATE ACTNPC SET ACT_ID = ?, NPC_ID = ? WHERE ACTNPC_ID = ?");
-        $stmt->bind_param("iii", $actID, $npcID, $actNPCID);
+        $stmt = $conn->prepare("UPDATE ACTNPC SET ACT_ID = ?, NPC_ID = ? WHERE ACTNPC_ID = ? AND USER_ID = ?");
+        $stmt->bind_param("iiii", $actID, $npcID, $actNPCID, $userID);
         $stmt->execute();
         return read($conn);
     }
@@ -154,11 +156,12 @@ function delete($conn)
 {
     $npcID = getValue("npcID", "");
     $actID = getValue("actID", "");
+    $userID = getSessionValue("user","")["userID"];
 
-    if ($npcID != "" && $actID != "")
+    if ($npcID != "" && $actID != "" && $userID != "")
     {
-        $stmt = $conn->prepare("DELETE FROM ACTNPC WHERE NPC_ID = ? AND ACT_ID = ?");
-        $stmt->bind_param("ii", $npcID, $actID);
+        $stmt = $conn->prepare("DELETE FROM ACTNPC WHERE NPC_ID = ? AND ACT_ID = ? AND USER_ID = ?");
+        $stmt->bind_param("iii", $npcID, $actID, $userID);
         $stmt->execute();
         return read($conn);
     }

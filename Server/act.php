@@ -57,12 +57,12 @@ function create($conn)
     $actName = getValue("actName", "");
     $actStory = getValue("actStory", "");
     $advID = getValue("advID", "");
-    //$user = getValue("UserID", "");
+    $userID = getSessionValue("user","")["userID"];
     
-    if ($actName != "" && $actStory != "" && $advID != ""/*&& $user != ""*/)
+    if ($actName != "" && $actStory != "" && $advID != ""&& $userID != "")
     {
-        $stmt = $conn->prepare("INSERT INTO ACT(ACT_NAME, ACT_STORY, ADV_ID) VALUES (?, ?, ?)");
-        $stmt->bind_param("ssi", $actName, $actStory, $advID);
+        $stmt = $conn->prepare("INSERT INTO ACT(ACT_NAME, ACT_STORY, ADV_ID,USER_ID) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssii", $actName, $actStory, $advID, $userID);
         $stmt->execute();
         return read($conn);
     }
@@ -75,44 +75,41 @@ function create($conn)
 function read($conn)
 {
     $advID = getValue("advID","");
-    //$user = getValue("UserID", "");
-    //if($user != "")
-    //{
-    if($advID != "")
+    $userID = getSessionValue("user","")["userID"];
+    if($userID != "")
     {
-        $stmt = $conn->prepare("SELECT * FROM ACT WHERE ADV_ID = ?");
-        $stmt->bind_param("i", $advID);
-        $stmt->execute();
-        $stmt->bind_result($actID,$actName,$actStory,$advID);
-        
-        
-        $rows = array();
-        while($stmt->fetch())
+        if($advID != "")
         {
-            $row = array("ActID"=>$actID, "ActName"=>$actName, "ActStory"=>$actStory, "AdventureID"=>$advID);
-            $rows[] = $row;
-        }
-
+            $stmt = $conn->prepare("SELECT ACT_ID, ACT_NAME, ACT_STORY, ADV_ID FROM ACT WHERE ADV_ID = ? AND USER_ID = ?");
+            $stmt->bind_param("ii", $advID, $userID);
+            $stmt->execute();
+            $stmt->bind_result($actID,$actName,$actStory,$advID);
         
-        return $rows;
+            $rows = array();
+            while($stmt->fetch())
+            {
+                $row = array("ActID"=>$actID, "ActName"=>htmlspecialchars($actName,ENT_QUOTES), "ActStory"=>htmlspecialchars($actStory,ENT_QUOTES), "AdventureID"=>$advID);
+                $rows[] = $row;
+            }
+
+            return $rows;
+        }
+        else
+        {
+            return array("error"=>"advID required");    
+        }
     }
-    else
-    {
-        return array("error"=>"advID required");    
+    else {
+        return array("error"=>"User does not exist");
     }
-    //}
-    //else {
-    //    return array("error"=>"User does not exist");
-    //}
-    
 }
 
 function readAll($conn)
 {
-    //$user = getValue("UserID", "");
-    //if($user != "")
-    //{
-        $stmt = $conn->prepare("SELECT * FROM ACT");
+    $userID = getSessionValue("user","")["userID"];
+    if($userID != "")
+    {
+        $stmt = $conn->prepare("SELECT ACT_ID, ACT_NAME, ACT_STORY, ADV_ID FROM ACT WHERE USER_ID = ?");
         $stmt->execute();
         $stmt->bind_result($actID,$actName,$actStory,$advID);
         
@@ -120,16 +117,16 @@ function readAll($conn)
         $rows = array();
         while($stmt->fetch())
         {
-            $row = array("ActID"=>$actID, "ActName"=>$actName, "ActStory"=>$actStory, "AdventureID"=>$advID);
+            $row = array("ActID"=>$actID, "ActName"=>htmlspecialchars($actName,ENT_QUOTES), "ActStory"=>htmlspecialchars($actStory,ENT_QUOTES), "AdventureID"=>$advID);
             $rows[] = $row;
         }
     
         
-    return $rows;
-    //}
-    //else {
-    //    return array("error"=>"User does not exist");
-    //}
+        return $rows;
+    }
+    else {
+        return array("error"=>"User does not exist");
+    }
     
 }
 
@@ -139,11 +136,12 @@ function update($conn)
     $actName = getValue("actName", "");
     $actStory = getValue("actStory", "");
     $advID = getValue("advID", "");
+    $userID = getSessionValue("user","")["userID"];
     
-    if ($actID != "" && $actName != "" && $actStory != "" && $advID != "")
+    if ($actID != "" && $actName != "" && $actStory != "" && $advID != ""&& $userID != "")
     {
-        $stmt = $conn->prepare("UPDATE ACT SET ACT_NAME = ?, ACT_STORY = ?, ADV_ID = ? WHERE ACT_ID = ?");
-        $stmt->bind_param("ssii", $actName, $actStory, $advID, $actID);
+        $stmt = $conn->prepare("UPDATE ACT SET ACT_NAME = ?, ACT_STORY = ?, ADV_ID = ? WHERE ACT_ID = ? AND USER_ID = ?");
+        $stmt->bind_param("ssiii", $actName, $actStory, $advID, $actID, $userID);
         $stmt->execute();
         return read($conn);
     }
@@ -156,11 +154,12 @@ function update($conn)
 function delete($conn)
 {
     $actID = getValue("actID", "");
+    $userID = getSessionValue("user","")["userID"];
 
     if ($actID != "")
     {
-        $stmt = $conn->prepare("DELETE FROM ACT WHERE ACT_ID = ?");
-        $stmt->bind_param("i", $actID);
+        $stmt = $conn->prepare("DELETE FROM ACT WHERE ACT_ID = ? && USER_ID = ?");
+        $stmt->bind_param("ii", $actID, $userID);
         $stmt->execute();
         return read($conn);
     }

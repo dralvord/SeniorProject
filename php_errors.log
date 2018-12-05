@@ -31,3 +31,382 @@
 [16-Nov-2018 01:21:12 UTC] PHP Stack trace:
 [16-Nov-2018 01:21:12 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/npc.php:0
 [16-Nov-2018 01:21:12 UTC] PHP   2. readAct() /home/ubuntu/workspace/CampaignManager/Server/npc.php:49
+[21-Nov-2018 21:46:59 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/campaign.php on line 76
+[21-Nov-2018 21:46:59 UTC] PHP Stack trace:
+[21-Nov-2018 21:46:59 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:0
+[21-Nov-2018 21:46:59 UTC] PHP   2. read() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:26
+[21-Nov-2018 21:46:59 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:76
+[21-Nov-2018 21:47:52 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/campaign.php on line 76
+[21-Nov-2018 21:47:52 UTC] PHP Stack trace:
+[21-Nov-2018 21:47:52 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:0
+[21-Nov-2018 21:47:52 UTC] PHP   2. read() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:26
+[21-Nov-2018 21:47:52 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:76
+[22-Nov-2018 01:11:37 UTC] PHP Warning:  Missing argument 1 for getSecurityQuestions(), called in /home/ubuntu/workspace/CampaignManager/Server/user.php on line 68 and defined in /home/ubuntu/workspace/CampaignManager/Server/user.php on line 345
+[22-Nov-2018 01:11:37 UTC] PHP Stack trace:
+[22-Nov-2018 01:11:37 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/user.php:0
+[22-Nov-2018 01:11:37 UTC] PHP   2. getSecurityQuestions() /home/ubuntu/workspace/CampaignManager/Server/user.php:68
+[22-Nov-2018 01:11:37 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/ubuntu/workspace/CampaignManager/Server/user.php on line 350
+[22-Nov-2018 01:11:37 UTC] PHP Stack trace:
+[22-Nov-2018 01:11:37 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/user.php:0
+[22-Nov-2018 01:11:37 UTC] PHP   2. getSecurityQuestions() /home/ubuntu/workspace/CampaignManager/Server/user.php:68
+[22-Nov-2018 01:12:05 UTC] PHP Warning:  Missing argument 1 for getSecurityQuestions(), called in /home/ubuntu/workspace/CampaignManager/Server/user.php on line 68 and defined in /home/ubuntu/workspace/CampaignManager/Server/user.php on line 345
+[22-Nov-2018 01:12:05 UTC] PHP Stack trace:
+[22-Nov-2018 01:12:05 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/user.php:0
+[22-Nov-2018 01:12:05 UTC] PHP   2. getSecurityQuestions() /home/ubuntu/workspace/CampaignManager/Server/user.php:68
+[22-Nov-2018 01:12:05 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/ubuntu/workspace/CampaignManager/Server/user.php on line 350
+[22-Nov-2018 01:12:05 UTC] PHP Stack trace:
+[22-Nov-2018 01:12:05 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/user.php:0
+[22-Nov-2018 01:12:05 UTC] PHP   2. getSecurityQuestions() /home/ubuntu/workspace/CampaignManager/Server/user.php:68
+[22-Nov-2018 02:01:00 UTC] PHP Fatal error:  Call to a member function bind_param() on a non-object in /home/ubuntu/workspace/CampaignManager/Server/user.php on line 406
+[22-Nov-2018 02:01:00 UTC] PHP Stack trace:
+[22-Nov-2018 02:01:00 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/user.php:0
+[22-Nov-2018 02:01:00 UTC] PHP   2. changePassword() /home/ubuntu/workspace/CampaignManager/Server/user.php:62
+[22-Nov-2018 02:01:30 UTC] PHP Fatal error:  Call to a member function bind_param() on a non-object in /home/ubuntu/workspace/CampaignManager/Server/user.php on line 406
+[22-Nov-2018 02:01:30 UTC] PHP Stack trace:
+[22-Nov-2018 02:01:30 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/user.php:0
+[22-Nov-2018 02:01:30 UTC] PHP   2. changePassword() /home/ubuntu/workspace/CampaignManager/Server/user.php:62
+[22-Nov-2018 02:01:36 UTC] PHP Fatal error:  Call to a member function bind_param() on a non-object in /home/ubuntu/workspace/CampaignManager/Server/user.php on line 406
+[22-Nov-2018 02:01:36 UTC] PHP Stack trace:
+[22-Nov-2018 02:01:36 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/user.php:0
+[22-Nov-2018 02:01:36 UTC] PHP   2. changePassword() /home/ubuntu/workspace/CampaignManager/Server/user.php:62
+[22-Nov-2018 15:16:42 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/campaign.php on line 76
+[22-Nov-2018 15:16:42 UTC] PHP Stack trace:
+[22-Nov-2018 15:16:42 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:0
+[22-Nov-2018 15:16:42 UTC] PHP   2. create() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:20
+[22-Nov-2018 15:16:42 UTC] PHP   3. read() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:61
+[22-Nov-2018 15:16:42 UTC] PHP   4. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:76
+[22-Nov-2018 15:18:59 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/campaign.php on line 77
+[22-Nov-2018 15:18:59 UTC] PHP Stack trace:
+[22-Nov-2018 15:18:59 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:0
+[22-Nov-2018 15:18:59 UTC] PHP   2. create() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:20
+[22-Nov-2018 15:18:59 UTC] PHP   3. read() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:62
+[22-Nov-2018 15:18:59 UTC] PHP   4. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:77
+[22-Nov-2018 15:20:03 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/campaign.php on line 75
+[22-Nov-2018 15:20:03 UTC] PHP Stack trace:
+[22-Nov-2018 15:20:03 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:0
+[22-Nov-2018 15:20:03 UTC] PHP   2. create() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:20
+[22-Nov-2018 15:20:03 UTC] PHP   3. read() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:60
+[22-Nov-2018 15:20:03 UTC] PHP   4. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:75
+[22-Nov-2018 15:25:19 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/campaign.php on line 76
+[22-Nov-2018 15:25:19 UTC] PHP Stack trace:
+[22-Nov-2018 15:25:19 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:0
+[22-Nov-2018 15:25:19 UTC] PHP   2. create() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:20
+[22-Nov-2018 15:25:19 UTC] PHP   3. read() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:60
+[22-Nov-2018 15:25:19 UTC] PHP   4. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:76
+[22-Nov-2018 15:25:32 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/campaign.php on line 76
+[22-Nov-2018 15:25:32 UTC] PHP Stack trace:
+[22-Nov-2018 15:25:32 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:0
+[22-Nov-2018 15:25:32 UTC] PHP   2. create() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:20
+[22-Nov-2018 15:25:32 UTC] PHP   3. read() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:60
+[22-Nov-2018 15:25:32 UTC] PHP   4. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:76
+[22-Nov-2018 15:44:42 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/adventure.php on line 86
+[22-Nov-2018 15:44:42 UTC] PHP Stack trace:
+[22-Nov-2018 15:44:42 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/adventure.php:0
+[22-Nov-2018 15:44:42 UTC] PHP   2. create() /home/ubuntu/workspace/CampaignManager/Server/adventure.php:19
+[22-Nov-2018 15:44:42 UTC] PHP   3. read() /home/ubuntu/workspace/CampaignManager/Server/adventure.php:67
+[22-Nov-2018 15:44:42 UTC] PHP   4. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/adventure.php:86
+[22-Nov-2018 15:49:48 UTC] PHP Warning:  mysqli_stmt::bind_param(): Number of variables doesn't match number of parameters in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/adventure.php on line 112
+[22-Nov-2018 15:49:48 UTC] PHP Stack trace:
+[22-Nov-2018 15:49:48 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/adventure.php:0
+[22-Nov-2018 15:49:48 UTC] PHP   2. readAll() /home/ubuntu/workspace/CampaignManager/Server/adventure.php:43
+[22-Nov-2018 15:49:48 UTC] PHP   3. mysqli_stmt->bind_param() /home/ubuntu/workspace/CampaignManager/Server/adventure.php:112
+[22-Nov-2018 15:49:48 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/adventure.php on line 114
+[22-Nov-2018 15:49:48 UTC] PHP Stack trace:
+[22-Nov-2018 15:49:48 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/adventure.php:0
+[22-Nov-2018 15:49:48 UTC] PHP   2. readAll() /home/ubuntu/workspace/CampaignManager/Server/adventure.php:43
+[22-Nov-2018 15:49:48 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/adventure.php:114
+[22-Nov-2018 15:50:15 UTC] PHP Warning:  mysqli_stmt::bind_param(): Number of variables doesn't match number of parameters in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/adventure.php on line 112
+[22-Nov-2018 15:50:15 UTC] PHP Stack trace:
+[22-Nov-2018 15:50:15 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/adventure.php:0
+[22-Nov-2018 15:50:15 UTC] PHP   2. readAll() /home/ubuntu/workspace/CampaignManager/Server/adventure.php:43
+[22-Nov-2018 15:50:15 UTC] PHP   3. mysqli_stmt->bind_param() /home/ubuntu/workspace/CampaignManager/Server/adventure.php:112
+[22-Nov-2018 15:53:06 UTC] PHP Warning:  mysqli_stmt::bind_param(): Number of variables doesn't match number of parameters in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/adventure.php on line 144
+[22-Nov-2018 15:53:06 UTC] PHP Stack trace:
+[22-Nov-2018 15:53:06 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/adventure.php:0
+[22-Nov-2018 15:53:06 UTC] PHP   2. update() /home/ubuntu/workspace/CampaignManager/Server/adventure.php:31
+[22-Nov-2018 15:53:06 UTC] PHP   3. mysqli_stmt->bind_param() /home/ubuntu/workspace/CampaignManager/Server/adventure.php:144
+[22-Nov-2018 16:14:19 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/act.php on line 86
+[22-Nov-2018 16:14:19 UTC] PHP Stack trace:
+[22-Nov-2018 16:14:19 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/act.php:0
+[22-Nov-2018 16:14:19 UTC] PHP   2. create() /home/ubuntu/workspace/CampaignManager/Server/act.php:19
+[22-Nov-2018 16:14:19 UTC] PHP   3. read() /home/ubuntu/workspace/CampaignManager/Server/act.php:67
+[22-Nov-2018 16:14:19 UTC] PHP   4. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/act.php:86
+[22-Nov-2018 17:00:37 UTC] PHP Fatal error:  Call to a member function bind_param() on a non-object in /home/ubuntu/workspace/CampaignManager/Server/encounter.php on line 66
+[22-Nov-2018 17:00:37 UTC] PHP Stack trace:
+[22-Nov-2018 17:00:37 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/encounter.php:0
+[22-Nov-2018 17:00:37 UTC] PHP   2. create() /home/ubuntu/workspace/CampaignManager/Server/encounter.php:19
+[23-Nov-2018 23:35:50 UTC] PHP Fatal error:  Call to a member function bind_param() on a non-object in /home/ubuntu/workspace/CampaignManager/Server/npc.php on line 187
+[23-Nov-2018 23:35:50 UTC] PHP Stack trace:
+[23-Nov-2018 23:35:50 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/npc.php:0
+[23-Nov-2018 23:35:50 UTC] PHP   2. readAll() /home/ubuntu/workspace/CampaignManager/Server/npc.php:43
+[23-Nov-2018 23:55:39 UTC] PHP Warning:  mysqli_stmt::bind_param(): Number of variables doesn't match number of parameters in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/npc.php on line 329
+[23-Nov-2018 23:55:39 UTC] PHP Stack trace:
+[23-Nov-2018 23:55:39 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/npc.php:0
+[23-Nov-2018 23:55:39 UTC] PHP   2. readAct() /home/ubuntu/workspace/CampaignManager/Server/npc.php:49
+[23-Nov-2018 23:55:39 UTC] PHP   3. mysqli_stmt->bind_param() /home/ubuntu/workspace/CampaignManager/Server/npc.php:329
+[24-Nov-2018 00:34:03 UTC] PHP Warning:  mysqli_stmt::bind_param(): Number of elements in type definition string doesn't match number of bind variables in /home/ubuntu/workspace/CampaignManager/Server/npc.php on line 329
+[24-Nov-2018 00:34:03 UTC] PHP Stack trace:
+[24-Nov-2018 00:34:03 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/npc.php:0
+[24-Nov-2018 00:34:03 UTC] PHP   2. readAct() /home/ubuntu/workspace/CampaignManager/Server/npc.php:49
+[24-Nov-2018 00:34:03 UTC] PHP   3. mysqli_stmt->bind_param() /home/ubuntu/workspace/CampaignManager/Server/npc.php:329
+[24-Nov-2018 02:33:34 UTC] PHP Warning:  mysqli_stmt::bind_param(): Number of variables doesn't match number of parameters in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/pc.php on line 103
+[24-Nov-2018 02:33:34 UTC] PHP Stack trace:
+[24-Nov-2018 02:33:34 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/pc.php:0
+[24-Nov-2018 02:33:34 UTC] PHP   2. create() /home/ubuntu/workspace/CampaignManager/Server/pc.php:19
+[24-Nov-2018 02:33:34 UTC] PHP   3. read() /home/ubuntu/workspace/CampaignManager/Server/pc.php:87
+[24-Nov-2018 02:33:34 UTC] PHP   4. mysqli_stmt->bind_param() /home/ubuntu/workspace/CampaignManager/Server/pc.php:103
+[24-Nov-2018 02:42:18 UTC] PHP Fatal error:  Call to a member function bind_param() on a non-object in /home/ubuntu/workspace/CampaignManager/Server/pc.php on line 197
+[24-Nov-2018 02:42:18 UTC] PHP Stack trace:
+[24-Nov-2018 02:42:18 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/pc.php:0
+[24-Nov-2018 02:42:18 UTC] PHP   2. delete() /home/ubuntu/workspace/CampaignManager/Server/pc.php:37
+[24-Nov-2018 16:50:26 UTC] PHP Warning:  mysqli_stmt::bind_param(): Number of elements in type definition string doesn't match number of bind variables in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 151
+[24-Nov-2018 16:50:26 UTC] PHP Stack trace:
+[24-Nov-2018 16:50:26 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[24-Nov-2018 16:50:26 UTC] PHP   2. create() /home/ubuntu/workspace/CampaignManager/Server/monster.php:19
+[24-Nov-2018 16:50:26 UTC] PHP   3. readAll() /home/ubuntu/workspace/CampaignManager/Server/monster.php:101
+[24-Nov-2018 16:50:26 UTC] PHP   4. mysqli_stmt->bind_param() /home/ubuntu/workspace/CampaignManager/Server/monster.php:151
+[24-Nov-2018 17:54:18 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/encmon.php on line 113
+[24-Nov-2018 17:54:18 UTC] PHP Stack trace:
+[24-Nov-2018 17:54:18 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/encmon.php:0
+[24-Nov-2018 17:54:18 UTC] PHP   2. readAll() /home/ubuntu/workspace/CampaignManager/Server/encmon.php:43
+[24-Nov-2018 17:54:18 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/encmon.php:113
+[24-Nov-2018 19:15:40 UTC] PHP Warning:  mysqli_stmt::bind_param(): Number of variables doesn't match number of parameters in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/encmon.php on line 161
+[24-Nov-2018 19:15:40 UTC] PHP Stack trace:
+[24-Nov-2018 19:15:40 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/encmon.php:0
+[24-Nov-2018 19:15:40 UTC] PHP   2. delete() /home/ubuntu/workspace/CampaignManager/Server/encmon.php:37
+[24-Nov-2018 19:15:40 UTC] PHP   3. mysqli_stmt->bind_param() /home/ubuntu/workspace/CampaignManager/Server/encmon.php:161
+[24-Nov-2018 22:40:16 UTC] PHP Warning:  Illegal string offset 'userID' in /home/ubuntu/workspace/CampaignManager/Server/campaign.php on line 54
+[24-Nov-2018 22:40:16 UTC] PHP Stack trace:
+[24-Nov-2018 22:40:16 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:0
+[24-Nov-2018 22:40:16 UTC] PHP   2. create() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:20
+[25-Nov-2018 00:52:17 UTC] PHP Warning:  Illegal string offset 'userID' in /home/ubuntu/workspace/CampaignManager/Server/campaign.php on line 70
+[25-Nov-2018 00:52:17 UTC] PHP Stack trace:
+[25-Nov-2018 00:52:17 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:0
+[25-Nov-2018 00:52:17 UTC] PHP   2. read() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:26
+[26-Nov-2018 20:24:22 UTC] PHP Warning:  Illegal string offset 'userID' in /home/ubuntu/workspace/CampaignManager/Server/campaign.php on line 70
+[26-Nov-2018 20:24:22 UTC] PHP Stack trace:
+[26-Nov-2018 20:24:22 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:0
+[26-Nov-2018 20:24:22 UTC] PHP   2. read() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:26
+[26-Nov-2018 20:29:37 UTC] PHP Warning:  Illegal string offset 'userID' in /home/ubuntu/workspace/CampaignManager/Server/campaign.php on line 70
+[26-Nov-2018 20:29:37 UTC] PHP Stack trace:
+[26-Nov-2018 20:29:37 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:0
+[26-Nov-2018 20:29:37 UTC] PHP   2. read() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:26
+[28-Nov-2018 02:08:24 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 275
+[28-Nov-2018 02:08:24 UTC] PHP Stack trace:
+[28-Nov-2018 02:08:24 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[28-Nov-2018 02:08:24 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[28-Nov-2018 02:08:24 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:275
+[28-Nov-2018 02:08:27 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 275
+[28-Nov-2018 02:08:27 UTC] PHP Stack trace:
+[28-Nov-2018 02:08:27 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[28-Nov-2018 02:08:27 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[28-Nov-2018 02:08:27 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:275
+[28-Nov-2018 19:40:32 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 275
+[28-Nov-2018 19:40:32 UTC] PHP Stack trace:
+[28-Nov-2018 19:40:32 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[28-Nov-2018 19:40:32 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[28-Nov-2018 19:40:32 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:275
+[28-Nov-2018 19:40:33 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 275
+[28-Nov-2018 19:40:33 UTC] PHP Stack trace:
+[28-Nov-2018 19:40:33 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[28-Nov-2018 19:40:33 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[28-Nov-2018 19:40:33 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:275
+[28-Nov-2018 19:40:49 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 275
+[28-Nov-2018 19:40:49 UTC] PHP Stack trace:
+[28-Nov-2018 19:40:49 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[28-Nov-2018 19:40:49 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[28-Nov-2018 19:40:49 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:275
+[28-Nov-2018 19:41:41 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 275
+[28-Nov-2018 19:41:41 UTC] PHP Stack trace:
+[28-Nov-2018 19:41:41 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[28-Nov-2018 19:41:41 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[28-Nov-2018 19:41:41 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:275
+[28-Nov-2018 19:41:44 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 275
+[28-Nov-2018 19:41:44 UTC] PHP Stack trace:
+[28-Nov-2018 19:41:44 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[28-Nov-2018 19:41:44 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[28-Nov-2018 19:41:44 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:275
+[28-Nov-2018 19:42:01 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 275
+[28-Nov-2018 19:42:01 UTC] PHP Stack trace:
+[28-Nov-2018 19:42:01 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[28-Nov-2018 19:42:01 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[28-Nov-2018 19:42:01 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:275
+[28-Nov-2018 19:43:12 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 275
+[28-Nov-2018 19:43:12 UTC] PHP Stack trace:
+[28-Nov-2018 19:43:12 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[28-Nov-2018 19:43:12 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[28-Nov-2018 19:43:12 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:275
+[28-Nov-2018 19:46:24 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 275
+[28-Nov-2018 19:46:24 UTC] PHP Stack trace:
+[28-Nov-2018 19:46:24 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[28-Nov-2018 19:46:24 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[28-Nov-2018 19:46:24 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:275
+[28-Nov-2018 19:48:18 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 275
+[28-Nov-2018 19:48:18 UTC] PHP Stack trace:
+[28-Nov-2018 19:48:18 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[28-Nov-2018 19:48:18 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[28-Nov-2018 19:48:18 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:275
+[03-Dec-2018 15:15:42 UTC] PHP Warning:  mysql_real_escape_string() expects parameter 1 to be string, object given in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 207
+[03-Dec-2018 15:15:42 UTC] PHP Stack trace:
+[03-Dec-2018 15:15:42 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[03-Dec-2018 15:15:42 UTC] PHP   2. update() /home/ubuntu/workspace/CampaignManager/Server/monster.php:31
+[03-Dec-2018 15:15:42 UTC] PHP   3. mysql_real_escape_string() /home/ubuntu/workspace/CampaignManager/Server/monster.php:207
+[03-Dec-2018 15:15:42 UTC] PHP Fatal error:  Call to a member function bind_param() on a non-object in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 208
+[03-Dec-2018 15:15:42 UTC] PHP Stack trace:
+[03-Dec-2018 15:15:42 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[03-Dec-2018 15:15:42 UTC] PHP   2. update() /home/ubuntu/workspace/CampaignManager/Server/monster.php:31
+[03-Dec-2018 15:17:23 UTC] PHP Warning:  mysqli_real_escape_string() expects exactly 2 parameters, 1 given in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 207
+[03-Dec-2018 15:17:23 UTC] PHP Stack trace:
+[03-Dec-2018 15:17:23 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[03-Dec-2018 15:17:23 UTC] PHP   2. update() /home/ubuntu/workspace/CampaignManager/Server/monster.php:31
+[03-Dec-2018 15:17:23 UTC] PHP   3. mysqli_real_escape_string() /home/ubuntu/workspace/CampaignManager/Server/monster.php:207
+[03-Dec-2018 15:17:23 UTC] PHP Fatal error:  Call to a member function bind_param() on a non-object in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 208
+[03-Dec-2018 15:17:23 UTC] PHP Stack trace:
+[03-Dec-2018 15:17:23 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[03-Dec-2018 15:17:23 UTC] PHP   2. update() /home/ubuntu/workspace/CampaignManager/Server/monster.php:31
+[03-Dec-2018 21:01:26 UTC] PHP Warning:  mysqli_real_escape_string() expects exactly 2 parameters, 1 given in /home/ubuntu/workspace/CampaignManager/Server/campaign.php on line 58
+[03-Dec-2018 21:01:26 UTC] PHP Stack trace:
+[03-Dec-2018 21:01:26 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:0
+[03-Dec-2018 21:01:26 UTC] PHP   2. create() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:20
+[03-Dec-2018 21:01:26 UTC] PHP   3. mysqli_real_escape_string() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:58
+[03-Dec-2018 21:01:26 UTC] PHP Fatal error:  Call to a member function bind_param() on a non-object in /home/ubuntu/workspace/CampaignManager/Server/campaign.php on line 60
+[03-Dec-2018 21:01:26 UTC] PHP Stack trace:
+[03-Dec-2018 21:01:26 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:0
+[03-Dec-2018 21:01:26 UTC] PHP   2. create() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:20
+[03-Dec-2018 21:11:24 UTC] PHP Catchable fatal error:  Object of class mysqli_stmt could not be converted to string in /home/ubuntu/workspace/CampaignManager/Server/campaign.php on line 60
+[03-Dec-2018 21:11:24 UTC] PHP Stack trace:
+[03-Dec-2018 21:11:24 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:0
+[03-Dec-2018 21:11:24 UTC] PHP   2. create() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:20
+[03-Dec-2018 21:11:35 UTC] PHP Catchable fatal error:  Object of class mysqli_stmt could not be converted to string in /home/ubuntu/workspace/CampaignManager/Server/campaign.php on line 60
+[03-Dec-2018 21:11:35 UTC] PHP Stack trace:
+[03-Dec-2018 21:11:35 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:0
+[03-Dec-2018 21:11:35 UTC] PHP   2. create() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:20
+[03-Dec-2018 21:11:38 UTC] PHP Catchable fatal error:  Object of class mysqli_stmt could not be converted to string in /home/ubuntu/workspace/CampaignManager/Server/campaign.php on line 60
+[03-Dec-2018 21:11:38 UTC] PHP Stack trace:
+[03-Dec-2018 21:11:38 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:0
+[03-Dec-2018 21:11:38 UTC] PHP   2. create() /home/ubuntu/workspace/CampaignManager/Server/campaign.php:20
+[05-Dec-2018 18:10:47 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:47 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:47 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:47 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:47 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297
+[05-Dec-2018 18:10:48 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:48 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:48 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:48 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:48 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297
+[05-Dec-2018 18:10:48 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:48 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:48 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:48 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:48 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297
+[05-Dec-2018 18:10:48 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:48 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:48 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:48 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:48 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297
+[05-Dec-2018 18:10:48 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:48 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:48 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:48 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:48 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297
+[05-Dec-2018 18:10:48 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:48 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:48 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:48 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:48 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297
+[05-Dec-2018 18:10:48 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:48 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:48 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:48 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:48 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297
+[05-Dec-2018 18:10:48 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:48 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:48 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:48 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:48 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297
+[05-Dec-2018 18:10:48 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:48 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:48 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:48 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:48 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297
+[05-Dec-2018 18:10:48 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:48 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:48 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:48 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:48 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297
+[05-Dec-2018 18:10:50 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:50 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:50 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:50 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:50 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297
+[05-Dec-2018 18:10:50 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:50 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:50 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:50 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:50 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297
+[05-Dec-2018 18:10:50 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:50 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:50 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:50 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:50 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297
+[05-Dec-2018 18:10:50 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:50 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:50 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:50 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:50 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297
+[05-Dec-2018 18:10:52 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:52 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:52 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:52 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:52 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297
+[05-Dec-2018 18:10:52 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:52 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:52 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:52 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:52 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297
+[05-Dec-2018 18:10:52 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:52 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:52 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:52 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:52 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297
+[05-Dec-2018 18:10:52 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:52 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:52 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:52 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:52 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297
+[05-Dec-2018 18:10:52 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:52 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:52 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:52 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:52 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297
+[05-Dec-2018 18:10:54 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:54 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:54 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:54 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:54 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297
+[05-Dec-2018 18:10:54 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:54 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:54 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:54 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:54 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297
+[05-Dec-2018 18:10:54 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:54 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:54 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:54 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:54 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297
+[05-Dec-2018 18:10:54 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:54 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:54 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:54 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:54 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297
+[05-Dec-2018 18:10:54 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:54 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:54 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:54 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:54 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297
+[05-Dec-2018 18:10:54 UTC] PHP Warning:  mysqli_stmt::bind_result(): Number of bind variables doesn't match number of fields in prepared statement in /home/ubuntu/workspace/CampaignManager/Server/monster.php on line 297
+[05-Dec-2018 18:10:54 UTC] PHP Stack trace:
+[05-Dec-2018 18:10:54 UTC] PHP   1. {main}() /home/ubuntu/workspace/CampaignManager/Server/monster.php:0
+[05-Dec-2018 18:10:54 UTC] PHP   2. readEnc() /home/ubuntu/workspace/CampaignManager/Server/monster.php:49
+[05-Dec-2018 18:10:54 UTC] PHP   3. mysqli_stmt->bind_result() /home/ubuntu/workspace/CampaignManager/Server/monster.php:297

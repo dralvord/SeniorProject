@@ -89,14 +89,15 @@ function create($conn)
     $monAbilities = getValue ("monAbilities","");
     $monActions = getValue ("monActions","");
     $monLegendaryActions = getValue ("monLegendaryActions","");
-    $camID = getValue("camID", "");
-    //$user = getValue("UserID", "");
+    //$camID = getValue("camID", "");
+    $userID = getSessionValue("user","")["userID"];
     
-    if ($monName != "" && $monSizeTypeAlign != "" && $monAC != "" && $monHP != "" && $monSpeed != "" && $monSTR != ""  && $monDEX != "" && $monCON != "" && $monINT != "" && $monWIS != "" && $monCHA != "" && $monCR != "" && $monSenses != "" && $monActions != "" && $camID !="" /*&& $user != ""*/)
+    if ($monName != "" && $monSizeTypeAlign != "" && $monAC != "" && $monHP != "" && $monSpeed != "" && $monSTR != ""  && $monDEX != "" && $monCON != "" && $monINT != "" && $monWIS != "" && $monCHA != "" && $monCR != "" && $monSenses != "" && $monActions != "" && /*$camID !="" &&*/ $userID != "")
     { //Checks to make sure all essential values are not null
         
-        $stmt = $conn->prepare("INSERT INTO MONSTER(MON_NAME, MON_SIZETYPEALIGN, MON_AC, MON_HP, MON_SPEED, MON_STR, MON_DEX, MON_CON, MON_INT, MON_WIS, MON_CHA, MON_VULNERABILITIES, MON_RESISTANCES, MON_IMMUNITIES, MON_LANGUAGES, MON_CR, MON_SKILLS, MON_PROFBONUS, MON_SAVETHROWS, MON_SENSES, MON_ABILITIES, MON_ACTIONS, MON_LEGENDARYACTIONS, CAM_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
-        $stmt->bind_param("sssssssssssssssssssssssi", $monName, $monSizeTypeAlign, $monAC, $monHP, $monSpeed, $monSTR, $monDEX, $monCON, $monINT, $monWIS, $monCHA, $monVulnerabilities, $monResistances, $monImmunities, $monLanguages, $monCR, $monSkills, $monProfBonus, $monSaveThrows, $monSenses, $monAbilities, $monActions, $monLegendaryActions, $camID);
+        $stmt = $conn->prepare("INSERT INTO MONSTER(MON_NAME, MON_SIZETYPEALIGN, MON_AC, MON_HP, MON_SPEED, MON_STR, MON_DEX, MON_CON, MON_INT, MON_WIS, MON_CHA, MON_VULNERABILITIES, MON_RESISTANCES, MON_IMMUNITIES, MON_LANGUAGES, MON_CR, MON_SKILLS, MON_PROFBONUS, MON_SAVETHROWS, MON_SENSES, MON_ABILITIES, MON_ACTIONS, MON_LEGENDARYACTIONS, USER_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        //$stmt = mysqli_real_escape_string($stmt);
+        $stmt->bind_param("sssssssssssssssssssssssi", $monName, $monSizeTypeAlign, $monAC, $monHP, $monSpeed, $monSTR, $monDEX, $monCON, $monINT, $monWIS, $monCHA, $monVulnerabilities, $monResistances, $monImmunities, $monLanguages, $monCR, $monSkills, $monProfBonus, $monSaveThrows, $monSenses, $monAbilities, $monActions, $monLegendaryActions, $userID);
         $stmt->execute();
         return readAll($conn);
     }
@@ -107,7 +108,7 @@ function create($conn)
 }
 
 function read($conn)
-{
+{   //Not updated to include user id. Not needed currently
     $camID = getValue("camID", "");
     //$user = getValue("UserID", "");
     //if($user != "")
@@ -125,7 +126,7 @@ function read($conn)
         {
             $monStats = createStats($monName,$monSizeTypeAlign,$monAC,$monHP,$monSpeed,$monSTR,$monDEX,$monCON,$monINT,$monWIS,$monCHA,$monVulnerabilities,$monResistances,$monImmunities,$monLanguages,$monCR,$monSkills,$monProfBonus,$monSaveThrows,$monSenses,$monAbilities,$monActions,$monLegendaryActions);
             //$row = array("MonsterID"=>$monID, "MonsterName"=>$monName, "MonsterStats"=>$monStats ,"CampaignID"=>$camID);
-            $row = array("MonsterID"=>$monID, "MonsterName"=>$monName, "MonsterSizeTypeAlign"=>$monSizeTypeAlign, "MonsterAC"=>$monAC, "MonsterHP"=>$monHP, "MonsterSpeed"=>$monSpeed, "MonsterSTR"=>$monSTR, "MonsterDEX"=>$monDEX, "MonsterCON"=>$monCON, "MonsterINT"=>$monINT, "MonsterWIS"=>$monWIS, "MonsterCHA"=>$monCHA,"MonsterVulnerabilities"=>$monVulnerabilities, "MonsterResistances"=>$monResistances, "MonsterImmunities"=>$monImmunities, "MonsterLanguages"=>$monLanguages, "MonsterCR"=>$monCR, "MonsterSkills"=>$monSkills, "MonsterProfBonus"=>$monProfBonus,"MonsterSaveThrows"=>$monSaveThrows, "MonsterSenses"=>$monSenses, "MonsterAbilities"=>$monAbilities, "MonsterActions"=>$monActions, "MonsterLegendaryActions"=>$monLegendaryActions,"CampaignID"=>$camID, "MonsterStats"=>$monStats);
+            $row = array("MonsterID"=>$monID, "MonsterName"=>htmlspecialchars($monName,ENT_QUOTES), "MonsterSizeTypeAlign"=>htmlspecialchars($monSizeTypeAlign,ENT_QUOTES), "MonsterAC"=>htmlspecialchars($monAC,ENT_QUOTES), "MonsterHP"=>htmlspecialchars($monHP,ENT_QUOTES), "MonsterSpeed"=>htmlspecialchars($monSpeed,ENT_QUOTES), "MonsterSTR"=>htmlspecialchars($monSTR,ENT_QUOTES), "MonsterDEX"=>htmlspecialchars($monDEX,ENT_QUOTES), "MonsterCON"=>htmlspecialchars($monCON,ENT_QUOTES), "MonsterINT"=>htmlspecialchars($monINT,ENT_QUOTES), "MonsterWIS"=>htmlspecialchars($monWIS,ENT_QUOTES), "MonsterCHA"=>htmlspecialchars($monCHA,ENT_QUOTES),"MonsterVulnerabilities"=>htmlspecialchars($monVulnerabilities,ENT_QUOTES), "MonsterResistances"=>htmlspecialchars($monResistances,ENT_QUOTES), "MonsterImmunities"=>htmlspecialchars($monImmunities,ENT_QUOTES), "MonsterLanguages"=>htmlspecialchars($monLanguages,ENT_QUOTES), "MonsterCR"=>htmlspecialchars($monCR,ENT_QUOTES), "MonsterSkills"=>htmlspecialchars($monSkills,ENT_QUOTES), "MonsterProfBonus"=>htmlspecialchars($monProfBonus,ENT_QUOTES),"MonsterSaveThrows"=>htmlspecialchars($monSaveThrows,ENT_QUOTES), "MonsterSenses"=>htmlspecialchars($monSenses,ENT_QUOTES), "MonsterAbilities"=>htmlspecialchars($monAbilities,ENT_QUOTES), "MonsterActions"=>htmlspecialchars($monActions,ENT_QUOTES), "MonsterLegendaryActions"=>htmlspecialchars($monLegendaryActions,ENT_QUOTES),"CampaignID"=>$camID, "MonsterStats"=>htmlspecialchars($monStats,ENT_QUOTES));
             $rows[] = $row;
         }
     
@@ -144,12 +145,13 @@ function read($conn)
 
 function readAll($conn)
 {
-    //$user = getValue("UserID", "");
-    //if($user != "")
-    //{
-        $stmt = $conn->prepare("SELECT * FROM MONSTER ORDER BY MON_NAME");
+    $userID = getSessionValue("user","")["userID"];
+    if($userID != "")
+    {
+        $stmt = $conn->prepare("SELECT * FROM MONSTER WHERE USER_ID = ? ORDER BY MON_NAME");
+        $stmt->bind_param("i", $userID);
         $stmt->execute();
-        $stmt->bind_result($monID,$monName,$monSizeTypeAlign,$monAC,$monHP,$monSpeed,$monSTR,$monDEX,$monCON,$monINT,$monWIS,$monCHA,$monVulnerabilities,$monResistances,$monImmunities,$monLanguages,$monCR,$monSkills,$monProfBonus,$monSaveThrows,$monSenses,$monAbilities,$monActions,$monLegendaryActions,$camID);
+        $stmt->bind_result($monID,$monName,$monSizeTypeAlign,$monAC,$monHP,$monSpeed,$monSTR,$monDEX,$monCON,$monINT,$monWIS,$monCHA,$monVulnerabilities,$monResistances,$monImmunities,$monLanguages,$monCR,$monSkills,$monProfBonus,$monSaveThrows,$monSenses,$monAbilities,$monActions,$monLegendaryActions,/*$camID,*/ $userID);
         
         
         $rows = array();
@@ -157,16 +159,16 @@ function readAll($conn)
         {
             $monStats = createStats($monName,$monSizeTypeAlign,$monAC,$monHP,$monSpeed,$monSTR,$monDEX,$monCON,$monINT,$monWIS,$monCHA,$monVulnerabilities,$monResistances,$monImmunities,$monLanguages,$monCR,$monSkills,$monProfBonus,$monSaveThrows,$monSenses,$monAbilities,$monActions,$monLegendaryActions);
             //$row = array("MonsterID"=>$monID, "MonsterName"=>$monName, "MonsterStats"=>$monStats ,"CampaignID"=>$camID);
-            $row = array("MonsterID"=>$monID, "MonsterName"=>$monName, "MonsterSizeTypeAlign"=>$monSizeTypeAlign, "MonsterAC"=>$monAC, "MonsterHP"=>$monHP, "MonsterSpeed"=>$monSpeed, "MonsterSTR"=>$monSTR, "MonsterDEX"=>$monDEX, "MonsterCON"=>$monCON, "MonsterINT"=>$monINT, "MonsterWIS"=>$monWIS, "MonsterCHA"=>$monCHA,"MonsterVulnerabilities"=>$monVulnerabilities, "MonsterResistances"=>$monResistances, "MonsterImmunities"=>$monImmunities, "MonsterLanguages"=>$monLanguages, "MonsterCR"=>$monCR, "MonsterSkills"=>$monSkills, "MonsterProfBonus"=>$monProfBonus,"MonsterSaveThrows"=>$monSaveThrows, "MonsterSenses"=>$monSenses, "MonsterAbilities"=>$monAbilities, "MonsterActions"=>$monActions, "MonsterLegendaryActions"=>$monLegendaryActions,"CampaignID"=>$camID, "MonsterStats"=>$monStats);
+            $row = array("MonsterID"=>$monID, "MonsterName"=>htmlspecialchars($monName,ENT_QUOTES), "MonsterSizeTypeAlign"=>htmlspecialchars($monSizeTypeAlign,ENT_QUOTES), "MonsterAC"=>htmlspecialchars($monAC,ENT_QUOTES), "MonsterHP"=>htmlspecialchars($monHP,ENT_QUOTES), "MonsterSpeed"=>htmlspecialchars($monSpeed,ENT_QUOTES), "MonsterSTR"=>htmlspecialchars($monSTR,ENT_QUOTES), "MonsterDEX"=>htmlspecialchars($monDEX,ENT_QUOTES), "MonsterCON"=>htmlspecialchars($monCON,ENT_QUOTES), "MonsterINT"=>htmlspecialchars($monINT,ENT_QUOTES), "MonsterWIS"=>htmlspecialchars($monWIS,ENT_QUOTES), "MonsterCHA"=>htmlspecialchars($monCHA,ENT_QUOTES),"MonsterVulnerabilities"=>htmlspecialchars($monVulnerabilities,ENT_QUOTES), "MonsterResistances"=>htmlspecialchars($monResistances,ENT_QUOTES), "MonsterImmunities"=>htmlspecialchars($monImmunities,ENT_QUOTES), "MonsterLanguages"=>htmlspecialchars($monLanguages,ENT_QUOTES), "MonsterCR"=>htmlspecialchars($monCR,ENT_QUOTES), "MonsterSkills"=>htmlspecialchars($monSkills,ENT_QUOTES), "MonsterProfBonus"=>htmlspecialchars($monProfBonus,ENT_QUOTES),"MonsterSaveThrows"=>htmlspecialchars($monSaveThrows,ENT_QUOTES), "MonsterSenses"=>htmlspecialchars($monSenses,ENT_QUOTES), "MonsterAbilities"=>htmlspecialchars($monAbilities,ENT_QUOTES), "MonsterActions"=>htmlspecialchars($monActions,ENT_QUOTES), "MonsterLegendaryActions"=>htmlspecialchars($monLegendaryActions,ENT_QUOTES),/*"CampaignID"=>$camID,*/ "MonsterStats"=>htmlspecialchars($monStats,ENT_QUOTES));
             $rows[] = $row;
         }
     
         
     return $rows;
-    //}
-    //else {
-    //    return array("error"=>"User does not exist");
-    //}
+    }
+    else {
+        return array("error"=>"User does not exist");
+    }
     
 }
 
@@ -196,23 +198,16 @@ function update($conn)
     $monAbilities = getValue ("monAbilities","");
     $monActions = getValue ("monActions","");
     $monLegendaryActions = getValue ("monLegendaryActions","");
-    $camID = getValue("camID", "");
+    //$camID = getValue("camID", "");
+    $userID = getSessionValue("user","")["userID"];
     
-    if ($monID != "")
+    if ($monID != "" && $userID !="")
     {
-        /* This depends on what my model contains. If it holds all of the current monster values and the updated then I don't need to do this
-        if($monName != "")
-        {
-            $stmt = $conn->prepare("UPDATE MONSTER SET MON_NAME = ? WHERE MON_ID = ?");
-            $stmt->bind_param("si", $monName, $monID);
-            $stmt->execute();
-        }
-        */
-        
-        $stmt = $conn->prepare("UPDATE MONSTER SET MON_NAME = ?, MON_SIZETYPEALIGN = ?, MON_AC = ?, MON_HP = ?, MON_SPEED = ?, MON_STR = ?, MON_DEX = ?, MON_CON = ?, MON_INT =?, MON_WIS = ? , MON_CHA = ?, MON_VULNERABILITIES = ?, MON_RESISTANCES = ?, MON_IMMUNITIES = ? , MON_LANGUAGES = ? , MON_CR = ?, MON_SKILLS = ?, MON_PROFBONUS = ?, MON_SAVETHROWS = ?, MON_SENSES = ?, MON_ABILITIES = ?, MON_ACTIONS = ?, MON_LEGENDARYACTIONS = ?, CAM_ID = ? WHERE MON_ID = ?");
-        $stmt->bind_param("sssssssssssssssssssssssii", $monName, $monSizeTypeAlign, $monAC, $monHP, $monSpeed, $monSTR, $monDEX, $monCON, $monINT, $monWIS, $monCHA, $monVulnerabilities, $monResistances, $monImmunities, $monLanguages, $monCR, $monSkills, $monProfBonus, $monSaveThrows, $monSenses, $monAbilities, $monActions, $monLegendaryActions, $camID, $monID);
+        $stmt = $conn->prepare("UPDATE MONSTER SET MON_NAME = ?, MON_SIZETYPEALIGN = ?, MON_AC = ?, MON_HP = ?, MON_SPEED = ?, MON_STR = ?, MON_DEX = ?, MON_CON = ?, MON_INT =?, MON_WIS = ? , MON_CHA = ?, MON_VULNERABILITIES = ?, MON_RESISTANCES = ?, MON_IMMUNITIES = ? , MON_LANGUAGES = ? , MON_CR = ?, MON_SKILLS = ?, MON_PROFBONUS = ?, MON_SAVETHROWS = ?, MON_SENSES = ?, MON_ABILITIES = ?, MON_ACTIONS = ?, MON_LEGENDARYACTIONS = ? WHERE MON_ID = ? && USER_ID = ?");
+        //$stmt = mysqli_real_escape_string($stmt);
+        $stmt->bind_param("sssssssssssssssssssssssii", $monName, $monSizeTypeAlign, $monAC, $monHP, $monSpeed, $monSTR, $monDEX, $monCON, $monINT, $monWIS, $monCHA, $monVulnerabilities, $monResistances, $monImmunities, $monLanguages, $monCR, $monSkills, $monProfBonus, $monSaveThrows, $monSenses, $monAbilities, $monActions, $monLegendaryActions, /*$camID,*/ $monID, $userID);
         $stmt->execute();
-        return read($conn);
+        return readAll($conn);
     }
     else 
     {
@@ -223,11 +218,12 @@ function update($conn)
 function delete($conn)
 {
     $monID = getValue("monID", "");
+    $userID = getSessionValue("user","")["userID"];
 
-    if ($monID != "")
+    if ($monID != "" && $userID != "")
     {
-        $stmt = $conn->prepare("DELETE FROM MONSTER WHERE MON_ID = ?");
-        $stmt->bind_param("i", $monID);
+        $stmt = $conn->prepare("DELETE FROM MONSTER WHERE MON_ID = ? AND USER_ID = ?");
+        $stmt->bind_param("ii", $monID, $userID);
         $stmt->execute();
 
         return readAll($conn);
@@ -241,94 +237,94 @@ function delete($conn)
 
 function createStats($monName,$monSizeTypeAlign, $monAC, $monHP, $monSpeed, $monSTR, $monDEX, $monCON, $monINT, $monWIS, $monCHA, $monVulnerabilities, $monResistances, $monImmunities, $monLanguages, $monCR, $monSkills, $monProfBonus, $monSaveThrows, $monSenses, $monAbilities, $monActions, $monLegendaryActions)
 {
-    $stats = "Monster Name: " . $monName . "\n" .
-             "Monster Size, Type, and Alignment: " . $monSizeTypeAlign . "\n" .
-             "Monster AC: " . $monAC . "\n" . 
-             "Monster HP: " . $monHP . "\n" .
-             "Monster Speed: " . $monSpeed . "\n" .
-             "Monster STR: " . $monSTR . "\n" . 
-             "Monster DEX: " . $monDEX . "\n" .
-             "Monster CON: " . $monCON . "\n" .
-             "Monster INT: " . $monINT . "\n" .
-             "Monster WIS: " . $monWIS . "\n" .
-             "Monster CHA: " . $monCHA . "\n" .
-             "Monster Vulnerabilities: " . $monVulnerabilities . "\n" .
-             "Monster Resistances: " . $monResistances . "\n" .
-             "Monster Immunities: " . $monImmunities . "\n" .
-             "Monster Languages: " . $monLanguages . "\n" . 
-             "Monster CR: " . $monCR . "\n" . 
-             "Monster Skills: " . $monSkills . "\n" . 
-             "Monster ProfBonus: " . $monProfBonus . "\n" . 
-             "Monster SaveThrows: " . $monSaveThrows . "\n" . 
-             "Monster Senses: " . $monSenses . "\n" . 
-             "Monster Abilities: " . $monAbilities . "\n" . 
-             "Monster Actions: " . $monActions . "\n" . 
-             "Monster Legendary Actions: " . $monLegendaryActions . "\n";
+    $stats = "<strong><u>Monster Name:</strong></u> " . $monName . "\n" .
+             "<strong><u>Monster Size, Type, and Alignment:</strong></u> " . $monSizeTypeAlign . "\n" .
+             "<strong><u>Monster AC:</strong></u> " . $monAC . "\n" . 
+             "<strong><u>Monster HP:</strong></u> " . $monHP . "\n" .
+             "<strong><u>Monster Speed:</strong></u> " . $monSpeed . "\n" .
+             "<strong><u>Monster STR:</strong></u> " . $monSTR . "\n" . 
+             "<strong><u>Monster DEX:</strong></u> " . $monDEX . "\n" .
+             "<strong><u>Monster CON:</strong></u> " . $monCON . "\n" .
+             "<strong><u>Monster INT:</strong></u> " . $monINT . "\n" .
+             "<strong><u>Monster WIS:</strong></u> " . $monWIS . "\n" .
+             "<strong><u>Monster CHA:</strong></u> " . $monCHA . "\n" .
+             "<strong><u>Monster Vulnerabilities:</strong></u> " . $monVulnerabilities . "\n" .
+             "<strong><u>Monster Resistances:</strong></u> " . $monResistances . "\n" .
+             "<strong><u>Monster Immunities:</strong></u> " . $monImmunities . "\n" .
+             "<strong><u>Monster Languages:</strong></u> " . $monLanguages . "\n" . 
+             "<strong><u>Monster CR:</strong></u> " . $monCR . "\n" . 
+             "<strong><u>Monster Skills:</strong></u> " . $monSkills . "\n" . 
+             "<strong><u>Monster ProfBonus:</strong></u> " . $monProfBonus . "\n" . 
+             "<strong><u>Monster SaveThrows:</strong></u> " . $monSaveThrows . "\n" . 
+             "<strong><u>Monster Senses:</strong></u> " . $monSenses . "\n" . 
+             "<strong><u>Monster Abilities:</strong></u> " . $monAbilities . "\n\n" . 
+             "<strong><u>Monster Actions:</strong></u> " . $monActions . "\n\n" . 
+             "<strong><u>Monster Legendary Actions:</strong></u> " . $monLegendaryActions . "\n";
     return $stats;
 }
 
 function readEnc($conn)
 {
     $encID = getValue("encID","");
-    //$user = getValue("UserID", "");
-    //if($user != "")
-    //{
-    if($encID != "")
+    $userID = getSessionValue("user","")["userID"];
+    if($userID != "")
     {
-        $stmt = $conn->prepare("SELECT * FROM ENCMON WHERE ENC_ID = ?");
-        $stmt->bind_param("i", $encID);
-        $stmt->execute();
-        $stmt->bind_result($encMonID,$monID,$encID);
-        
-        
-        $monIDs = array();
-        $encMonIDs = array();
-        while($stmt->fetch())
+        if($encID != "")
         {
-            $monIDs[] = $monID;
-            $encMonIDs[] = $encMonID;
-        }
-        $stmt->close();
-        
-        $rows = array();
-        $encMonCount=0;
-        foreach($monIDs as $id)
-        {
-            
-            $stmt = $conn->prepare("SELECT * FROM MONSTER WHERE MON_ID = ? ORDER BY MON_NAME");
-            $stmt->bind_param("i", $id);
+            $stmt = $conn->prepare("SELECT ENCMON_ID, MON_ID, ENC_ID FROM ENCMON WHERE ENC_ID = ? AND USER_ID = ?");
+            $stmt->bind_param("ii", $encID, $userID);
             $stmt->execute();
-            $stmt->bind_result($monID,$monName,$monSizeTypeAlign,$monAC,$monHP,$monSpeed,$monSTR,$monDEX,$monCON,$monINT,$monWIS,$monCHA,$monVulnerabilities,$monResistances,$monImmunities,$monLanguages,$monCR,$monSkills,$monProfBonus,$monSaveThrows,$monSenses,$monAbilities,$monActions,$monLegendaryActions,$camID);
-            
-            
+            $stmt->bind_result($encMonID,$monID,$encID);
+        
+        
+            $monIDs = array();
+            $encMonIDs = array();
             while($stmt->fetch())
             {
-                $monStats = createStats($monName,$monSizeTypeAlign,$monAC,$monHP,$monSpeed,$monSTR,$monDEX,$monCON,$monINT,$monWIS,$monCHA,$monVulnerabilities,$monResistances,$monImmunities,$monLanguages,$monCR,$monSkills,$monProfBonus,$monSaveThrows,$monSenses,$monAbilities,$monActions,$monLegendaryActions);
-                $row = array("MonsterID"=>$monID, "MonsterName"=>$monName, "MonsterSizeTypeAlign"=>$monSizeTypeAlign, "MonsterAC"=>$monAC, "MonsterHP"=>$monHP, "MonsterSpeed"=>$monSpeed, "MonsterSTR"=>$monSTR, "MonsterDEX"=>$monDEX, "MonsterCON"=>$monCON, "MonsterINT"=>$monINT, "MonsterWIS"=>$monWIS, "MonsterCHA"=>$monCHA,"MonsterVulnerabilities"=>$monVulnerabilities, "MonsterResistances"=>$monResistances, "MonsterImmunities"=>$monImmunities, "MonsterLanguages"=>$monLanguages, "MonsterCR"=>$monCR, "MonsterSkills"=>$monSkills, "MonsterProfBonus"=>$monProfBonus,"MonsterSaveThrows"=>$monSaveThrows, "MonsterSenses"=>$monSenses, "MonsterAbilities"=>$monAbilities, "MonsterActions"=>$monActions, "MonsterLegendaryActions"=>$monLegendaryActions,"CampaignID"=>$camID, "MonsterStats"=>$monStats,"EncMonID"=>$encMonIDs[$encMonCount]);
-                $rows[] = $row;
+                $monIDs[] = $monID;
+                $encMonIDs[] = $encMonID;
             }
             $stmt->close();
-            $encMonCount = $encMonCount + 1;
-        }
+
+            $rows = array();
+            $encMonCount=0;
+            foreach($monIDs as $id)
+            {
+            
+                $stmt = $conn->prepare("SELECT * FROM MONSTER WHERE MON_ID = ? AND USER_ID = ? ORDER BY MON_NAME");
+                $stmt->bind_param("ii", $id, $userID);
+                $stmt->execute();
+                $stmt->bind_result($monID,$monName,$monSizeTypeAlign,$monAC,$monHP,$monSpeed,$monSTR,$monDEX,$monCON,$monINT,$monWIS,$monCHA,$monVulnerabilities,$monResistances,$monImmunities,$monLanguages,$monCR,$monSkills,$monProfBonus,$monSaveThrows,$monSenses,$monAbilities,$monActions,$monLegendaryActions,/*$camID,*/ $userID);
+            
+                while($stmt->fetch())
+                {
+                    $monStats = createStats($monName,$monSizeTypeAlign,$monAC,$monHP,$monSpeed,$monSTR,$monDEX,$monCON,$monINT,$monWIS,$monCHA,$monVulnerabilities,$monResistances,$monImmunities,$monLanguages,$monCR,$monSkills,$monProfBonus,$monSaveThrows,$monSenses,$monAbilities,$monActions,$monLegendaryActions);
+                    $row = array("MonsterID"=>$monID, "MonsterName"=>htmlspecialchars($monName,ENT_QUOTES), "MonsterSizeTypeAlign"=>htmlspecialchars($monSizeTypeAlign,ENT_QUOTES), "MonsterAC"=>htmlspecialchars($monAC,ENT_QUOTES), "MonsterHP"=>htmlspecialchars($monHP,ENT_QUOTES), "MonsterSpeed"=>htmlspecialchars($monSpeed,ENT_QUOTES), "MonsterSTR"=>htmlspecialchars($monSTR,ENT_QUOTES), "MonsterDEX"=>htmlspecialchars($monDEX,ENT_QUOTES), "MonsterCON"=>htmlspecialchars($monCON,ENT_QUOTES), "MonsterINT"=>htmlspecialchars($monINT,ENT_QUOTES), "MonsterWIS"=>htmlspecialchars($monWIS,ENT_QUOTES), "MonsterCHA"=>htmlspecialchars($monCHA,ENT_QUOTES),"MonsterVulnerabilities"=>htmlspecialchars($monVulnerabilities,ENT_QUOTES), "MonsterResistances"=>htmlspecialchars($monResistances,ENT_QUOTES), "MonsterImmunities"=>htmlspecialchars($monImmunities,ENT_QUOTES), "MonsterLanguages"=>htmlspecialchars($monLanguages,ENT_QUOTES), "MonsterCR"=>htmlspecialchars($monCR,ENT_QUOTES), "MonsterSkills"=>htmlspecialchars($monSkills,ENT_QUOTES), "MonsterProfBonus"=>htmlspecialchars($monProfBonus,ENT_QUOTES),"MonsterSaveThrows"=>htmlspecialchars($monSaveThrows,ENT_QUOTES), "MonsterSenses"=>htmlspecialchars($monSenses,ENT_QUOTES), "MonsterAbilities"=>htmlspecialchars($monAbilities,ENT_QUOTES), "MonsterActions"=>htmlspecialchars($monActions,ENT_QUOTES), "MonsterLegendaryActions"=>htmlspecialchars($monLegendaryActions,ENT_QUOTES),/*"CampaignID"=>$camID,*/ "MonsterStats"=>htmlspecialchars($monStats,ENT_QUOTES),"EncMonID"=>$encMonIDs[$encMonCount]);
+                    $rows[] = $row;
+                }
+                $stmt->close();
+                $encMonCount = $encMonCount + 1;
+            }
         
-    return $rows;
+        return $rows;
     
+        }
+        else{
+            return array("error"=>"encID required");
+        }
     }
-    else{
-        return array("error"=>"encID required");
+    else {
+        return array("error"=>"User does not exist");
     }
-    //}
-    //else {
-    //    return array("error"=>"User does not exist");
-    //}
     
 }
 
 
 function monDropdown($conn)
 {
-    $stmt = $conn->prepare("SELECT MON_ID, MON_NAME FROM MONSTER ORDER BY MON_NAME");
-    //$stmt->bind_param("i", $camID);
+    $userID = getSessionValue("user","")["userID"];
+    $stmt = $conn->prepare("SELECT MON_ID, MON_NAME FROM MONSTER WHERE USER_ID = ? ORDER BY MON_NAME");
+    $stmt->bind_param("i", $userID);
     $stmt->execute();
     $stmt->bind_result($monID,$monName);
     

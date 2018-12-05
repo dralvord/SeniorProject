@@ -76,13 +76,13 @@ function create($conn)
     $pcActions = getValue ("pcActions","");
     $pcBio = getValue ("pcBio","");
     $camID = getValue("camID", "");
-    //$user = getValue("UserID", "");
+    $userID = getSessionValue("user","")["userID"];
     
-    if ($pcName != "" && $pcLevel != "" && $pcRace != "" && $pcClass != "" && $pcAlign != "" && $pcAC != "" && $pcHP != "" && $pcSpeed != "" && $pcSTR != ""  && $pcDEX != "" && $pcCON != "" && $pcINT != "" && $pcWIS != "" && $pcCHA != ""  &&$pcBio != "" && $camID !="" /*&& $user != ""*/)
+    if ($pcName != "" && $pcLevel != "" && $pcRace != "" && $pcClass != "" && $pcAlign != "" && $pcAC != "" && $pcHP != "" && $pcSpeed != "" && $pcSTR != ""  && $pcDEX != "" && $pcCON != "" && $pcINT != "" && $pcWIS != "" && $pcCHA != ""  &&$pcBio != "" && $camID !="" && $userID != "")
     { //Checks to make sure all essential values are not null
         
-        $stmt = $conn->prepare("INSERT INTO PC(PC_NAME, PC_LEVEL, PC_RACE, PC_CLASS, PC_ALIGN, PC_AC, PC_HP, PC_SPEED, PC_STR, PC_DEX, PC_CON, PC_INT, PC_WIS, PC_CHA, PC_LANGUAGES, PC_SKILLS, PC_PROFBONUS, PC_SAVETHROWS, PC_ABILITIES, PC_ACTIONS ,PC_BIO, CAM_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sisssssssssssssssssssi", $pcName, $pcLevel, $pcRace, $pcClass, $pcAlign, $pcAC, $pcHP, $pcSpeed, $pcSTR, $pcDEX, $pcCON, $pcINT, $pcWIS, $pcCHA, $pcLanguages, $pcSkills, $pcProfBonus, $pcSaveThrows, $pcAbilities, $pcActions, $pcBio, $camID);
+        $stmt = $conn->prepare("INSERT INTO PC(PC_NAME, PC_LEVEL, PC_RACE, PC_CLASS, PC_ALIGN, PC_AC, PC_HP, PC_SPEED, PC_STR, PC_DEX, PC_CON, PC_INT, PC_WIS, PC_CHA, PC_LANGUAGES, PC_SKILLS, PC_PROFBONUS, PC_SAVETHROWS, PC_ABILITIES, PC_ACTIONS ,PC_BIO, CAM_ID, USER_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssssssssssssssssssssii", $pcName, $pcLevel, $pcRace, $pcClass, $pcAlign, $pcAC, $pcHP, $pcSpeed, $pcSTR, $pcDEX, $pcCON, $pcINT, $pcWIS, $pcCHA, $pcLanguages, $pcSkills, $pcProfBonus, $pcSaveThrows, $pcAbilities, $pcActions, $pcBio, $camID, $userID);
         $stmt->execute();
         return read($conn);
     }
@@ -94,62 +94,60 @@ function create($conn)
 function read($conn)
 {
     $camID = getValue("camID", "");
-    //$user = getValue("UserID", "");
-    //if($user != "")
-    //{
-    if($camID != "")
+    $userID = getSessionValue("user","")["userID"];
+    if($userID != "")
     {
-        $stmt = $conn->prepare("SELECT * FROM PC WHERE CAM_ID = ? ORDER BY PC_NAME");
-        $stmt->bind_param("i", $camID);
-        $stmt->execute();
-        $stmt->bind_result($pcID,$pcName,$pcLevel,$pcRace,$pcClass,$pcAlign,$pcAC,$pcHP,$pcSpeed,$pcSTR,$pcDEX,$pcCON,$pcINT,$pcWIS,$pcCHA,$pcLanguages,$pcSkills,$pcProfBonus,$pcSaveThrows,$pcAbilities,$pcActions,$pcBio,$camID);
-        
-        
-        $rows = array();
-        while($stmt->fetch())
+        if($camID != "")
         {
-            $pcStats = createStats($pcName,$pcLevel,$pcRace,$pcClass,$pcAlign,$pcAC,$pcHP,$pcSpeed,$pcSTR,$pcDEX,$pcCON,$pcINT,$pcWIS,$pcCHA,$pcLanguages,$pcSkills,$pcProfBonus,$pcSaveThrows,$pcAbilities,$pcActions,$pcBio);
-            $row = array("PCID"=>$pcID, "PCName"=>$pcName, "PCLevel"=>$pcLevel, "PCRace"=>$pcRace, "PCClass"=>$pcClass, "PCAlign"=>$pcAlign, "PCAC"=>$pcAC, "PCHP"=>$pcHP, "PCSpeed"=>$pcSpeed, "PCSTR"=>$pcSTR, "PCDEX"=>$pcDEX, "PCCON"=>$pcCON,"PCINT"=>$pcINT, "PCWIS"=>$pcWIS, "PCCHA"=>$pcCHA, "PCLanguages"=>$pcLanguages, "PCSkills"=>$pcSkills,"PCProfBonus"=>$pcProfBonus, "PCSaveThrows"=>$pcSaveThrows, "PCAbilities"=>$pcAbilities, "PCActions"=>$pcActions, "PCBio"=>$pcBio, "CampaignID"=>$camID, "PCStats"=>$pcStats);
-            $rows[] = $row;
-        }
-    
+            $stmt = $conn->prepare("SELECT * FROM PC WHERE CAM_ID = ? AND USER_ID = ? ORDER BY PC_NAME");
+            $stmt->bind_param("ii", $camID, $userID);
+            $stmt->execute();
+            $stmt->bind_result($pcID,$pcName,$pcLevel,$pcRace,$pcClass,$pcAlign,$pcAC,$pcHP,$pcSpeed,$pcSTR,$pcDEX,$pcCON,$pcINT,$pcWIS,$pcCHA,$pcLanguages,$pcSkills,$pcProfBonus,$pcSaveThrows,$pcAbilities,$pcActions,$pcBio,$camID, $userID);
         
-        return $rows;
+            $rows = array();
+            while($stmt->fetch())
+            {
+                $pcStats = createStats($pcName,$pcLevel,$pcRace,$pcClass,$pcAlign,$pcAC,$pcHP,$pcSpeed,$pcSTR,$pcDEX,$pcCON,$pcINT,$pcWIS,$pcCHA,$pcLanguages,$pcSkills,$pcProfBonus,$pcSaveThrows,$pcAbilities,$pcActions,$pcBio);
+                $row = array("PCID"=>$pcID, "PCName"=>htmlspecialchars($pcName,ENT_QUOTES), "PCLevel"=>htmlspecialchars($pcLevel,ENT_QUOTES), "PCRace"=>htmlspecialchars($pcRace,ENT_QUOTES), "PCClass"=>htmlspecialchars($pcClass,ENT_QUOTES), "PCAlign"=>htmlspecialchars($pcAlign,ENT_QUOTES), "PCAC"=>htmlspecialchars($pcAC,ENT_QUOTES), "PCHP"=>htmlspecialchars($pcHP,ENT_QUOTES), "PCSpeed"=>htmlspecialchars($pcSpeed,ENT_QUOTES), "PCSTR"=>htmlspecialchars($pcSTR,ENT_QUOTES), "PCDEX"=>htmlspecialchars($pcDEX,ENT_QUOTES), "PCCON"=>htmlspecialchars($pcCON,ENT_QUOTES),"PCINT"=>htmlspecialchars($pcINT,ENT_QUOTES), "PCWIS"=>htmlspecialchars($pcWIS,ENT_QUOTES), "PCCHA"=>htmlspecialchars($pcCHA,ENT_QUOTES), "PCLanguages"=>htmlspecialchars($pcLanguages,ENT_QUOTES), "PCSkills"=>htmlspecialchars($pcSkills,ENT_QUOTES),"PCProfBonus"=>htmlspecialchars($pcProfBonus,ENT_QUOTES), "PCSaveThrows"=>htmlspecialchars($pcSaveThrows,ENT_QUOTES), "PCAbilities"=>htmlspecialchars($pcAbilities,ENT_QUOTES), "PCActions"=>htmlspecialchars($pcActions,ENT_QUOTES), "PCBio"=>htmlspecialchars($pcBio,ENT_QUOTES), "CampaignID"=>$camID, "PCStats"=>htmlspecialchars($pcStats,ENT_QUOTES));
+                $rows[] = $row;
+            }
+            return $rows;
+        }
+        else{
+            return array("error"=>"camID required");
+        }
     }
-    else{
-        return array("error"=>"camID required");
+    else {
+        return array("error"=>"User does not exist");
     }
-    //}
-    //else {
-    //    return array("error"=>"User does not exist");
-    //}
     
 }
 
 function readAll($conn)
 {
-    //$user = getValue("UserID", "");
-    //if($user != "")
-    //{
-        $stmt = $conn->prepare("SELECT * FROM PC");
+    $userID = getSessionValue("user","")["userID"];
+    if($userID != "")
+    {
+        $stmt = $conn->prepare("SELECT * FROM PC WHERE USER_ID = ?");
+        $stmt->bind_param("i", $userID);
         $stmt->execute();
-        $stmt->bind_result($pcID,$pcName,$pcLevel,$pcRace,$pcClass,$pcAlign,$pcAC,$pcHP,$pcSpeed,$pcSTR,$pcDEX,$pcCON,$pcINT,$pcWIS,$pcCHA,$pcLanguages,$pcSkills,$pcProfBonus,$pcSaveThrows,$pcAbilities,$pcActions,$pcBio,$camID);
+        $stmt->bind_result($pcID,$pcName,$pcLevel,$pcRace,$pcClass,$pcAlign,$pcAC,$pcHP,$pcSpeed,$pcSTR,$pcDEX,$pcCON,$pcINT,$pcWIS,$pcCHA,$pcLanguages,$pcSkills,$pcProfBonus,$pcSaveThrows,$pcAbilities,$pcActions,$pcBio,$camID, $userID);
         
         
         $rows = array();
         while($stmt->fetch())
         {
             $pcStats = createStats($pcName,$pcLevel,$pcRace,$pcClass,$pcAlign,$pcAC,$pcHP,$pcSpeed,$pcSTR,$pcDEX,$pcCON,$pcINT,$pcWIS,$pcCHA,$pcLanguages,$pcSkills,$pcProfBonus,$pcSaveThrows,$pcAbilities,$pcActions,$pcBio);
-            $row = array("PCID"=>$pcID, "PCName"=>$pcName, "PCLevel"=>$pcLevel, "PCRace"=>$pcRace, "PCClass"=>$pcClass, "PCAlign"=>$pcAlign, "PCAC"=>$pcAC, "PCHP"=>$pcHP, "PCSpeed"=>$pcSpeed, "PCSTR"=>$pcSTR, "PCDEX"=>$pcDEX, "PCCON"=>$pcCON,"PCINT"=>$pcINT, "PCWIS"=>$pcWIS, "PCCHA"=>$pcCHA, "PCLanguages"=>$pcLanguages, "PCSkills"=>$pcSkills,"PCProfBonus"=>$pcProfBonus, "PCSaveThrows"=>$pcSaveThrows, "PCAbilities"=>$pcAbilities, "PCActions"=>$pcActions, "PCBio"=>$pcBio, "CampaignID"=>$camID, "PCStats"=>$pcStats);
+            $row = array("PCID"=>$pcID, "PCName"=>htmlspecialchars($pcName,ENT_QUOTES), "PCLevel"=>htmlspecialchars($pcLevel,ENT_QUOTES), "PCRace"=>htmlspecialchars($pcRace,ENT_QUOTES), "PCClass"=>htmlspecialchars($pcClass,ENT_QUOTES), "PCAlign"=>htmlspecialchars($pcAlign,ENT_QUOTES), "PCAC"=>htmlspecialchars($pcAC,ENT_QUOTES), "PCHP"=>htmlspecialchars($pcHP,ENT_QUOTES), "PCSpeed"=>htmlspecialchars($pcSpeed,ENT_QUOTES), "PCSTR"=>htmlspecialchars($pcSTR,ENT_QUOTES), "PCDEX"=>htmlspecialchars($pcDEX,ENT_QUOTES), "PCCON"=>htmlspecialchars($pcCON,ENT_QUOTES),"PCINT"=>htmlspecialchars($pcINT,ENT_QUOTES), "PCWIS"=>htmlspecialchars($pcWIS,ENT_QUOTES), "PCCHA"=>htmlspecialchars($pcCHA,ENT_QUOTES), "PCLanguages"=>htmlspecialchars($pcLanguages,ENT_QUOTES), "PCSkills"=>htmlspecialchars($pcSkills,ENT_QUOTES),"PCProfBonus"=>htmlspecialchars($pcProfBonus,ENT_QUOTES), "PCSaveThrows"=>htmlspecialchars($pcSaveThrows,ENT_QUOTES), "PCAbilities"=>htmlspecialchars($pcAbilities,ENT_QUOTES), "PCActions"=>htmlspecialchars($pcActions,ENT_QUOTES), "PCBio"=>htmlspecialchars($pcBio,ENT_QUOTES), "CampaignID"=>$camID, "PCStats"=>htmlspecialchars($pcStats,ENT_QUOTES));
             $rows[] = $row;
         }
     
         
     return $rows;
-    //}
-    //else {
-    //    return array("error"=>"User does not exist");
-    //}
+    }
+    else {
+        return array("error"=>"User does not exist");
+    }
     
 }
 
@@ -178,21 +176,12 @@ function update($conn)
     $pcActions = getValue ("pcActions","");
     $pcBio = getValue ("pcBio","");
     $camID = getValue("camID", "");
-    //$user = getValue("UserID", "");
+    $userID = getSessionValue("user","")["userID"];
     
     if ($pcID != "")
     {
-        /* This depends on what my model contains. If it holds all of the current monster values and the updated then I don't need to do this
-        if($monName != "")
-        {
-            $stmt = $conn->prepare("UPDATE MONSTER SET MON_NAME = ? WHERE MON_ID = ?");
-            $stmt->bind_param("si", $monName, $monID);
-            $stmt->execute();
-        }
-        */
-        
-        $stmt = $conn->prepare("UPDATE PC SET PC_NAME = ?, PC_LEVEL = ?, PC_RACE = ?, PC_CLASS = ?, PC_ALIGN = ?, PC_AC = ?, PC_HP = ?, PC_SPEED = ?, PC_STR = ?, PC_DEX = ?, PC_CON = ?, PC_INT = ?, PC_WIS = ?, PC_CHA = ?, PC_LANGUAGES = ?, PC_SKILLS = ?, PC_PROFBONUS = ?, PC_SAVETHROWS = ?, PC_ABILITIES = ?, PC_ACTIONS = ?, PC_BIO = ?, CAM_ID = ? WHERE PC_ID = ?");
-        $stmt->bind_param("sisssssssssssssssssssii", $pcName, $pcLevel, $pcRace, $pcClass, $pcAlign, $pcAC, $pcHP, $pcSpeed, $pcSTR, $pcDEX, $pcCON, $pcINT, $pcWIS, $pcCHA, $pcLanguages, $pcSkills, $pcProfBonus, $pcSaveThrows, $pcAbilities, $pcActions, $pcBio, $camID, $pcID);
+        $stmt = $conn->prepare("UPDATE PC SET PC_NAME = ?, PC_LEVEL = ?, PC_RACE = ?, PC_CLASS = ?, PC_ALIGN = ?, PC_AC = ?, PC_HP = ?, PC_SPEED = ?, PC_STR = ?, PC_DEX = ?, PC_CON = ?, PC_INT = ?, PC_WIS = ?, PC_CHA = ?, PC_LANGUAGES = ?, PC_SKILLS = ?, PC_PROFBONUS = ?, PC_SAVETHROWS = ?, PC_ABILITIES = ?, PC_ACTIONS = ?, PC_BIO = ?, CAM_ID = ? WHERE PC_ID = ? AND USER_ID = ?");
+        $stmt->bind_param("sssssssssssssssssssssiii", $pcName, $pcLevel, $pcRace, $pcClass, $pcAlign, $pcAC, $pcHP, $pcSpeed, $pcSTR, $pcDEX, $pcCON, $pcINT, $pcWIS, $pcCHA, $pcLanguages, $pcSkills, $pcProfBonus, $pcSaveThrows, $pcAbilities, $pcActions, $pcBio, $camID, $pcID, $userID);
         $stmt->execute();
         return read($conn);
     }
@@ -205,11 +194,13 @@ function update($conn)
 function delete($conn)
 {
     $pcID = getValue("pcID", "");
-
-    if ($pcID != "")
+    $camID = getValue("camID", "");
+    $userID = getSessionValue("user","")["userID"];
+    
+    if ($pcID != "" && $userID != "")
     {
-        $stmt = $conn->prepare("DELETE FROM PC WHERE PC_ID = ?");
-        $stmt->bind_param("i", $pcID);
+        $stmt = $conn->prepare("DELETE FROM PC WHERE PC_ID = ? AND USER_ID = ?");
+        $stmt->bind_param("ii", $pcID, $userID);
         $stmt->execute();
         return read($conn);
     }
@@ -221,27 +212,27 @@ function delete($conn)
 
 function createStats($pcName,$pcLevel,$pcRace,$pcClass,$pcAlign,$pcAC,$pcHP,$pcSpeed,$pcSTR,$pcDEX,$pcCON,$pcINT,$pcWIS,$pcCHA,$pcLanguages,$pcSkills,$pcProfBonus,$pcSaveThrows,$pcAbilities,$pcActions,$pcBio)
 {
-    $stats = "PC Name: " . $pcName . "\n" .
-             "PC Level: " . $pcLevel . "\n" .
-             "PC Race: " . $pcRace . "\n" . 
-             "PC Class: " . $pcClass . "\n" .
-             "PC Align: " . $pcAlign . "\n" .
-             "PC AC: " . $pcAC . "\n" . 
-             "PC HP: " . $pcHP . "\n" .
-             "PC Speed: " . $pcSpeed . "\n" .
-             "PC STR: " . $pcSTR . "\n" .
-             "PC DEX: " . $pcDEX . "\n" .
-             "PC CON: " . $pcCON . "\n" .
-             "PC INT: " . $pcINT . "\n" .
-             "PC WIS: " . $pcWIS . "\n" .
-             "PC CHA: " . $pcCHA . "\n" .
-             "PC Languages: " . $pcLanguages . "\n" . 
-             "PC Skills: " . $pcSkills . "\n" . 
-             "PC ProfBonus: " . $pcProfBonus . "\n" . 
-             "PC SaveThrows: " . $pcSaveThrows . "\n" . 
-             "PC Abilities: " . $pcAbilities . "\n" . 
-             "PC Actions: " . $pcActions . "\n" . 
-             "PC Bio: " . $pcBio . "\n";
+    $stats = "<strong><u>PC Name:</strong></u> " . $pcName . "\n" .
+             "<strong><u>PC Level:</strong></u> " . $pcLevel . "\n" .
+             "<strong><u>PC Race:</strong></u> " . $pcRace . "\n" . 
+             "<strong><u>PC Class:</strong></u> " . $pcClass . "\n" .
+             "<strong><u>PC Align:</strong></u> " . $pcAlign . "\n" .
+             "<strong><u>PC AC:</strong></u> " . $pcAC . "\n" . 
+             "<strong><u>PC HP:</strong></u> " . $pcHP . "\n" .
+             "<strong><u>PC Speed:</strong></u> " . $pcSpeed . "\n" .
+             "<strong><u>PC STR:</strong></u> " . $pcSTR . "\n" .
+             "<strong><u>PC DEX:</strong></u> " . $pcDEX . "\n" .
+             "<strong><u>PC CON:</strong></u> " . $pcCON . "\n" .
+             "<strong><u>PC INT:</strong></u> " . $pcINT . "\n" .
+             "<strong><u>PC WIS:</strong></u> " . $pcWIS . "\n" .
+             "<strong><u>PC CHA:</strong></u> " . $pcCHA . "\n" .
+             "<strong><u>PC Languages:</strong></u> " . $pcLanguages . "\n" . 
+             "<strong><u>PC Skills:</strong></u> " . $pcSkills . "\n" . 
+             "<strong><u>PC ProfBonus:</strong></u> " . $pcProfBonus . "\n" . 
+             "<strong><u>PC SaveThrows:</strong></u> " . $pcSaveThrows . "\n" . 
+             "<strong><u>PC Abilities:</strong></u> " . $pcAbilities . "\n\n" . 
+             "<strong><u>PC Actions:</strong></u> " . $pcActions . "\n\n" . 
+             "<strong><u>PC Bio:</strong></u> " . $pcBio . "\n";
     return $stats;
 }
 

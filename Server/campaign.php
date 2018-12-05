@@ -51,12 +51,11 @@ function create($conn)
 {
     $camName = getValue("camName", "");
     $camDesc = getValue("camDesc", "");
-    //$user = getValue("UserID", "");
-    
-    if ($camName != "" && $camDesc != "" /*&& $user != ""*/)
+    $userID = getSessionValue("user","")["userID"];
+    if ($camName != "" && $camDesc != "" && $userID != "")
     {
-        $stmt = $conn->prepare("INSERT INTO CAMPAIGN(CAM_NAME, CAM_DESC) VALUES (?, ?)");
-        $stmt->bind_param("ss", $camName, $camDesc);
+        $stmt = $conn->prepare("INSERT INTO CAMPAIGN(CAM_NAME, CAM_DESC,USER_ID) VALUES (?, ?, ?)");
+        $stmt->bind_param("ssi", $camName, $camDesc, $userID);
         $stmt->execute();
         return read($conn);
     }
@@ -68,10 +67,11 @@ function create($conn)
 
 function read($conn)
 {
-    //$user = getValue("UserID", "");
-    //if($user != "")
-    //{
-        $stmt = $conn->prepare("SELECT * FROM CAMPAIGN");
+    $userID = getSessionValue("user","")["userID"];
+    if($userID != "")
+    {
+        $stmt = $conn->prepare("SELECT CAM_ID, CAM_NAME, CAM_DESC FROM CAMPAIGN WHERE USER_ID = ?");
+        $stmt->bind_param("i", $userID);
         $stmt->execute();
         $stmt->bind_result($camID,$camName,$camDesc);
         
@@ -79,16 +79,16 @@ function read($conn)
         $rows = array();
         while($stmt->fetch())
         {
-            $row = array("CampaignID"=>$camID, "CampaignName"=>$camName, "CampaignDescription"=>$camDesc);
+            $row = array("CampaignID"=>$camID, "CampaignName"=>htmlspecialchars($camName,ENT_QUOTES), "CampaignDescription"=>htmlspecialchars($camDesc,ENT_QUOTES));
             $rows[] = $row;
         }
     
         
     return $rows;
-    //}
-    //else {
-    //    return array("error"=>"User does not exist");
-    //}
+    }
+    else {
+        return array("error"=>"User does not exist");
+    }
     
 }
 
@@ -97,11 +97,12 @@ function update($conn)
     $camID = getValue("camID", "");
     $camName = getValue("camName", "");
     $camDesc = getValue("camDesc", "");
+    $userID = getSessionValue("user","")["userID"];
     
-    if ($camID != "" && $camName != "" && $camDesc != "")
+    if ($camID != "" && $camName != "" && $camDesc != "" & $userID != "")
     {
-        $stmt = $conn->prepare("UPDATE CAMPAIGN SET CAM_NAME = ?, CAM_DESC = ? WHERE CAM_ID = ?");
-        $stmt->bind_param("ssi", $camName, $camDesc, $camID);
+        $stmt = $conn->prepare("UPDATE CAMPAIGN SET CAM_NAME = ?, CAM_DESC = ? WHERE CAM_ID = ? AND USER_ID = ?");
+        $stmt->bind_param("ssii", $camName, $camDesc, $camID, $userID);
         $stmt->execute();
         return read($conn);
     }
@@ -114,11 +115,12 @@ function update($conn)
 function delete($conn)
 {
     $camID = getValue("camID", "");
+    $userID = getSessionValue("user","")["userID"];
 
-    if ($camID != "")
+    if ($camID != "" && $userID != "")
     {
-        $stmt = $conn->prepare("DELETE FROM CAMPAIGN WHERE CAM_ID = ?");
-        $stmt->bind_param("i", $camID);
+        $stmt = $conn->prepare("DELETE FROM CAMPAIGN WHERE CAM_ID = ? AND USER_ID = ?");
+        $stmt->bind_param("ii", $camID, $userID);
         $stmt->execute();
         return read($conn);
     }

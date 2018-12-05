@@ -58,12 +58,12 @@ function create($conn)
     $encName = getValue("encName", "");
     $encDesc = getValue("encDesc", "");
     $actID = getValue("actID", "");
-    //$user = getValue("UserID", "");
+    $userID = getSessionValue("user","")["userID"];
     
-    if ($encName != "" && $encDesc != "" && $actID != ""/*&& $user != ""*/)
+    if ($encName != "" && $encDesc != "" && $actID != ""&& $userID != "")
     {
-        $stmt = $conn->prepare("INSERT INTO ENCOUNTER(ENC_NAME, ENC_DESC, ACT_ID) VALUES (?, ?, ?)");
-        $stmt->bind_param("ssi", $encName, $encDesc, $actID);
+        $stmt = $conn->prepare("INSERT INTO ENCOUNTER(ENC_NAME, ENC_DESC, ACT_ID, USER_ID) VALUES (?, ?,?, ?)");
+        $stmt->bind_param("ssii", $encName, $encDesc, $actID, $userID);
         $stmt->execute();
         return read($conn);
     }
@@ -76,42 +76,42 @@ function create($conn)
 function read($conn)
 {
     $actID = getValue("actID", "");
-    //$user = getValue("UserID", "");
-    //if($user != "")
-    //{
-    if($actID != "")
+    $userID = getSessionValue("user","")["userID"];
+    if($userID != "")
     {
-        $stmt = $conn->prepare("SELECT * FROM ENCOUNTER WHERE ACT_ID = ?");
-        $stmt->bind_param("i", $actID);
-        $stmt->execute();
-        $stmt->bind_result($encID,$encName,$encDesc,$actID);
-        
-        
-        $rows = array();
-        while($stmt->fetch())
+        if($actID != "")
         {
-            $row = array("EncID"=>$encID, "EncName"=>$encName, "EncDesc"=>$encDesc, "ActID"=>$actID);
-            $rows[] = $row;
-        }
+            $stmt = $conn->prepare("SELECT ENC_ID, ENC_NAME, ENC_DESC, ACT_ID FROM ENCOUNTER WHERE ACT_ID = ? AND USER_ID = ?");
+            $stmt->bind_param("ii", $actID, $userID);
+            $stmt->execute();
+            $stmt->bind_result($encID,$encName,$encDesc,$actID);
+            
+            $rows = array();
+            while($stmt->fetch())
+            {
+                $row = array("EncID"=>$encID, "EncName"=>htmlspecialchars($encName,ENT_QUOTES), "EncDesc"=>htmlspecialchars($encDesc,ENT_QUOTES), "ActID"=>$actID);
+                $rows[] = $row;
+            }
     
-        return $rows;
+            return $rows;
+        }
+        else
+        {
+            return array("error"=>"actID required");
+        }
     }
-    else
-    {
-        return array("error"=>"actID required");
+    else {
+        return array("error"=>"User does not exist");
     }
-    //}
-    //else {
-    //    return array("error"=>"User does not exist");
-    //}
     
 }
 function readAll($conn)
 {
-    //$user = getValue("UserID", "");
-    //if($user != "")
-    //{
-        $stmt = $conn->prepare("SELECT * FROM ENCOUNTER");
+    $userID = getSessionValue("user","")["userID"];
+    if($userID != "")
+    {
+        $stmt = $conn->prepare("SELECT ENC_ID, ENC_NAME, ENC_DESC, ACT_ID FROM ENCOUNTER WHERE USER_ID = ?");
+        $stmt->bind_param("i", $userID);
         $stmt->execute();
         $stmt->bind_result($encID,$encName,$encDesc,$actID);
         
@@ -119,16 +119,16 @@ function readAll($conn)
         $rows = array();
         while($stmt->fetch())
         {
-            $row = array("EncID"=>$encID, "EncName"=>$encName, "EncDesc"=>$encDesc, "ActID"=>$actID);
+            $row = array("EncID"=>$encID, "EncName"=>htmlspecialchars($encName,ENT_QUOTES), "EncDesc"=>htmlspecialchars($encDesc,ENT_QUOTES), "ActID"=>$actID);
             $rows[] = $row;
         }
     
         
     return $rows;
-    //}
-    //else {
-    //    return array("error"=>"User does not exist");
-    //}
+    }
+    else {
+        return array("error"=>"User does not exist");
+    }
     
 }
 
@@ -138,11 +138,13 @@ function update($conn)
     $encName = getValue("encName", "");
     $encDesc = getValue("encDesc", "");
     $actID = getValue("actID", "");
+    $userID = getSessionValue("user","")["userID"];
     
-    if ($encID != "" && $encName != "" && $encDesc != "" && $actID != "")
+    
+    if ($encID != "" && $encName != "" && $encDesc != "" && $actID != "" && $userID != "")
     {
-        $stmt = $conn->prepare("UPDATE ENCOUNTER SET ENC_NAME = ?, ENC_DESC = ?, ACT_ID = ? WHERE ENC_ID = ?");
-        $stmt->bind_param("ssii", $encName, $encDesc, $actID, $encID);
+        $stmt = $conn->prepare("UPDATE ENCOUNTER SET ENC_NAME = ?, ENC_DESC = ?, ACT_ID = ? WHERE ENC_ID = ? AND USER_ID = ?");
+        $stmt->bind_param("ssiii", $encName, $encDesc, $actID, $encID, $userID);
         $stmt->execute();
         return read($conn);
     }
@@ -155,11 +157,12 @@ function update($conn)
 function delete($conn)
 {
     $encID = getValue("encID", "");
+    $userID = getSessionValue("user","")["userID"];
 
-    if ($encID != "")
+    if ($encID != "" && $userID != "")
     {
-        $stmt = $conn->prepare("DELETE FROM ENCOUNTER WHERE ENC_ID = ?");
-        $stmt->bind_param("i", $encID);
+        $stmt = $conn->prepare("DELETE FROM ENCOUNTER WHERE ENC_ID = ? && USER_ID = ?");
+        $stmt->bind_param("ii", $encID, $userID);
         $stmt->execute();
         return read($conn);
     }
